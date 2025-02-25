@@ -31,6 +31,7 @@ function Login() {
     console.log(validationResult, "validate");
 
     if (!validationResult.success) {
+      alert("validation failed");
       const issues: FormDataErrorProps[] = validationResult.error.issues.map(
         (issue) => {
           return {
@@ -43,7 +44,7 @@ function Login() {
       return;
     }
     setErrors([]);
-    alert("continue to login flow");
+    alert("validation success, continue to login flow");
   }
 
   function getZodErrorMessage(path: string) {
@@ -59,7 +60,6 @@ function Login() {
     <div className="flex flex-col gap-1">
       <h1>Login Page</h1>
 
-      {JSON.stringify(errors)}
       <input
         name="email"
         type="text"
@@ -76,7 +76,6 @@ function Login() {
         value={formData.password}
         onChange={handleOnChangeInput}
       />
-
       <p>{getZodErrorMessage("password")}</p>
 
       <button className="bg-red-500 w-20 h-10" onClick={handleSubmitLoginForm}>
