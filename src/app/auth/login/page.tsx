@@ -2,11 +2,10 @@ import { LoginAPIResponse } from "@/interfaces/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import LoginForm from "./components/login-form";
+import { getSession } from "@/lib/auth/get-session";
 
 export default function Login() {
-  const cookie = cookies();
-  const session: LoginAPIResponse = JSON.parse(cookie.get("session")?.value!);
-
+  const session = getSession();
   if (session) {
     redirect("/");
   }

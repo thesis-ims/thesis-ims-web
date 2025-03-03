@@ -12,3 +12,7 @@ export async function setAuthCookie(data: LoginAPIResponse) {
     path: "/",
   });
 }
+
+export async function logout() {
+  cookies().delete("session");
+}

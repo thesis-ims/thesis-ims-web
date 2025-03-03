@@ -16,12 +16,12 @@ export async function login(body: LoginBodyProps) {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     console.log(loginResponse, "login response");
     return {
       data: loginResponse.data.data as LoginAPIResponse,
-      message: loginResponse.data.message,
+      message: "Berhasil Login",
       error: false,
     };
   } catch (error: any) {

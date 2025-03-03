@@ -2,12 +2,12 @@
 
 import { FormDataErrorProps, LoginBodyProps } from "@/interfaces/auth";
 import { login } from "@/lib/api/auth";
-import { setAuthCookie } from "@/lib/auth-cookie-handler";
+import { setAuthCookie } from "@/lib/auth/auth-cookie-handler";
 import { loginSchema } from "@/utils/zodValidations";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-export default async function LoginForm() {
+export default function LoginForm() {
   const router = useRouter();
   const [formData, setFormData] = useState<LoginBodyProps>(
     {} as LoginBodyProps,

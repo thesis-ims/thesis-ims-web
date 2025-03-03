@@ -2,12 +2,12 @@ import { LoginAPIResponse } from "@/interfaces/auth";
 import { ProfileProps } from "@/interfaces/profile";
 import axios from "axios";
 import { cookies } from "next/headers";
+import { getSession } from "../auth/get-session";
 
 const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_ENDPOINT;
 
 export async function getUserbyUserId(userId: string) {
-  const cookie = cookies();
-  const session: LoginAPIResponse = JSON.parse(cookie.get("session")?.value!);
+  const session = getSession();
 
   try {
     let profileResponse = await axios.post(
@@ -18,9 +18,9 @@ export async function getUserbyUserId(userId: string) {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${session.token}`,
+          Authorization: `Bearer ${session?.token}`,
         },
-      }
+      },
     );
 
     console.log(profileResponse, "get profile by id response");
@@ -40,21 +40,20 @@ export async function getUserbyUserId(userId: string) {
 }
 
 export async function getUserProfile() {
-  const cookie = cookies();
-  const session: LoginAPIResponse = JSON.parse(cookie.get("session")?.value!);
+  const session = getSession();
 
   try {
     let profileResponse = await axios.post(
       `${baseApiUrl}/api/users/get-user`,
       {
-        userId: session.userId,
+        userId: session?.userId,
       },
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${session.token}`,
+          Authorization: `Bearer ${session?.token}`,
         },
-      }
+      },
     );
 
     console.log(profileResponse, "get profile by id response");
