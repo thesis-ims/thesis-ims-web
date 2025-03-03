@@ -1,14 +1,11 @@
 "use client";
 
+import { LoginBodyProps } from "@/interfaces/auth";
+import { login } from "@/lib/auth";
 import { loginSchema } from "@/utils/zodValidations";
 import { error } from "console";
 import { useState } from "react";
 import { ZodIssueBase } from "zod";
-
-interface FormDataProps {
-  email: string;
-  password: string;
-}
 
 interface FormDataErrorProps {
   path: string;
@@ -16,7 +13,9 @@ interface FormDataErrorProps {
 }
 
 function Login() {
-  const [formData, setFormData] = useState<FormDataProps>({} as FormDataProps);
+  const [formData, setFormData] = useState<LoginBodyProps>(
+    {} as LoginBodyProps
+  );
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[]
   );
@@ -26,12 +25,11 @@ function Login() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmitLoginForm() {
+  async function handleSubmitLoginForm() {
     const validationResult = loginSchema.safeParse(formData);
-    console.log(validationResult, "validate");
+    // console.log(validationResult, "validate");
 
     if (!validationResult.success) {
-      alert("validation failed");
       const issues: FormDataErrorProps[] = validationResult.error.issues.map(
         (issue) => {
           return {
@@ -43,8 +41,10 @@ function Login() {
       setErrors(issues);
       return;
     }
+
     setErrors([]);
-    alert("validation success, continue to login flow");
+    const loginResponse = await login(formData);
+    console.log(loginResponse, "login response");
   }
 
   function getZodErrorMessage(path: string) {
@@ -61,13 +61,13 @@ function Login() {
       <h1>Login Page</h1>
 
       <input
-        name="email"
+        name="username"
         type="text"
         placeholder="enter email"
-        value={formData.email}
+        value={formData.username}
         onChange={handleOnChangeInput}
       />
-      <p>{getZodErrorMessage("email")}</p>
+      <p>{getZodErrorMessage("username")}</p>
 
       <input
         name="password"
