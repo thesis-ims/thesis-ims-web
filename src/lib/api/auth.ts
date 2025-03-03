@@ -21,7 +21,7 @@ export async function login(body: LoginBodyProps) {
     console.log(loginResponse, "login response");
     return {
       data: loginResponse.data.data as LoginAPIResponse,
-      message: "Login Sukses",
+      message: loginResponse.data.message,
       error: false,
     };
   } catch (error: any) {
