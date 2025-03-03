@@ -1,9 +1,11 @@
 "use client";
 
 import { LoginBodyProps } from "@/interfaces/auth";
-import { login } from "@/lib/auth";
+import { login } from "@/lib/api/auth";
+import { setAuthCookie } from "@/lib/auth-cookie-handler";
 import { loginSchema } from "@/utils/zodValidations";
 import { error } from "console";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ZodIssueBase } from "zod";
 
@@ -12,7 +14,8 @@ interface FormDataErrorProps {
   message: string;
 }
 
-function Login() {
+export default function Login() {
+  const router = useRouter();
   const [formData, setFormData] = useState<LoginBodyProps>(
     {} as LoginBodyProps
   );
@@ -44,8 +47,14 @@ function Login() {
     // continue to login flow API
     setErrors([]);
     const loginResponse = await login(formData);
+    if (loginResponse.error) {
+      alert(loginResponse.message);
+      return;
+    }
 
     alert(loginResponse.message);
+    await setAuthCookie(loginResponse.data);
+    router.push("/");
   }
 
   function getZodErrorMessage(path: string) {
@@ -85,5 +94,3 @@ function Login() {
     </div>
   );
 }
-
-export default Login;

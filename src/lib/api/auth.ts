@@ -1,4 +1,4 @@
-import { LoginBodyProps } from "@/interfaces/auth";
+import { LoginAPIResponse, LoginBodyProps } from "@/interfaces/auth";
 import axios from "axios";
 const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_ENDPOINT;
 
@@ -20,14 +20,14 @@ export async function login(body: LoginBodyProps) {
     );
     console.log(loginResponse, "login response");
     return {
-      data: loginResponse.data.data,
+      data: loginResponse.data.data as LoginAPIResponse,
       message: "Login Sukses",
       error: false,
     };
   } catch (error: any) {
     console.log(error, "error login response");
     return {
-      data: {},
+      data: {} as LoginAPIResponse,
       message: error.response.data.message,
       error: true,
     };
