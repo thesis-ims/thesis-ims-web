@@ -1,96 +1,14 @@
-"use client";
-
-import { LoginBodyProps } from "@/interfaces/auth";
-import { login } from "@/lib/api/auth";
-import { setAuthCookie } from "@/lib/auth-cookie-handler";
-import { loginSchema } from "@/utils/zodValidations";
-import { error } from "console";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { ZodIssueBase } from "zod";
-
-interface FormDataErrorProps {
-  path: string;
-  message: string;
-}
+import { LoginAPIResponse } from "@/interfaces/auth";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import LoginForm from "./components/login-form";
 
 export default function Login() {
-  const router = useRouter();
-  const [formData, setFormData] = useState<LoginBodyProps>(
-    {} as LoginBodyProps
-  );
-  const [errors, setErrors] = useState<FormDataErrorProps[]>(
-    [] as FormDataErrorProps[]
-  );
+  const cookie = cookies();
+  const session: LoginAPIResponse = JSON.parse(cookie.get("session")?.value!);
 
-  function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  if (session) {
+    redirect("/");
   }
-
-  async function handleSubmitLoginForm() {
-    const validationResult = loginSchema.safeParse(formData);
-
-    if (!validationResult.success) {
-      const issues: FormDataErrorProps[] = validationResult.error.issues.map(
-        (issue) => {
-          return {
-            path: issue.path[0] as string,
-            message: issue.message,
-          };
-        }
-      );
-      setErrors(issues);
-      return;
-    }
-
-    // continue to login flow API
-    setErrors([]);
-    const loginResponse = await login(formData);
-    if (loginResponse.error) {
-      alert(loginResponse.message);
-      return;
-    }
-
-    alert(loginResponse.message);
-    await setAuthCookie(loginResponse.data);
-    router.push("/");
-  }
-
-  function getZodErrorMessage(path: string) {
-    const errorMessages = errors.map((error) => {
-      if (path === error.path) {
-        return error.message as string;
-      }
-    });
-    return errorMessages;
-  }
-
-  return (
-    <div className="flex flex-col gap-1">
-      <h1>Login Page</h1>
-
-      <input
-        name="username"
-        type="text"
-        placeholder="enter email"
-        value={formData.username}
-        onChange={handleOnChangeInput}
-      />
-      <p>{getZodErrorMessage("username")}</p>
-
-      <input
-        name="password"
-        type="password"
-        placeholder="enter password"
-        value={formData.password}
-        onChange={handleOnChangeInput}
-      />
-      <p>{getZodErrorMessage("password")}</p>
-
-      <button className="bg-red-500 w-20 h-10" onClick={handleSubmitLoginForm}>
-        submit
-      </button>
-    </div>
-  );
+  return <LoginForm />;
 }
