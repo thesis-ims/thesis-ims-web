@@ -27,7 +27,6 @@ function Login() {
 
   async function handleSubmitLoginForm() {
     const validationResult = loginSchema.safeParse(formData);
-    // console.log(validationResult, "validate");
 
     if (!validationResult.success) {
       const issues: FormDataErrorProps[] = validationResult.error.issues.map(
@@ -42,9 +41,11 @@ function Login() {
       return;
     }
 
+    // continue to login flow API
     setErrors([]);
     const loginResponse = await login(formData);
-    console.log(loginResponse, "login response");
+
+    alert(loginResponse.message);
   }
 
   function getZodErrorMessage(path: string) {
