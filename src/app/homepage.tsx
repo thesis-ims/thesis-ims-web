@@ -22,9 +22,15 @@ export default function Homepage({
           logout
         </button>
       ) : (
-        <Link href={"/auth/login"}>
-          <button>login</button>
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link href={"/auth/login"}>
+            <button>login</button>
+          </Link>
+
+          <Link href={"/auth/register"}>
+            <button>register</button>
+          </Link>
+        </div>
       )}
 
       <div>ini homepage</div>

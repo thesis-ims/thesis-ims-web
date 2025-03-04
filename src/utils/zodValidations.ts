@@ -6,8 +6,10 @@ export const loginSchema = z.object({
 });
 
 export const registerSchema = z.object({
-  name: z.string(),
-  phoneNumber: z.string(),
-  username: z.string(),
-  password: z.string(),
+  email: z.string().min(1, { message: "Wajib diisi" }),
+  username: z.string().min(1, { message: "Wajib diisi" }),
+  password: z.string().min(1, { message: "Wajib diisi" }),
+  gender: z.string().min(1, { message: "Wajib diisi" }),
+  phoneNumber: z.string().min(1, { message: "Wajib diisi" }),
+  dob: z.string().min(1, { message: "Wajib diisi" }),
 });

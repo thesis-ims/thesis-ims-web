@@ -1,5 +1,6 @@
 "use client";
 
+import InputText from "@/components/ui/input-text";
 import { FormDataErrorProps, LoginBodyProps } from "@/interfaces/auth";
 import { login } from "@/lib/api/auth";
 import { setAuthCookie } from "@/lib/auth/auth-cookie-handler";
@@ -53,33 +54,40 @@ export default function LoginForm() {
   function getZodErrorMessage(path: string) {
     const errorMessages = errors.map((error) => {
       if (path === error.path) {
-        return error.message as string;
+        return error.message;
       }
     });
-    return errorMessages;
+    if (errorMessages.length > 0) {
+      return errorMessages as string[];
+    } else {
+      return null;
+    }
   }
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col items-center justify-center gap-5">
       <h1>Login Page</h1>
 
-      <input
-        name="username"
-        type="text"
-        placeholder="enter email"
-        value={formData.username}
-        onChange={handleOnChangeInput}
-      />
-      <p>{getZodErrorMessage("username")}</p>
+      <div className="flex flex-col items-center gap-4">
+        <InputText
+          label="Username"
+          name="username"
+          placeholder="enter username"
+          value={formData.username}
+          onChange={handleOnChangeInput}
+          errorMessages={getZodErrorMessage("username")}
+        />
 
-      <input
-        name="password"
-        type="password"
-        placeholder="enter password"
-        value={formData.password}
-        onChange={handleOnChangeInput}
-      />
-      <p>{getZodErrorMessage("password")}</p>
+        <InputText
+          label="Password"
+          isPassword={true}
+          name="password"
+          placeholder="enter password"
+          value={formData.password}
+          onChange={handleOnChangeInput}
+          errorMessages={getZodErrorMessage("password")}
+        />
+      </div>
 
       <button className="h-10 w-20 bg-red-500" onClick={handleSubmitLoginForm}>
         submit

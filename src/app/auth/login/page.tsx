@@ -1,5 +1,3 @@
-import { LoginAPIResponse } from "@/interfaces/auth";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import LoginForm from "./components/login-form";
 import { getSession } from "@/lib/auth/get-session";
