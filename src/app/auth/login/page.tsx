@@ -7,5 +7,9 @@ export default function Login() {
   if (session) {
     redirect("/");
   }
-  return <LoginForm />;
+  return (
+    <div className="flex h-screen w-full items-center justify-center">
+      <LoginForm />
+    </div>
+  );
 }

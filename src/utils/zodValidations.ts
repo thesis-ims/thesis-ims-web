@@ -1,3 +1,4 @@
+import { FormDataErrorProps } from "@/interfaces/auth";
 import { z } from "zod";
 
 export const loginSchema = z.object({
@@ -13,3 +14,22 @@ export const registerSchema = z.object({
   phoneNumber: z.string().min(1, { message: "Wajib diisi" }),
   dob: z.string().min(1, { message: "Wajib diisi" }),
 });
+
+export function getZodErrorMessage({
+  path,
+  errors,
+}: {
+  path: string;
+  errors: FormDataErrorProps[];
+}) {
+  const errorMessages = errors.map((error) => {
+    if (path === error.path) {
+      return error.message;
+    }
+  });
+  if (errorMessages.length > 0) {
+    return errorMessages as string[];
+  } else {
+    return null;
+  }
+}

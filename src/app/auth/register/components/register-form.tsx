@@ -1,6 +1,9 @@
 "use client";
 
+import InputText from "@/components/ui/input-text";
 import { FormDataErrorProps, RegisterBodyProps } from "@/interfaces/auth";
+import { getZodErrorMessage } from "@/utils/zodValidations";
+import Link from "next/link";
 import React, { useState } from "react";
 
 export default function RegisterForm() {
@@ -16,40 +19,45 @@ export default function RegisterForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function getZodErrorMessage(path: string) {
-    const errorMessages = errors.map((error) => {
-      if (path === error.path) {
-        return error.message as string;
-      }
-    });
-    return errorMessages;
-  }
-
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex h-fit w-fit flex-col items-center justify-center gap-5 rounded-md border border-gray-300 p-20">
       <h1>Register Page</h1>
 
-      <input
-        name="username"
-        type="text"
-        placeholder="enter email"
-        value={formData.username}
-        onChange={handleOnChangeInput}
-      />
-      <p>{getZodErrorMessage("username")}</p>
+      <div className="flex flex-col items-center gap-4">
+        <InputText
+          label="Username"
+          name="username"
+          placeholder="enter username"
+          value={formData.username}
+          onChange={handleOnChangeInput}
+          errorMessages={getZodErrorMessage({
+            errors: errors,
+            path: "username",
+          })}
+        />
 
-      <input
-        name="password"
-        type="password"
-        placeholder="enter password"
-        value={formData.password}
-        onChange={handleOnChangeInput}
-      />
-      <p>{getZodErrorMessage("password")}</p>
+        <InputText
+          label="Password"
+          isPassword={true}
+          name="password"
+          placeholder="enter password"
+          value={formData.password}
+          onChange={handleOnChangeInput}
+          errorMessages={getZodErrorMessage({
+            errors: errors,
+            path: "password",
+          })}
+        />
+      </div>
 
       {/* <button className="h-10 w-20 bg-red-500" onClick={handleSubmitLoginForm}>
-        submit
-      </button> */}
+      Register
+    </button> */}
+
+      <div className="flex items-center gap-1">
+        <p>Already have account?</p>
+        <Link href="/auth/login">Log In</Link>
+      </div>
     </div>
   );
 }

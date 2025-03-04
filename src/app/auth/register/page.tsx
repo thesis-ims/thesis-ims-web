@@ -10,7 +10,11 @@ function Register() {
   if (session) {
     redirect("/");
   }
-  return <RegisterForm />;
+  return (
+    <div className="flex h-screen w-full items-center justify-center">
+      <RegisterForm />
+    </div>
+  );
 }
 
 export default Register;

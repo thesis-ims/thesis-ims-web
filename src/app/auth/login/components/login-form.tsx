@@ -4,7 +4,8 @@ import InputText from "@/components/ui/input-text";
 import { FormDataErrorProps, LoginBodyProps } from "@/interfaces/auth";
 import { login } from "@/lib/api/auth";
 import { setAuthCookie } from "@/lib/auth/auth-cookie-handler";
-import { loginSchema } from "@/utils/zodValidations";
+import { getZodErrorMessage, loginSchema } from "@/utils/zodValidations";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -51,21 +52,8 @@ export default function LoginForm() {
     router.push("/");
   }
 
-  function getZodErrorMessage(path: string) {
-    const errorMessages = errors.map((error) => {
-      if (path === error.path) {
-        return error.message;
-      }
-    });
-    if (errorMessages.length > 0) {
-      return errorMessages as string[];
-    } else {
-      return null;
-    }
-  }
-
   return (
-    <div className="flex flex-col items-center justify-center gap-5">
+    <div className="flex h-fit w-fit flex-col items-center justify-center gap-5 rounded-md border border-gray-300 p-20">
       <h1>Login Page</h1>
 
       <div className="flex flex-col items-center gap-4">
@@ -75,7 +63,10 @@ export default function LoginForm() {
           placeholder="enter username"
           value={formData.username}
           onChange={handleOnChangeInput}
-          errorMessages={getZodErrorMessage("username")}
+          errorMessages={getZodErrorMessage({
+            errors: errors,
+            path: "username",
+          })}
         />
 
         <InputText
@@ -85,13 +76,21 @@ export default function LoginForm() {
           placeholder="enter password"
           value={formData.password}
           onChange={handleOnChangeInput}
-          errorMessages={getZodErrorMessage("password")}
+          errorMessages={getZodErrorMessage({
+            errors: errors,
+            path: "password",
+          })}
         />
       </div>
 
       <button className="h-10 w-20 bg-red-500" onClick={handleSubmitLoginForm}>
-        submit
+        Log In
       </button>
+
+      <div className="flex items-center gap-1">
+        <p>No account yet?</p>
+        <Link href="/auth/register">Sign up</Link>
+      </div>
     </div>
   );
 }
