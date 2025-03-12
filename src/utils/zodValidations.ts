@@ -12,7 +12,7 @@ export const registerSchema = z.object({
   password: z.string().min(1, { message: "Wajib diisi" }),
   gender: z.string().min(1, { message: "Wajib diisi" }),
   phoneNumber: z.string().min(1, { message: "Wajib diisi" }),
-  dob: z.string().min(1, { message: "Wajib diisi" }),
+  dob: z.number({ message: "Wajib diisi" }),
 });
 
 export function getZodErrorMessage({

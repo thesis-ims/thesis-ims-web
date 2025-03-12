@@ -36,6 +36,7 @@ export default function LoginForm() {
         },
       );
       setErrors(issues);
+      alert("lengkapi form data");
       return;
     }
 

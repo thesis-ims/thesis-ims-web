@@ -1,10 +1,12 @@
 "use client";
 
+import CalenderDatePicker from "@/components/ui/calender-date-picker";
 import InputText from "@/components/ui/input-text";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FormDataErrorProps, RegisterBodyProps } from "@/interfaces/auth";
 import { register } from "@/lib/api/auth";
 import { getZodErrorMessage, registerSchema } from "@/utils/zodValidations";
+import dayjs from "dayjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -20,7 +22,6 @@ export default function RegisterForm() {
     password: "",
     phoneNumber: "",
     gender: "",
-    dob: "akdnajksn",
   } as RegisterBodyProps);
 
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
@@ -47,11 +48,11 @@ export default function RegisterForm() {
         },
       );
       setErrors(issues);
+      alert("lengkapi form data");
       return;
     }
 
     setErrors([]);
-
     const registerResponse = await register(formData);
     if (registerResponse.error) {
       alert(registerResponse.message);
@@ -59,7 +60,6 @@ export default function RegisterForm() {
     }
 
     alert(registerResponse.message);
-    // await setAuthCookie(registerResponse.data);
     router.push("/auth/login");
   }
 
@@ -67,7 +67,7 @@ export default function RegisterForm() {
     <div className="flex h-fit w-fit flex-col items-center justify-center gap-5 rounded-md border border-gray-300 p-20">
       <h1>Register Page</h1>
 
-      {JSON.stringify(formData)}
+      {/* {JSON.stringify(formData)} */}
 
       <div className="grid grid-cols-2 gap-4">
         <InputText
@@ -143,6 +143,17 @@ export default function RegisterForm() {
 
           <p className="text-red-500">
             {getZodErrorMessage({ errors: errors, path: "gender" })}
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <CalenderDatePicker
+            value={dayjs(formData.dob)}
+            setValue={(data) => setFormData((prev) => ({ ...prev, dob: data }))}
+          />
+
+          <p className="text-red-500">
+            {getZodErrorMessage({ errors: errors, path: "dob" })}
           </p>
         </div>
       </div>

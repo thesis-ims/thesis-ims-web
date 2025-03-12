@@ -7,6 +7,7 @@ import axios from "axios";
 const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_ENDPOINT;
 
 export async function register(body: RegisterBodyProps) {
+  // console.log(body, "register body");
   try {
     let registerResponse = await axios.post(`${baseApiUrl}/api/auth/register`, {
       email: body.email,
@@ -14,15 +15,14 @@ export async function register(body: RegisterBodyProps) {
       password: body.password,
       gender: body.gender,
       phoneNumber: body.phoneNumber,
-      dob: "",
     });
-    console.log(registerResponse, "register response");
+    // console.log(registerResponse, "register response");
     return {
-      message: "Berhasil Register",
+      message: registerResponse.data.message,
       error: false,
     };
   } catch (error: any) {
-    console.log(error, "error register response");
+    // console.log(error, "error register response");
     return {
       message: error.response.data.message,
       error: true,
@@ -44,14 +44,14 @@ export async function login(body: LoginBodyProps) {
         },
       },
     );
-    console.log(loginResponse, "login response");
+    // console.log(loginResponse, "login response");
     return {
       data: loginResponse.data.data as LoginAPIResponse,
       message: "Berhasil Login",
       error: false,
     };
   } catch (error: any) {
-    console.log(error, "error login response");
+    // console.log(error, "error login response");
     return {
       data: {} as LoginAPIResponse,
       message: error.response.data.message,
