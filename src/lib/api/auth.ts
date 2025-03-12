@@ -1,8 +1,34 @@
-import { LoginAPIResponse, LoginBodyProps } from "@/interfaces/auth";
+import {
+  LoginAPIResponse,
+  LoginBodyProps,
+  RegisterBodyProps,
+} from "@/interfaces/auth";
 import axios from "axios";
 const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_ENDPOINT;
 
-export async function register() {}
+export async function register(body: RegisterBodyProps) {
+  try {
+    let registerResponse = await axios.post(`${baseApiUrl}/api/auth/register`, {
+      email: body.email,
+      username: body.username,
+      password: body.password,
+      gender: body.gender,
+      phoneNumber: body.phoneNumber,
+      dob: "",
+    });
+    console.log(registerResponse, "register response");
+    return {
+      message: "Berhasil Register",
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error register response");
+    return {
+      message: error.response.data.message,
+      error: true,
+    };
+  }
+}
 
 export async function login(body: LoginBodyProps) {
   try {

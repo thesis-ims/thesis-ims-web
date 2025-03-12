@@ -3,8 +3,10 @@
 import InputText from "@/components/ui/input-text";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FormDataErrorProps, RegisterBodyProps } from "@/interfaces/auth";
+import { register } from "@/lib/api/auth";
 import { getZodErrorMessage, registerSchema } from "@/utils/zodValidations";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function RegisterForm() {
@@ -18,11 +20,14 @@ export default function RegisterForm() {
     password: "",
     phoneNumber: "",
     gender: "",
+    dob: "akdnajksn",
   } as RegisterBodyProps);
 
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[],
   );
+
+  const router = useRouter();
 
   function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -45,17 +50,17 @@ export default function RegisterForm() {
       return;
     }
 
-    // continue to login flow API
-    // setErrors([]);
-    // const loginResponse = await login(formData);
-    // if (loginResponse.error) {
-    //   alert(loginResponse.message);
-    //   return;
-    // }
+    setErrors([]);
 
-    // alert(loginResponse.message);
-    // await setAuthCookie(loginResponse.data);
-    // router.push("/");
+    const registerResponse = await register(formData);
+    if (registerResponse.error) {
+      alert(registerResponse.message);
+      return;
+    }
+
+    alert(registerResponse.message);
+    // await setAuthCookie(registerResponse.data);
+    router.push("/auth/login");
   }
 
   return (
