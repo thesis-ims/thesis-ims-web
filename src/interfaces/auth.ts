@@ -17,7 +17,7 @@ export interface RegisterBodyProps {
   email: string;
   username: string;
   password: string;
-  gender: "male" | "female";
+  gender: string;
   phoneNumber: string;
   dob: string;
 }

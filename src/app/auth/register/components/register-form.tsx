@@ -1,15 +1,25 @@
 "use client";
 
 import InputText from "@/components/ui/input-text";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FormDataErrorProps, RegisterBodyProps } from "@/interfaces/auth";
-import { getZodErrorMessage } from "@/utils/zodValidations";
+import { getZodErrorMessage, registerSchema } from "@/utils/zodValidations";
 import Link from "next/link";
 import React, { useState } from "react";
 
 export default function RegisterForm() {
-  const [formData, setFormData] = useState<RegisterBodyProps>(
-    {} as RegisterBodyProps,
-  );
+  const genderList = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+  ];
+  const [formData, setFormData] = useState<RegisterBodyProps>({
+    username: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    gender: "",
+  } as RegisterBodyProps);
+
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[],
   );
@@ -19,11 +29,54 @@ export default function RegisterForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
+  async function handleSubmitRegisterForm() {
+    const validationResult = registerSchema.safeParse(formData);
+
+    if (!validationResult.success) {
+      const issues: FormDataErrorProps[] = validationResult.error.issues.map(
+        (issue) => {
+          return {
+            path: issue.path[0] as string,
+            message: issue.message,
+          };
+        },
+      );
+      setErrors(issues);
+      return;
+    }
+
+    // continue to login flow API
+    // setErrors([]);
+    // const loginResponse = await login(formData);
+    // if (loginResponse.error) {
+    //   alert(loginResponse.message);
+    //   return;
+    // }
+
+    // alert(loginResponse.message);
+    // await setAuthCookie(loginResponse.data);
+    // router.push("/");
+  }
+
   return (
     <div className="flex h-fit w-fit flex-col items-center justify-center gap-5 rounded-md border border-gray-300 p-20">
       <h1>Register Page</h1>
 
-      <div className="flex flex-col items-center gap-4">
+      {JSON.stringify(formData)}
+
+      <div className="grid grid-cols-2 gap-4">
+        <InputText
+          label="Email"
+          name="email"
+          placeholder="enter email"
+          value={formData.email}
+          onChange={handleOnChangeInput}
+          errorMessages={getZodErrorMessage({
+            errors: errors,
+            path: "email",
+          })}
+        />
+
         <InputText
           label="Username"
           name="username"
@@ -48,11 +101,53 @@ export default function RegisterForm() {
             path: "password",
           })}
         />
+
+        <InputText
+          label="Phone Number"
+          name="phoneNumber"
+          placeholder="enter phone number"
+          value={formData.phoneNumber}
+          onChange={handleOnChangeInput}
+          errorMessages={getZodErrorMessage({
+            errors: errors,
+            path: "phoneNumber",
+          })}
+        />
+
+        <div className="flex flex-col gap-2">
+          <RadioGroup
+            defaultValue={formData.gender}
+            onValueChange={(gender) => {
+              setFormData((prev) => {
+                return {
+                  ...prev,
+                  gender: gender,
+                };
+              });
+            }}
+          >
+            {genderList.map((gender) => {
+              return (
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem value={gender.value} />
+                  <p>{gender.label}</p>
+                </div>
+              );
+            })}
+          </RadioGroup>
+
+          <p className="text-red-500">
+            {getZodErrorMessage({ errors: errors, path: "gender" })}
+          </p>
+        </div>
       </div>
 
-      {/* <button className="h-10 w-20 bg-red-500" onClick={handleSubmitLoginForm}>
-      Register
-    </button> */}
+      <button
+        className="h-10 w-20 bg-red-500"
+        onClick={handleSubmitRegisterForm}
+      >
+        Register
+      </button>
 
       <div className="flex items-center gap-1">
         <p>Already have account?</p>
