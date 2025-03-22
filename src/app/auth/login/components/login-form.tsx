@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/ui/button";
 import InputText from "@/components/ui/input-text";
 import { FormDataErrorProps, LoginBodyProps } from "@/interfaces/auth";
 import { login } from "@/lib/api/auth";
@@ -54,11 +55,23 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex h-fit w-fit flex-col items-center justify-center gap-5 rounded-md border border-gray-300 p-20">
-      <h1>Login Page</h1>
+    <div className="flex h-fit w-fit flex-col items-center justify-center gap-6 border border-gray-20 bg-white p-20">
+      {/* login page header */}
+      <div className="flex flex-col items-center gap-2">
+        <h1 className="text-[42px] font-bold">Welcome Back</h1>
+        <p className="text-lg">Please log in to continue</p>
+      </div>
 
-      <div className="flex flex-col items-center gap-4">
+      {/* login form */}
+      <form
+        className="flex flex-col items-center gap-4 border-b border-gray-20 py-6"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmitLoginForm();
+        }}
+      >
         <InputText
+          className="w-[520px]"
           label="Username"
           name="username"
           placeholder="enter username"
@@ -71,6 +84,7 @@ export default function LoginForm() {
         />
 
         <InputText
+          className="w-[520px]"
           label="Password"
           isPassword={true}
           name="password"
@@ -82,12 +96,19 @@ export default function LoginForm() {
             path: "password",
           })}
         />
-      </div>
 
-      <button className="h-10 w-20 bg-red-500" onClick={handleSubmitLoginForm}>
-        Log In
-      </button>
+        <Button
+          className="w-full"
+          intent={"primary"}
+          size={"default"}
+          type="submit"
+          // onClick={handleSubmitLoginForm}
+        >
+          Log In
+        </Button>
+      </form>
 
+      {/* no account yet section */}
       <div className="flex items-center gap-1">
         <p>No account yet?</p>
         <Link href="/auth/register">Sign up</Link>

@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/ui/button";
 import CalenderDatePicker from "@/components/ui/calender-date-picker";
 import InputText from "@/components/ui/input-text";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -64,106 +65,125 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="flex h-fit w-fit flex-col items-center justify-center gap-5 rounded-md border border-gray-300 p-20">
-      <h1>Register Page</h1>
+    <div className="flex h-fit w-fit flex-col items-center justify-center gap-6 rounded-md border border-gray-20 bg-white p-20">
+      <div>
+        <h1 className="text-[42px] font-bold">Sign Up</h1>
+      </div>
 
       {/* {JSON.stringify(formData)} */}
 
-      <div className="grid grid-cols-2 gap-4">
-        <InputText
-          label="Email"
-          name="email"
-          placeholder="enter email"
-          value={formData.email}
-          onChange={handleOnChangeInput}
-          errorMessages={getZodErrorMessage({
-            errors: errors,
-            path: "email",
-          })}
-        />
-
-        <InputText
-          label="Username"
-          name="username"
-          placeholder="enter username"
-          value={formData.username}
-          onChange={handleOnChangeInput}
-          errorMessages={getZodErrorMessage({
-            errors: errors,
-            path: "username",
-          })}
-        />
-
-        <InputText
-          label="Password"
-          isPassword={true}
-          name="password"
-          placeholder="enter password"
-          value={formData.password}
-          onChange={handleOnChangeInput}
-          errorMessages={getZodErrorMessage({
-            errors: errors,
-            path: "password",
-          })}
-        />
-
-        <InputText
-          label="Phone Number"
-          name="phoneNumber"
-          placeholder="enter phone number"
-          value={formData.phoneNumber}
-          onChange={handleOnChangeInput}
-          errorMessages={getZodErrorMessage({
-            errors: errors,
-            path: "phoneNumber",
-          })}
-        />
-
-        <div className="flex flex-col gap-2">
-          <RadioGroup
-            defaultValue={formData.gender}
-            onValueChange={(gender) => {
-              setFormData((prev) => {
-                return {
-                  ...prev,
-                  gender: gender,
-                };
-              });
-            }}
-          >
-            {genderList.map((gender) => {
-              return (
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem value={gender.value} />
-                  <p>{gender.label}</p>
-                </div>
-              );
+      <form
+        className="flex flex-col items-center gap-4 py-6"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmitRegisterForm();
+        }}
+      >
+        <div className="grid grid-cols-2 gap-4">
+          <InputText
+            className="w-[520px]"
+            label="Email"
+            name="email"
+            placeholder="enter email"
+            value={formData.email}
+            onChange={handleOnChangeInput}
+            errorMessages={getZodErrorMessage({
+              errors: errors,
+              path: "email",
             })}
-          </RadioGroup>
-
-          <p className="text-red-500">
-            {getZodErrorMessage({ errors: errors, path: "gender" })}
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <CalenderDatePicker
-            value={dayjs(formData.dob)}
-            setValue={(data) => setFormData((prev) => ({ ...prev, dob: data }))}
           />
 
-          <p className="text-red-500">
-            {getZodErrorMessage({ errors: errors, path: "dob" })}
-          </p>
-        </div>
-      </div>
+          <InputText
+            className="w-[520px]"
+            label="Username"
+            name="username"
+            placeholder="enter username"
+            value={formData.username}
+            onChange={handleOnChangeInput}
+            errorMessages={getZodErrorMessage({
+              errors: errors,
+              path: "username",
+            })}
+          />
 
-      <button
-        className="h-10 w-20 bg-red-500"
-        onClick={handleSubmitRegisterForm}
-      >
-        Register
-      </button>
+          <InputText
+            className="w-[520px]"
+            label="Password"
+            isPassword={true}
+            name="password"
+            placeholder="enter password"
+            value={formData.password}
+            onChange={handleOnChangeInput}
+            errorMessages={getZodErrorMessage({
+              errors: errors,
+              path: "password",
+            })}
+            helperText="It must be a combination of minimum 8 letters, numbers, and symbols."
+          />
+
+          <InputText
+            className="w-[520px]"
+            label="Phone Number"
+            name="phoneNumber"
+            placeholder="enter phone number"
+            value={formData.phoneNumber}
+            onChange={handleOnChangeInput}
+            errorMessages={getZodErrorMessage({
+              errors: errors,
+              path: "phoneNumber",
+            })}
+          />
+
+          <div className="flex flex-col gap-2">
+            <RadioGroup
+              defaultValue={formData.gender}
+              onValueChange={(gender) => {
+                setFormData((prev) => {
+                  return {
+                    ...prev,
+                    gender: gender,
+                  };
+                });
+              }}
+            >
+              {genderList.map((gender) => {
+                return (
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem value={gender.value} />
+                    <p>{gender.label}</p>
+                  </div>
+                );
+              })}
+            </RadioGroup>
+
+            <p className="text-red-500">
+              {getZodErrorMessage({ errors: errors, path: "gender" })}
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <CalenderDatePicker
+              value={dayjs(formData.dob)}
+              setValue={(data) =>
+                setFormData((prev) => ({ ...prev, dob: data }))
+              }
+            />
+
+            <p className="text-red-500">
+              {getZodErrorMessage({ errors: errors, path: "dob" })}
+            </p>
+          </div>
+        </div>
+
+        <Button
+          className="w-full"
+          intent={"primary"}
+          size={"default"}
+          type="submit"
+        >
+          Register
+        </Button>
+      </form>
 
       <div className="flex items-center gap-1">
         <p>Already have account?</p>

@@ -16,13 +16,13 @@ export async function register(body: RegisterBodyProps) {
       gender: body.gender,
       phoneNumber: body.phoneNumber,
     });
-    // console.log(registerResponse, "register response");
+    console.log(registerResponse, "register response");
     return {
       message: registerResponse.data.message,
       error: false,
     };
   } catch (error: any) {
-    // console.log(error, "error register response");
+    console.log(error, "error register response");
     return {
       message: error.response.data.message,
       error: true,
@@ -44,14 +44,14 @@ export async function login(body: LoginBodyProps) {
         },
       },
     );
-    // console.log(loginResponse, "login response");
+    console.log(loginResponse, "login response");
     return {
       data: loginResponse.data.data as LoginAPIResponse,
       message: "Berhasil Login",
       error: false,
     };
   } catch (error: any) {
-    // console.log(error, "error login response");
+    console.log(error, "error login response");
     return {
       data: {} as LoginAPIResponse,
       message: error.response.data.message,
