@@ -65,7 +65,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="flex h-fit w-fit flex-col items-center justify-center gap-6 rounded-md border border-gray-20 bg-white p-20">
+    <div className="flex h-fit w-fit flex-col gap-6 border border-gray-20 bg-white p-20">
       <div>
         <h1 className="text-[42px] font-bold">Sign Up</h1>
       </div>
@@ -73,17 +73,17 @@ export default function RegisterForm() {
       {/* {JSON.stringify(formData)} */}
 
       <form
-        className="flex flex-col items-center gap-4 py-6"
+        className="flex flex-col items-center gap-8 pt-6"
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmitRegisterForm();
         }}
       >
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-x-20 gap-y-4">
           <InputText
-            className="w-[520px]"
             label="Email"
             name="email"
+            className="w-[520px]"
             placeholder="enter email"
             value={formData.email}
             onChange={handleOnChangeInput}
@@ -94,9 +94,9 @@ export default function RegisterForm() {
           />
 
           <InputText
-            className="w-[520px]"
             label="Username"
             name="username"
+            className="w-[520px]"
             placeholder="enter username"
             value={formData.username}
             onChange={handleOnChangeInput}
@@ -107,10 +107,10 @@ export default function RegisterForm() {
           />
 
           <InputText
-            className="w-[520px]"
             label="Password"
-            isPassword={true}
             name="password"
+            isPassword={true}
+            className="w-[520px]"
             placeholder="enter password"
             value={formData.password}
             onChange={handleOnChangeInput}
@@ -122,9 +122,9 @@ export default function RegisterForm() {
           />
 
           <InputText
-            className="w-[520px]"
             label="Phone Number"
             name="phoneNumber"
+            className="w-[520px]"
             placeholder="enter phone number"
             value={formData.phoneNumber}
             onChange={handleOnChangeInput}
@@ -134,60 +134,73 @@ export default function RegisterForm() {
             })}
           />
 
+          {/* gender */}
           <div className="flex flex-col gap-2">
-            <RadioGroup
-              defaultValue={formData.gender}
-              onValueChange={(gender) => {
-                setFormData((prev) => {
-                  return {
-                    ...prev,
-                    gender: gender,
-                  };
-                });
-              }}
-            >
-              {genderList.map((gender) => {
-                return (
-                  <div className="flex items-center gap-2">
-                    <RadioGroupItem value={gender.value} />
-                    <p>{gender.label}</p>
-                  </div>
-                );
-              })}
-            </RadioGroup>
+            <p className="text-sm text-black">Gender</p>
+            <div className="flex flex-col gap-1">
+              <RadioGroup
+                className="flex flex-row gap-8"
+                defaultValue={formData.gender}
+                onValueChange={(gender) => {
+                  setFormData((prev) => {
+                    return {
+                      ...prev,
+                      gender: gender,
+                    };
+                  });
+                }}
+              >
+                {genderList.map((gender) => {
+                  return (
+                    <div className="flex items-center gap-2">
+                      <RadioGroupItem value={gender.value} />
+                      <p>{gender.label}</p>
+                    </div>
+                  );
+                })}
+              </RadioGroup>
 
-            <p className="text-red-500">
-              {getZodErrorMessage({ errors: errors, path: "gender" })}
-            </p>
+              <p className="text-red-500">
+                {getZodErrorMessage({ errors: errors, path: "gender" })}
+              </p>
+            </div>
           </div>
 
+          {/* calendar DOB date picker */}
           <div className="flex flex-col gap-2">
-            <CalenderDatePicker
-              value={dayjs(formData.dob)}
-              setValue={(data) =>
-                setFormData((prev) => ({ ...prev, dob: data }))
-              }
-            />
+            <p className="text-sm text-black">Date of Birth</p>
+            <div className="flex flex-col gap-1">
+              <CalenderDatePicker
+                value={dayjs(formData.dob)}
+                setValue={(data) =>
+                  setFormData((prev) => ({ ...prev, dob: data }))
+                }
+              />
 
-            <p className="text-red-500">
-              {getZodErrorMessage({ errors: errors, path: "dob" })}
-            </p>
+              <p className="text-red-500">
+                {getZodErrorMessage({ errors: errors, path: "dob" })}
+              </p>
+            </div>
           </div>
         </div>
 
-        <Button
-          className="w-full"
-          intent={"primary"}
-          size={"default"}
-          type="submit"
-        >
-          Register
-        </Button>
+        <div className="w-1/2 border-b border-gray-20 pb-6">
+          <Button
+            className="w-full"
+            intent={"primary"}
+            size={"default"}
+            type="submit"
+          >
+            Register
+          </Button>
+        </div>
       </form>
 
-      <div className="flex items-center gap-1">
+      <div className="flex w-full items-center justify-center gap-1">
         <p>Already have account?</p>
-        <Link href="/auth/login">Log In</Link>
+        <Link href="/auth/login" className="text-[#001D6C]">
+          Log In
+        </Link>
       </div>
     </div>
   );

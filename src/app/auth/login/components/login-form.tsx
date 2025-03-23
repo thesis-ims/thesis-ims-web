@@ -64,38 +64,40 @@ export default function LoginForm() {
 
       {/* login form */}
       <form
-        className="flex flex-col items-center gap-4 border-b border-gray-20 py-6"
+        className="flex flex-col items-center gap-8 border-b border-gray-20 py-6"
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmitLoginForm();
         }}
       >
-        <InputText
-          className="w-[520px]"
-          label="Username"
-          name="username"
-          placeholder="enter username"
-          value={formData.username}
-          onChange={handleOnChangeInput}
-          errorMessages={getZodErrorMessage({
-            errors: errors,
-            path: "username",
-          })}
-        />
+        <div className="flex flex-col items-center gap-4">
+          <InputText
+            className="w-[520px]"
+            label="Username"
+            name="username"
+            placeholder="enter username"
+            value={formData.username}
+            onChange={handleOnChangeInput}
+            errorMessages={getZodErrorMessage({
+              errors: errors,
+              path: "username",
+            })}
+          />
 
-        <InputText
-          className="w-[520px]"
-          label="Password"
-          isPassword={true}
-          name="password"
-          placeholder="enter password"
-          value={formData.password}
-          onChange={handleOnChangeInput}
-          errorMessages={getZodErrorMessage({
-            errors: errors,
-            path: "password",
-          })}
-        />
+          <InputText
+            className="w-[520px]"
+            label="Password"
+            isPassword={true}
+            name="password"
+            placeholder="enter password"
+            value={formData.password}
+            onChange={handleOnChangeInput}
+            errorMessages={getZodErrorMessage({
+              errors: errors,
+              path: "password",
+            })}
+          />
+        </div>
 
         <Button
           className="w-full"
@@ -111,7 +113,9 @@ export default function LoginForm() {
       {/* no account yet section */}
       <div className="flex items-center gap-1">
         <p>No account yet?</p>
-        <Link href="/auth/register">Sign up</Link>
+        <Link href="/auth/register" className="text-[#001D6C]">
+          Sign up
+        </Link>
       </div>
     </div>
   );

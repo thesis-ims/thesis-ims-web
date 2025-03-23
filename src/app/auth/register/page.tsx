@@ -11,7 +11,7 @@ function Register() {
     redirect("/");
   }
   return (
-    <div className="flex h-screen w-full items-center justify-center">
+    <div className="flex h-screen w-full items-center justify-center bg-gray-10">
       <RegisterForm />
     </div>
   );
