@@ -32,7 +32,7 @@ export default function InputText({
           placeholder={placeholder}
           type={isPassword ? "password" : "text"}
           className={cn(
-            "w-fit border-b border-[#C1C7CD] bg-[#F2F4F8] px-4 py-3 placeholder-[#697077] focus:outline-none",
+            "w-fit border-b border-[#C1C7CD] bg-[#F2F4F8] px-4 py-3 placeholder-[#697077] focus:outline-hidden",
             className,
           )}
           {...props}
