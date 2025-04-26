@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/ui/button";
 import { LoginAPIResponse } from "@/interfaces/auth";
 import { ProfileProps } from "@/interfaces/profile";
 import { logout } from "@/lib/auth/auth-cookie-handler";
@@ -13,31 +14,42 @@ export default function Homepage({
 }) {
   return (
     <div className="flex flex-col gap-5">
-      {profile?.id ? (
-        <button
-          onClick={() => {
-            logout();
-          }}
-        >
-          logout
-        </button>
-      ) : (
-        <div className="flex items-center gap-2">
-          <Link href={"/auth/login"}>
-            <button>login</button>
-          </Link>
+      <div className="flex items-center justify-end gap-2">
+        {/* LOGIN LOGOUT BUTTONS */}
+        {profile?.id ? (
+          <Button
+            onClick={() => {
+              logout();
+            }}
+          >
+            logout
+          </Button>
+        ) : (
+          <>
+            <Link href={"/auth/login"}>
+              <Button>login</Button>
+            </Link>
 
-          <Link href={"/auth/register"}>
-            <button>register</button>
-          </Link>
-        </div>
-      )}
+            <Link href={"/auth/register"}>
+              <Button>register</Button>
+            </Link>
+          </>
+        )}
+      </div>
 
-      <div>ini homepage</div>
-      <p>
-        welcome <span className="font-bold">{profile?.username}</span>
-      </p>
-      <p>{JSON.stringify(profile)}</p>
+      {/* USER DATA */}
+      <div className="flex flex-col gap-2">
+        <p>
+          welcome <span className="font-bold">{profile?.username}</span>
+        </p>
+        <p>{JSON.stringify(profile)}</p>
+      </div>
+
+      {/* PRODUCTS BUTTONS */}
+      <div className="flex items-center gap-2">
+        <Button>Add Product</Button>
+        <Button>delete Products</Button>
+      </div>
     </div>
   );
 }

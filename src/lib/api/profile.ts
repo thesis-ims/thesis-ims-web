@@ -41,7 +41,13 @@ export async function getUserbyUserId(userId: string) {
 
 export async function getUserProfile() {
   const session = getSession();
-
+  if (!session) {
+    return {
+      data: {} as ProfileProps,
+      message: "You are not logged in",
+      error: true,
+    };
+  }
   try {
     let profileResponse = await axios.post(
       `${baseApiUrl}/api/users/get-user`,

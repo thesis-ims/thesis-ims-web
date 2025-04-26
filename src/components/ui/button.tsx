@@ -6,23 +6,26 @@ export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonClassname> {}
 
-const buttonClassname = cva("flex gap-2 items-center justify-center", {
-  variants: {
-    intent: {
-      primary: "text-white bg-primary-color-60",
-      secondary:
-        "bg-white border border-primary-color-60 text-primary-color-60",
+const buttonClassname = cva(
+  "cursor-pointer flex gap-2 items-center justify-center",
+  {
+    variants: {
+      intent: {
+        primary: "text-white bg-primary-color-60",
+        secondary:
+          "bg-white border border-primary-color-60 text-primary-color-60",
+      },
+      size: {
+        default: "px-4 py-4 text-base",
+        small: "px-2 py-1",
+      },
     },
-    size: {
-      default: "px-4 py-4 text-base",
-      small: "px-2 py-1",
+    defaultVariants: {
+      intent: "primary",
+      size: "default",
     },
   },
-  defaultVariants: {
-    intent: "primary",
-    size: "default",
-  },
-});
+);
 
 export default function Button({
   children,
