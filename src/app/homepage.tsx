@@ -15,7 +15,7 @@ export default function Homepage({
   return (
     <div className="flex flex-col gap-5">
       {/* LOGIN LOGOUT BUTTONS */}
-      <div className="flex items-center justify-end gap-2">
+      <div className="flex items-center gap-2">
         {profile?.id ? (
           <Button
             onClick={() => {
