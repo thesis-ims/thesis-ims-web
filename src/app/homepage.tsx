@@ -13,7 +13,7 @@ export default function Homepage({
   profile: ProfileProps | null;
 }) {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex w-full flex-col gap-5">
       {/* LOGIN LOGOUT BUTTONS */}
       <div className="flex items-center gap-2">
         {profile?.id ? (
