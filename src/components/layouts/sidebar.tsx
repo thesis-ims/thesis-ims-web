@@ -15,11 +15,19 @@ const sidebarItems: SidebarItem[] = [
     label: "Products",
     href: "/products",
   },
+  {
+    label: "Stocks",
+    href: "/stocks",
+  },
+  {
+    label: "Orders",
+    href: "/products",
+  },
 ];
 
 function SidebarItem({ item }: { item: SidebarItem }) {
   return (
-    <Link className="w-full" href={item.href}>
+    <Link className="px-16 py-4" href={item.href}>
       {item.label}
     </Link>
   );
@@ -27,8 +35,8 @@ function SidebarItem({ item }: { item: SidebarItem }) {
 
 export default function Sidebar() {
   return (
-    <div className="flex flex-col gap-12 bg-blue-200">
-      <div className="mx-12 h-12 w-12 bg-red-200" />
+    <div className="mt-12 flex h-screen flex-col items-center gap-12">
+      <div className="mx-12 h-[10rem] w-[12.5rem] bg-red-200" />
       <div className="flex flex-col">
         {sidebarItems.map((item) => {
           return <SidebarItem item={item} />;
