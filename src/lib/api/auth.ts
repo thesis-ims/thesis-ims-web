@@ -3,13 +3,12 @@ import {
   LoginBodyProps,
   RegisterBodyProps,
 } from "@/interfaces/auth";
-import axios from "axios";
-const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_ENDPOINT;
+import middlewareAxios from "@/utils/axios-interceptor";
 
 export async function register(body: RegisterBodyProps) {
   // console.log(body, "register body");
   try {
-    let registerResponse = await axios.post(`${baseApiUrl}/api/auth/register`, {
+    let registerResponse = await middlewareAxios.post(`/api/auth/register`, {
       email: body.email,
       username: body.username,
       password: body.password,
@@ -32,8 +31,8 @@ export async function register(body: RegisterBodyProps) {
 
 export async function login(body: LoginBodyProps) {
   try {
-    let loginResponse = await axios.post(
-      `${baseApiUrl}/api/auth/login`,
+    let loginResponse = await middlewareAxios.post(
+      `/api/auth/login`,
       {
         username: body.username,
         password: body.password,

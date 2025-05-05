@@ -1,12 +1,10 @@
 import { getSession } from "@/lib/auth/get-session";
 import ProductPage from "./components/product-page";
 
-export default function Products() {
-  const session = getSession();
+export default async function Products() {
   return (
     <div>
-      {JSON.stringify(session)}
-      {/* <ProductPage /> */}
+      <ProductPage />
     </div>
   );
 }

@@ -1,7 +1,9 @@
+"use server";
+
 import { cookies } from "next/headers";
 import { LoginAPIResponse } from "@/interfaces/auth";
 
-export function getSession(): LoginAPIResponse | null {
+export async function getSession() {
   const cookie = cookies();
   const session = cookie.get("session")?.value;
 

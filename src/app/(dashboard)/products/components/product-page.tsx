@@ -40,49 +40,52 @@ export default function ProductPage() {
   }
 
   return (
-    <form
-      className="border-gray-20 flex flex-col items-center gap-8 border-b py-6"
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmitLoginForm();
-      }}
-    >
-      <div className="flex flex-col items-center gap-4">
-        <InputText
-          className="w-[520px]"
-          label="Name"
-          name="name"
-          placeholder="enter username"
-          value={formData.name}
-          onChange={handleOnChangeInput}
-          // errorMessages={getZodErrorMessage({
-          //   errors: errors,
-          //   path: "username",
-          // })}
-        />
-
-        <InputText
-          className="w-[520px]"
-          label="Quantity"
-          name="quantity"
-          placeholder="enter password"
-          value={formData.quantity}
-          onChange={handleOnChangeInput}
-          // errorMessages={getZodErrorMessage({
-          //   errors: errors,
-          //   path: "password",
-          // })}
-        />
-      </div>
-
-      <Button
-        className="w-full"
-        intent={"primary"}
-        size={"default"}
-        type="submit"
+    <div className="flex flex-col gap-10">
+      <div className="flex items-center gap-2"></div>
+      <form
+        className="border-gray-20 flex flex-col items-center gap-8 border-b py-6"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmitLoginForm();
+        }}
       >
-        Log In
-      </Button>
-    </form>
+        <div className="flex flex-col items-center gap-4">
+          <InputText
+            className="w-[520px]"
+            label="Name"
+            name="name"
+            placeholder="enter username"
+            value={formData.name}
+            onChange={handleOnChangeInput}
+            // errorMessages={getZodErrorMessage({
+            //   errors: errors,
+            //   path: "username",
+            // })}
+          />
+
+          <InputText
+            className="w-[520px]"
+            label="Quantity"
+            name="quantity"
+            placeholder="enter password"
+            value={formData.quantity}
+            onChange={handleOnChangeInput}
+            // errorMessages={getZodErrorMessage({
+            //   errors: errors,
+            //   path: "password",
+            // })}
+          />
+        </div>
+
+        <Button
+          className="w-full"
+          intent={"primary"}
+          size={"default"}
+          type="submit"
+        >
+          Log In
+        </Button>
+      </form>
+    </div>
   );
 }
