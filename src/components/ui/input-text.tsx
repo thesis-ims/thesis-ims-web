@@ -2,7 +2,7 @@ import { cn } from "@/lib/tw-merge";
 import React, { InputHTMLAttributes } from "react";
 
 interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
-  errorMessages: string[] | null;
+  errorMessages?: string[] | null;
   label: string;
   isPassword?: boolean;
   placeholder?: string;
@@ -39,7 +39,7 @@ export default function InputText({
         />
 
         {helperText && !errorMessages && (
-          <p className="text-xs text-gray-60">{helperText}</p>
+          <p className="text-gray-60 text-xs">{helperText}</p>
         )}
 
         {errorMessages && (

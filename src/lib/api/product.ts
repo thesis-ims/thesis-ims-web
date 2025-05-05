@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getSession } from "../auth/get-session";
+import { AddProductProps } from "@/interfaces/product";
 
 const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_ENDPOINT;
 
@@ -34,7 +35,7 @@ export async function getAllProducts() {
   }
 }
 
-export async function addProduct() {
+export async function addProduct(formData: AddProductProps) {
   const session = getSession();
 
   try {
@@ -49,14 +50,14 @@ export async function addProduct() {
       },
     );
 
-    console.log(addProductResponse, "get all product response");
+    console.log(addProductResponse, "add product response");
     return {
       data: {},
       message: addProductResponse.data.message,
       error: false,
     };
   } catch (error: any) {
-    console.log(error, "error get all product id");
+    console.log(error, "error add product");
     return {
       data: {},
       message: error.response.data.message,
