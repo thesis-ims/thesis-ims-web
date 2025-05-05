@@ -10,7 +10,7 @@ export async function getAllProducts() {
 
     console.log(allProductResponse, "get all product response");
     return {
-      data: {},
+      data: allProductResponse.data.data,
       message: allProductResponse.data.message,
       error: false,
     };

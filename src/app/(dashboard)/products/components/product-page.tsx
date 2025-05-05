@@ -3,7 +3,7 @@
 import Button from "@/components/ui/button";
 import InputText from "@/components/ui/input-text";
 import { AddProductProps } from "@/interfaces/product";
-import { addProduct } from "@/lib/api/product";
+import { addProduct, getAllProducts } from "@/lib/api/product";
 import React, { useState } from "react";
 
 export default function ProductPage() {
