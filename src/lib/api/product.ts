@@ -5,7 +5,10 @@ export async function getAllProducts() {
   try {
     let allProductResponse = await middlewareAxios.post(
       `/api/products/get-all-product`,
-      {},
+      {
+        page: 1,
+        size: 20,
+      },
     );
 
     console.log(allProductResponse, "get all product response");
