@@ -54,7 +54,7 @@ export default function ProductPage() {
             className="w-[520px]"
             label="Name"
             name="name"
-            placeholder="enter username"
+            placeholder="Enter product name"
             value={formData.name}
             onChange={handleOnChangeInput}
             // errorMessages={getZodErrorMessage({
@@ -67,7 +67,7 @@ export default function ProductPage() {
             className="w-[520px]"
             label="Quantity"
             name="quantity"
-            placeholder="enter password"
+            placeholder="Enter current product quantity"
             value={formData.quantity}
             onChange={handleOnChangeInput}
             // errorMessages={getZodErrorMessage({
@@ -83,7 +83,7 @@ export default function ProductPage() {
           size={"default"}
           type="submit"
         >
-          Log In
+          Add Product
         </Button>
       </form>
     </div>

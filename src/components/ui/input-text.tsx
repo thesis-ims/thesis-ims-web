@@ -1,4 +1,4 @@
-import { cn } from "@/lib/tw-merge";
+import { cn } from "@/utils/tw-merge";
 import React, { InputHTMLAttributes } from "react";
 
 interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {

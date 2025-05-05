@@ -33,13 +33,9 @@ export async function addProduct(formData: AddProductProps) {
   try {
     let addProductResponse = await middlewareAxios.post(
       `/api/products/insert`,
-      {},
-      // {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${session?.token}`,
-      //   },
-      // },
+      {
+        ...formData,
+      },
     );
 
     console.log(addProductResponse, "add product response");
