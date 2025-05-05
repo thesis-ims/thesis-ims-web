@@ -31,18 +31,10 @@ export async function register(body: RegisterBodyProps) {
 
 export async function login(body: LoginBodyProps) {
   try {
-    let loginResponse = await middlewareAxios.post(
-      `/api/auth/login`,
-      {
-        username: body.username,
-        password: body.password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    let loginResponse = await middlewareAxios.post(`/api/auth/login`, {
+      username: body.username,
+      password: body.password,
+    });
     console.log(loginResponse, "login response");
     return {
       data: loginResponse.data.data as LoginAPIResponse,

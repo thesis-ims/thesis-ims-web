@@ -10,6 +10,7 @@ const middlewareAxios = axios.create({
 middlewareAxios.interceptors.request.use(
   async (config) => {
     const session = await getSession();
+    config.headers["Content-Type"] = "application/json";
     if (session) {
       config.headers.Authorization = `Bearer ${session?.token!}`;
     }

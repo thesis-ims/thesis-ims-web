@@ -4,21 +4,10 @@ import { getSession } from "../auth/get-session";
 import middlewareAxios from "@/utils/axios-interceptor";
 
 export async function getUserbyUserId(userId: string) {
-  const session = await getSession();
-
   try {
-    let profileResponse = await middlewareAxios.post(
-      `/api/users/get-user`,
-      {
-        userId: userId,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session?.token}`,
-        },
-      },
-    );
+    let profileResponse = await middlewareAxios.post(`/api/users/get-user`, {
+      userId: userId,
+    });
 
     console.log(profileResponse, "get profile by id response");
     return {
