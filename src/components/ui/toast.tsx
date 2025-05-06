@@ -7,17 +7,26 @@ export default function Toast() {
       gutter={8}
       toastOptions={{
         // Define default options
-        className: "bg-amber-500 font-extrabold",
+        className: "font-extrabold",
+        style: {
+          background: "#f59e0b", // This is the equivalent of bg-amber-500
+        },
         duration: 4000,
         removeDelay: 1000,
 
         // Default options for specific types
         success: {
-          className: "bg-blue-500",
+          className: "",
+          style: {
+            background: "#3b82f6", // This is the equivalent of bg-blue-500
+          },
           duration: 3000,
         },
         error: {
-          className: "bg-red-100 font-extrabold",
+          className: "font-extrabold",
+          style: {
+            background: "#fee2e2", // This is the equivalent of bg-red-100
+          },
         },
       }}
     />
