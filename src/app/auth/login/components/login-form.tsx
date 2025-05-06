@@ -9,6 +9,7 @@ import { getZodErrorMessage, loginSchema } from "@/utils/zodValidations";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -45,7 +46,8 @@ export default function LoginForm() {
     setErrors([]);
     const loginResponse = await login(formData);
     if (loginResponse.error) {
-      alert(loginResponse.message);
+      // alert(loginResponse.message);
+      toast(loginResponse.message);
       return;
     }
 
@@ -55,8 +57,9 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex h-fit w-fit flex-col items-center justify-center gap-6 border border-gray-20 bg-white p-20">
+    <div className="border-gray-20 flex h-fit w-fit flex-col items-center justify-center gap-6 border bg-white p-20">
       {/* login page header */}
+
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-[42px] font-bold">Welcome Back</h1>
         <p className="text-lg">Please log in to continue</p>
@@ -64,7 +67,7 @@ export default function LoginForm() {
 
       {/* login form */}
       <form
-        className="flex flex-col items-center gap-8 border-b border-gray-20 py-6"
+        className="border-gray-20 flex flex-col items-center gap-8 border-b py-6"
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmitLoginForm();

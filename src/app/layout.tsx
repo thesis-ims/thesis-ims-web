@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Toast from "@/components/ui/toast";
 
 export const metadata: Metadata = {
   title: "Inventory Management System App",
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Toast />
+        {children}
+      </body>
     </html>
   );
 }
