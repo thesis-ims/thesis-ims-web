@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const genderList = [
   { label: "Male", value: "male" },
@@ -52,24 +53,24 @@ export default function RegisterForm() {
         },
       );
       setErrors(issues);
-      alert("lengkapi form data");
+      toast.error("Lengkapi Form Pengisian");
       return;
     }
 
     setErrors([]);
     const registerResponse = await register(formData);
     if (registerResponse.error) {
-      alert(registerResponse.message);
+      toast.error(registerResponse.message);
       return;
     }
 
-    alert(registerResponse.message);
+    toast.success(registerResponse.message);
     router.push("/auth/login");
   }
 
   return (
     <>
-      <div className="flex h-fit w-fit flex-col gap-6 border border-gray-20 bg-white p-20">
+      <div className="border-gray-20 flex h-fit w-fit flex-col gap-6 border bg-white p-20">
         <div>
           <h1 className="text-[42px] font-bold">Sign Up</h1>
         </div>
@@ -188,7 +189,7 @@ export default function RegisterForm() {
             </div>
           </div>
 
-          <div className="w-1/2 border-b border-gray-20 pb-6">
+          <div className="border-gray-20 w-1/2 border-b pb-6">
             <Button
               className="w-full"
               intent={"primary"}
