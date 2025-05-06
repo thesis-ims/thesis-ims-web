@@ -38,7 +38,7 @@ export default function LoginForm() {
         },
       );
       setErrors(issues);
-      alert("lengkapi form data");
+      toast.error("Lengkapi Form Pengisian");
       return;
     }
 
@@ -46,12 +46,11 @@ export default function LoginForm() {
     setErrors([]);
     const loginResponse = await login(formData);
     if (loginResponse.error) {
-      // alert(loginResponse.message);
-      toast(loginResponse.message);
+      toast.error(loginResponse.message);
       return;
     }
 
-    alert(loginResponse.message);
+    toast.success(loginResponse.message);
     await setAuthCookie(loginResponse.data);
     router.push("/");
   }
