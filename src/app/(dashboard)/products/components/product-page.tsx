@@ -5,6 +5,7 @@ import InputText from "@/components/ui/input-text";
 import { AddProductProps } from "@/interfaces/product";
 import { addProduct, getAllProducts } from "@/lib/api/product";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ProductPage() {
   const [formData, setFormData] = useState<AddProductProps>(
@@ -16,7 +17,7 @@ export default function ProductPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function handleSubmitLoginForm() {
+  async function handleSubmitAddProduct() {
     // const validationResult = loginSchema.safeParse(formData);
 
     // if (!validationResult.success) {
@@ -34,9 +35,9 @@ export default function ProductPage() {
     // }
 
     // setErrors([]);
-    const loginResponse = await addProduct(formData);
+    const addProductResponse = await addProduct(formData);
 
-    alert(loginResponse.message);
+    toast(addProductResponse.message);
   }
 
   return (
@@ -46,7 +47,7 @@ export default function ProductPage() {
         className="border-gray-20 flex flex-col items-center gap-8 border-b py-6"
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmitLoginForm();
+          handleSubmitAddProduct();
         }}
       >
         <div className="flex flex-col items-center gap-4">
