@@ -1,4 +1,4 @@
-import { AddProductProps } from "@/interfaces/product";
+import { AddProductProps, GetAllProductProps } from "@/interfaces/product";
 import middlewareAxios from "@/utils/axios-interceptor";
 
 export async function getAllProducts() {
@@ -13,14 +13,14 @@ export async function getAllProducts() {
 
     console.log(allProductResponse, "get all product response");
     return {
-      data: allProductResponse.data.data,
+      data: allProductResponse.data.data as GetAllProductProps,
       message: allProductResponse.data.message,
       error: false,
     };
   } catch (error: any) {
     console.log(error, "error get all product id");
     return {
-      data: {},
+      data: {} as GetAllProductProps,
       message: error.response.data.message,
       error: true,
     };
