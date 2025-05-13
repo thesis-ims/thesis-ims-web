@@ -15,7 +15,7 @@ export default async function DashboardViewLayout({
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <div className="bg-gray-10 flex-1 py-12">{children}</div>
+      <div className="bg-gray-10 flex-1 p-6">{children}</div>
     </div>
   );
 }
