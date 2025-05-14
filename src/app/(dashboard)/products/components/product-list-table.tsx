@@ -1,5 +1,6 @@
 import Button from "@/components/ui/button";
 import { ProductProps } from "@/interfaces/product";
+import dayjs from "dayjs";
 import React from "react";
 
 export default function ProductListTable({
@@ -31,9 +32,15 @@ export default function ProductListTable({
 function ProductRow({ product }: { product: ProductProps }) {
   return (
     <div className="grid grid-cols-8">
-      <p className="col-span-2 border border-red-500">{product.name}</p>
-      <p className="col-span-1 border border-red-500">{product.quantity}</p>
-      <p className="col-span-1 border border-red-500">{product.createdDate}</p>
+      <p className="col-span-2 border border-red-500 px-3 py-4">
+        {product.name}
+      </p>
+      <p className="col-span-1 border border-red-500 px-3 py-4">
+        {product.quantity}
+      </p>
+      <p className="col-span-1 border border-red-500 px-3 py-4">
+        {dayjs(product.createdDate).format("D MMM YYYY")}
+      </p>
     </div>
   );
 }
