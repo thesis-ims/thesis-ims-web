@@ -16,8 +16,8 @@ const buttonClassname = cva(
           "bg-white border border-primary-color-60 text-primary-color-60",
       },
       size: {
-        default: "px-4 py-4 text-base",
-        small: "px-2 py-1",
+        default: "p-4 text-base",
+        small: "p-3 text-sm",
       },
     },
     defaultVariants: {

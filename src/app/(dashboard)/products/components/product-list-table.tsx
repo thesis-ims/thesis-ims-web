@@ -20,8 +20,9 @@ export default function ProductListTable({
     <div className="flex flex-col">
       <div className="bg-primary-color-1 flex items-center justify-between px-3 py-4">
         <h2 className="text-[20px] font-medium text-white">Products</h2>
-        <Button>Add Product</Button>
+        <Button size={"small"}>Add Product</Button>
       </div>
+
       <Table>
         <TableHeader className="bg-primary-color-1 text-white">
           <TableRow>
