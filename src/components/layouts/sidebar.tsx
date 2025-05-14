@@ -21,8 +21,8 @@ const sidebarItems: SidebarItem[] = [
     icon: <HomeIcon className="h-6 w-6" />,
   },
   {
-    label: "Products",
-    href: "/products",
+    label: "Inventory",
+    href: "/inventory",
     icon: <FolderIcon className="h-6 w-6" />,
   },
   {
