@@ -1,11 +1,15 @@
 import Button from "@/components/ui/button";
 import InputText from "@/components/ui/input-text";
 import { AddProductProps } from "@/interfaces/product";
-import { addProduct, getAllProducts } from "@/lib/api/product";
+import { addProduct } from "@/lib/api/product";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function AddProductForm() {
+export default function AddProductForm({
+  closeDialog,
+}: {
+  closeDialog: () => void;
+}) {
   const [formData, setFormData] = useState<AddProductProps>(
     {} as AddProductProps,
   );
@@ -36,18 +40,19 @@ export default function AddProductForm() {
     const addProductResponse = await addProduct(formData);
 
     toast(addProductResponse.message);
+    closeDialog();
   }
   return (
     <form
-      className="border-gray-20 flex flex-col items-center gap-8 border-b py-6"
+      className="border-gray-20 flex flex-col items-center gap-8 border-b"
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmitAddProduct();
       }}
     >
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex w-full flex-col items-center gap-4">
         <InputText
-          className="w-[520px]"
+          className="w-full"
           label="Name"
           name="name"
           placeholder="Enter product name"
@@ -60,7 +65,7 @@ export default function AddProductForm() {
         />
 
         <InputText
-          className="w-[520px]"
+          className="w-full"
           label="Quantity"
           name="quantity"
           placeholder="Enter current product quantity"

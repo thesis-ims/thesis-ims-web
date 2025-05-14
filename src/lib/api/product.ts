@@ -1,5 +1,8 @@
+"use server";
+
 import { AddProductProps, GetAllProductProps } from "@/interfaces/product";
 import middlewareAxios from "@/utils/axios-interceptor";
+import { revalidatePath } from "next/cache";
 
 export async function getAllProducts() {
   try {
@@ -12,6 +15,7 @@ export async function getAllProducts() {
     );
 
     console.log(allProductResponse, "get all product response");
+
     return {
       data: allProductResponse.data.data as GetAllProductProps,
       message: allProductResponse.data.message,
@@ -39,6 +43,7 @@ export async function addProduct(formData: AddProductProps) {
     );
 
     console.log(addProductResponse, "add product response");
+    revalidatePath("/inventory");
     return {
       data: {},
       message: addProductResponse.data.message,
