@@ -3,7 +3,7 @@ import React, { InputHTMLAttributes } from "react";
 
 interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessages?: string[] | null;
-  label: string;
+  label?: string;
   isPassword?: boolean;
   placeholder?: string;
   helperText?: string;
@@ -22,7 +22,7 @@ export default function InputText({
 }: InputTextProps) {
   return (
     <div className="flex w-full flex-col gap-2">
-      <p className="text-sm text-black">{label}</p>
+      {label && <p className="text-sm text-black">{label}</p>}
 
       <div className="flex flex-col gap-1">
         <input

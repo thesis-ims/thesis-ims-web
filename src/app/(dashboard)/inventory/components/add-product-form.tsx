@@ -51,31 +51,37 @@ export default function AddProductForm({
       }}
     >
       <div className="flex w-full flex-col items-center gap-4">
-        <InputText
-          className="w-full"
-          label="Name"
-          name="name"
-          placeholder="Enter product name"
-          value={formData.name}
-          onChange={handleOnChangeInput}
-          // errorMessages={getZodErrorMessage({
-          //   errors: errors,
-          //   path: "username",
-          // })}
-        />
+        {/* Name Field */}
+        <div className="flex w-full items-center gap-14">
+          <p>Nama</p>
+          <InputText
+            className="w-full"
+            name="name"
+            placeholder="Enter product name"
+            value={formData.name}
+            onChange={handleOnChangeInput}
+            // errorMessages={getZodErrorMessage({
+            //   errors: errors,
+            //   path: "username",
+            // })}
+          />
+        </div>
 
-        <InputText
-          className="w-full"
-          label="Quantity"
-          name="quantity"
-          placeholder="Enter current product quantity"
-          value={formData.quantity}
-          onChange={handleOnChangeInput}
-          // errorMessages={getZodErrorMessage({
-          //   errors: errors,
-          //   path: "password",
-          // })}
-        />
+        {/* Quantity Field */}
+        <div className="flex w-full items-center gap-14">
+          <p>Quantity</p>
+          <InputText
+            className="w-full"
+            name="quantity"
+            placeholder="Enter current product quantity"
+            value={formData.quantity}
+            onChange={handleOnChangeInput}
+            // errorMessages={getZodErrorMessage({
+            //   errors: errors,
+            //   path: "password",
+            // })}
+          />
+        </div>
       </div>
 
       <Button
