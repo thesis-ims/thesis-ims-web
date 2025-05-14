@@ -1,4 +1,12 @@
 import Button from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { ProductProps } from "@/interfaces/product";
 import dayjs from "dayjs";
 import React from "react";
@@ -10,37 +18,32 @@ export default function ProductListTable({
 }) {
   return (
     <div className="flex flex-col">
-      <div>
+      <div className="bg-primary-color-1 flex items-center justify-between px-3 py-4">
+        <h2 className="text-[20px] font-medium text-white">Products</h2>
         <Button>Add Product</Button>
       </div>
-
-      {/* table header */}
-      <div className="grid grid-cols-8">
-        <p className="col-span-2 border border-red-500">Product Name</p>
-        <p className="col-span-1 border border-red-500">Quantity</p>
-        <p className="col-span-1 border border-red-500">Last Updated</p>
-      </div>
-
-      {/* table contents */}
-      {products.map((product) => {
-        return <ProductRow product={product} />;
-      })}
-    </div>
-  );
-}
-
-function ProductRow({ product }: { product: ProductProps }) {
-  return (
-    <div className="grid grid-cols-8">
-      <p className="col-span-2 border border-red-500 px-3 py-4">
-        {product.name}
-      </p>
-      <p className="col-span-1 border border-red-500 px-3 py-4">
-        {product.quantity}
-      </p>
-      <p className="col-span-1 border border-red-500 px-3 py-4">
-        {dayjs(product.createdDate).format("D MMM YYYY")}
-      </p>
+      <Table>
+        <TableHeader className="bg-primary-color-1 text-white">
+          <TableRow>
+            <TableHead>Product Name</TableHead>
+            <TableHead>Quantity</TableHead>
+            <TableHead>Last Updated</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {products.map((product) => {
+            return (
+              <TableRow key={product.id}>
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.quantity}</TableCell>
+                <TableCell>
+                  {dayjs(product.createdDate).format("D MMM YYYY")}
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
     </div>
   );
 }

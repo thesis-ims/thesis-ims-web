@@ -6,7 +6,7 @@ export default async function Products() {
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-4xl font-bold">Products</h1>
-      {JSON.stringify(products.data)}
+      {/* {JSON.stringify(products.data)} */}
       <div>stocks section</div>
       <ProductListTable products={products.data.object} />
     </div>
