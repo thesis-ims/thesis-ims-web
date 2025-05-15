@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -52,7 +53,9 @@ export default function ProductListTable({
                 return <ProductTableRow product={product} />;
               })
             ) : (
-              <div>empty products</div>
+              <TableRow>
+                <TableCell>empty state</TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>

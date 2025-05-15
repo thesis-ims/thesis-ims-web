@@ -3,6 +3,7 @@ import ImageUploader from "@/components/ui/image-uploader";
 import InputText from "@/components/ui/input-text";
 import { AddProductProps } from "@/interfaces/product";
 import { addProduct } from "@/lib/api/product";
+import { convertFilesToBytes } from "@/utils/file-to-byte-converter";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -43,6 +44,13 @@ export default function AddProductForm({
     toast(addProductResponse.message);
     closeDialog();
   }
+
+  async function getArrayofBytes(data: File[]) {
+    const imageBytes = await convertFilesToBytes(data);
+    console.log(imageBytes);
+    return imageBytes;
+  }
+
   return (
     <form
       className="border-gray-20 flex flex-col items-center gap-8 border-b"
@@ -52,7 +60,11 @@ export default function AddProductForm({
       }}
     >
       <div className="flex w-full flex-col items-center gap-4">
-        <ImageUploader />
+        <ImageUploader
+          onChange={(data) => {
+            getArrayofBytes(data);
+          }}
+        />
 
         {/* Name Field */}
         <div className="flex w-full items-center justify-between">
