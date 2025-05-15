@@ -4,7 +4,6 @@ import Button from "@/components/ui/button";
 import CalenderDatePicker from "@/components/ui/calender-date-picker";
 import InputText from "@/components/ui/input-text";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import SnackbarToast from "@/components/ui/snackbar-toast";
 import { FormDataErrorProps, RegisterBodyProps } from "@/interfaces/auth";
 import { register } from "@/lib/api/auth";
 import { getZodErrorMessage, registerSchema } from "@/utils/zodValidations";
@@ -208,7 +207,6 @@ export default function RegisterForm() {
           </Link>
         </div>
       </div>
-      <SnackbarToast open={open} setOpen={setOpen} />
     </>
   );
 }

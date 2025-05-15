@@ -14,6 +14,14 @@ import { ProductProps } from "@/interfaces/product";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import AddProductForm from "./add-product-form";
+import { HorizontalOptionsIcon } from "@/components/ui/icons";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown";
 
 export default function ProductListTable({
   products,
@@ -44,6 +52,7 @@ export default function ProductListTable({
               <TableHead>Product Name</TableHead>
               <TableHead>Quantity</TableHead>
               <TableHead>Last Updated</TableHead>
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -54,6 +63,20 @@ export default function ProductListTable({
                   <TableCell>{product.quantity}</TableCell>
                   <TableCell>
                     {dayjs(product.createdDate).format("D MMM YYYY")}
+                  </TableCell>
+                  <TableCell className="h-5 w-5">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <HorizontalOptionsIcon className="h-5 w-5 cursor-pointer" />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="">
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem className="">
+                            Delete Product
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </TableCell>
                 </TableRow>
               );
