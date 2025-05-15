@@ -19,7 +19,7 @@ export async function getUserbyUserId(userId: string) {
     console.log(error, "error get profile by id");
     return {
       data: {} as ProfileProps,
-      message: error.response.data.message,
+      message: error?.response?.data?.message,
       error: true,
     };
   }
@@ -58,7 +58,7 @@ export async function getUserProfile() {
     console.log(error, "error get profile by id");
     return {
       data: {} as ProfileProps,
-      message: error.response.data.message,
+      message: error?.response?.data?.message,
       error: true,
     };
   }

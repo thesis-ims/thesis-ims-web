@@ -23,7 +23,7 @@ export async function register(body: RegisterBodyProps) {
   } catch (error: any) {
     console.log(error, "error register response");
     return {
-      message: error.response.data.message,
+      message: error?.response?.data?.message,
       error: true,
     };
   }
@@ -45,7 +45,7 @@ export async function login(body: LoginBodyProps) {
     console.log(error, "error login response");
     return {
       data: {} as LoginAPIResponse,
-      message: error.response.data.message,
+      message: error?.response?.data?.message,
       error: true,
     };
   }

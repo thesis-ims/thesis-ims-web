@@ -47,9 +47,13 @@ export default function ProductListTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((product) => {
-              return <ProductTableRow product={product} />;
-            })}
+            {products?.length > 0 ? (
+              products?.map((product) => {
+                return <ProductTableRow product={product} />;
+              })
+            ) : (
+              <div>empty products</div>
+            )}
           </TableBody>
         </Table>
       </div>

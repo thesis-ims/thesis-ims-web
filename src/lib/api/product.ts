@@ -25,7 +25,7 @@ export async function getAllProducts() {
     console.log(error, "error get all product id");
     return {
       data: {} as GetAllProductProps,
-      message: error.response.data.message,
+      message: error?.response?.data?.message || "",
       error: true,
     };
   }
@@ -53,7 +53,7 @@ export async function addProduct(formData: AddProductProps) {
     console.log(error, "error add product");
     return {
       data: {},
-      message: error.response.data.message,
+      message: error?.response?.data?.message,
       error: true,
     };
   }
@@ -76,7 +76,7 @@ export async function deleteProduct(id: string) {
   } catch (error: any) {
     console.log(error, "error add product");
     return {
-      message: error.response.data.message,
+      message: error?.response?.data?.message,
       error: true,
     };
   }
