@@ -1,4 +1,5 @@
 import Button from "@/components/ui/button";
+import ImageUploader from "@/components/ui/image-uploader";
 import InputText from "@/components/ui/input-text";
 import { AddProductProps } from "@/interfaces/product";
 import { addProduct } from "@/lib/api/product";
@@ -52,36 +53,42 @@ export default function AddProductForm({
     >
       <div className="flex w-full flex-col items-center gap-4">
         {/* Name Field */}
-        <div className="flex w-full items-center gap-14">
-          <p>Nama</p>
-          <InputText
-            className="w-full"
-            name="name"
-            placeholder="Enter product name"
-            value={formData.name}
-            onChange={handleOnChangeInput}
-            // errorMessages={getZodErrorMessage({
-            //   errors: errors,
-            //   path: "username",
-            // })}
-          />
+        <div className="flex w-full items-center justify-between">
+          <p>Product Name</p>
+          <div className="w-3/4">
+            <InputText
+              name="name"
+              className="w-full"
+              placeholder="Enter product name"
+              value={formData.name}
+              onChange={handleOnChangeInput}
+              // errorMessages={getZodErrorMessage({
+              //   errors: errors,
+              //   path: "username",
+              // })}
+            />
+          </div>
         </div>
 
         {/* Quantity Field */}
-        <div className="flex w-full items-center gap-14">
+        <div className="flex w-full items-center justify-between">
           <p>Quantity</p>
-          <InputText
-            className="w-full"
-            name="quantity"
-            placeholder="Enter current product quantity"
-            value={formData.quantity}
-            onChange={handleOnChangeInput}
-            // errorMessages={getZodErrorMessage({
-            //   errors: errors,
-            //   path: "password",
-            // })}
-          />
+          <div className="w-3/4">
+            <InputText
+              className="w-full"
+              name="quantity"
+              placeholder="Enter current product quantity"
+              value={formData.quantity}
+              onChange={handleOnChangeInput}
+              // errorMessages={getZodErrorMessage({
+              //   errors: errors,
+              //   path: "password",
+              // })}
+            />
+          </div>
         </div>
+
+        <ImageUploader />
       </div>
 
       <Button
