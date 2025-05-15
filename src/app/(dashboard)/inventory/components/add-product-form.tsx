@@ -52,6 +52,8 @@ export default function AddProductForm({
       }}
     >
       <div className="flex w-full flex-col items-center gap-4">
+        <ImageUploader />
+
         {/* Name Field */}
         <div className="flex w-full items-center justify-between">
           <p>Product Name</p>
@@ -87,8 +89,6 @@ export default function AddProductForm({
             />
           </div>
         </div>
-
-        <ImageUploader />
       </div>
 
       <Button
