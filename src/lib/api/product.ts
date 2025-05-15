@@ -58,3 +58,26 @@ export async function addProduct(formData: AddProductProps) {
     };
   }
 }
+export async function deleteProduct(id: string) {
+  try {
+    let deleteProductResponse = await middlewareAxios.post(
+      `/api/products/delete`,
+      {
+        productId: id,
+      },
+    );
+
+    console.log(deleteProductResponse, "delete product response");
+    revalidatePath("/inventory");
+    return {
+      message: deleteProductResponse.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error add product");
+    return {
+      message: error.response.data.message,
+      error: true,
+    };
+  }
+}

@@ -5,23 +5,14 @@ import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { ProductProps } from "@/interfaces/product";
-import dayjs from "dayjs";
 import React, { useState } from "react";
 import AddProductForm from "./add-product-form";
-import { HorizontalOptionsIcon } from "@/components/ui/icons";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown";
+import ProductTableRow from "./product-table-row";
 
 export default function ProductListTable({
   products,
@@ -57,29 +48,7 @@ export default function ProductListTable({
           </TableHeader>
           <TableBody>
             {products.map((product) => {
-              return (
-                <TableRow key={product.id}>
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>{product.quantity}</TableCell>
-                  <TableCell>
-                    {dayjs(product.createdDate).format("D MMM YYYY")}
-                  </TableCell>
-                  <TableCell className="h-5 w-5">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <HorizontalOptionsIcon className="h-5 w-5 cursor-pointer" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="">
-                        <DropdownMenuGroup>
-                          <DropdownMenuItem className="">
-                            Delete Product
-                          </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              );
+              return <ProductTableRow product={product} />;
             })}
           </TableBody>
         </Table>
