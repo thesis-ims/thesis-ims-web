@@ -125,9 +125,9 @@ export default function ImagePicker({
 
       {/* Image preview with + button */}
       {images.length > 0 && (
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           {images.map((image) => (
-            <div key={image.id} className="relative">
+            <div key={image.id} className="relative shrink-0">
               <Image
                 height={0}
                 width={0}
@@ -146,12 +146,14 @@ export default function ImagePicker({
             </div>
           ))}
 
-          <div onClick={handleButtonClick} className="flex flex-col gap-1">
-            <RoundedPlusIcon className="h-7 w-7" />
-            <p className="text-xs">
-              ({images.length}/{maxFiles})
-            </p>
-          </div>
+          {images.length < maxFiles && (
+            <div onClick={handleButtonClick} className="flex flex-col gap-1">
+              <RoundedPlusIcon className="h-7 w-7" />
+              <p className="text-xs">
+                ({images.length}/{maxFiles})
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>
