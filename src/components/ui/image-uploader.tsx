@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { X, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { CloseIcon, RoundedPlusIcon } from "./icons";

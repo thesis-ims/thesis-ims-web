@@ -47,8 +47,12 @@ export default function AddProductForm({
 
   async function getArrayofBytes(data: File[]) {
     const imageBytes = await convertFilesToBytes(data);
-    console.log(imageBytes);
-    return imageBytes;
+    // console.log(imageBytes);
+    setFormData((prev) => ({
+      ...prev,
+      images: imageBytes,
+    }));
+    // return imageBytes;
   }
 
   return (
@@ -59,7 +63,7 @@ export default function AddProductForm({
         handleSubmitAddProduct();
       }}
     >
-      <div className="flex w-full flex-col items-center gap-4">
+      <div className="flex w-full flex-col items-center gap-6">
         <ImageUploader
           onChange={(data) => {
             getArrayofBytes(data);

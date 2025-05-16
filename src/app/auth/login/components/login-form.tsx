@@ -60,7 +60,7 @@ export default function LoginForm() {
       {/* login page header */}
 
       <div className="flex flex-col items-center gap-2">
-        <h1 className="text-[42px] font-bold">Welcome Back</h1>
+        <h1 className="text-[42px] font-bold">Welcome to Stokku!</h1>
         <p className="text-lg">Please log in to continue</p>
       </div>
 
