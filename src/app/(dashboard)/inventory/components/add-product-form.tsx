@@ -1,9 +1,9 @@
 import Button from "@/components/ui/button";
-import ImageUploader from "@/components/ui/image-uploader";
+import ImagePicker from "@/components/ui/image-uploader";
 import InputText from "@/components/ui/input-text";
 import { AddProductProps } from "@/interfaces/product";
 import { addProduct } from "@/lib/api/product";
-import { convertFilesToBytes } from "@/utils/file-to-byte-converter";
+import { convertFilesToBase64 } from "@/utils/file-to-byte-converter";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -46,13 +46,12 @@ export default function AddProductForm({
   }
 
   async function getArrayofBytes(data: File[]) {
-    const imageBytes = await convertFilesToBytes(data);
-    // console.log(imageBytes);
+    const base64Image = await convertFilesToBase64(data);
+    console.log(base64Image);
     setFormData((prev) => ({
       ...prev,
-      images: imageBytes,
+      images: base64Image,
     }));
-    // return imageBytes;
   }
 
   return (
@@ -64,7 +63,7 @@ export default function AddProductForm({
       }}
     >
       <div className="flex w-full flex-col items-center gap-6">
-        <ImageUploader
+        <ImagePicker
           onChange={(data) => {
             getArrayofBytes(data);
           }}

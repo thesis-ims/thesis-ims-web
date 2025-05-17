@@ -1,27 +1,26 @@
-export async function convertFilesToBytes(
-  files: File[],
-): Promise<Uint8Array[]> {
-  const byteArrays: Uint8Array[] = [];
+export async function convertFilesToBase64(files: File[]): Promise<string[]> {
+  const base64Strings: string[] = [];
 
   // Process each file sequentially
   for (const file of files) {
-    const bytes = await fileToBytes(file);
-    byteArrays.push(bytes);
+    const base64 = await fileToBase64(file);
+    base64Strings.push(base64);
   }
 
-  return byteArrays;
+  return base64Strings;
 }
 
-function fileToBytes(file: File): Promise<Uint8Array> {
+function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      if (reader.result instanceof ArrayBuffer) {
-        const bytes = new Uint8Array(reader.result);
-        resolve(bytes);
+      if (typeof reader.result === "string") {
+        // Extract just the base64 part by removing the data URL prefix
+        const base64String = reader.result.split(",")[1];
+        resolve(base64String);
       } else {
-        reject(new Error("Failed to convert file to bytes"));
+        reject(new Error("Failed to convert file to base64"));
       }
     };
 
@@ -29,6 +28,6 @@ function fileToBytes(file: File): Promise<Uint8Array> {
       reject(reader.error);
     };
 
-    reader.readAsArrayBuffer(file);
+    reader.readAsDataURL(file);
   });
 }

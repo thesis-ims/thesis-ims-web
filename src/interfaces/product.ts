@@ -1,7 +1,7 @@
 export interface AddProductProps {
   name: string;
   quantity: number;
-  images: Uint8Array[];
+  images: string[];
 }
 
 export interface ProductProps {
