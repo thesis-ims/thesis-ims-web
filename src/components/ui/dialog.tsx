@@ -55,10 +55,14 @@ const DialogHeader = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { showClose?: boolean }) => (
   <div
-    className={cn("flex items-center justify-between", className)}
+    className={cn(
+      "flex items-center",
+      showClose ? "justify-between" : "justify-center",
+      className,
+    )}
     {...props}
   >
-    <div className="flex-1 space-y-1.5">{children}</div>
+    <div className="text-2xl font-bold">{children}</div>
     {showClose && (
       <DialogPrimitive.Close className="data-[state=open]:text-muted-foreground cursor-pointer">
         <CloseIcon className="h-8 w-8" />
