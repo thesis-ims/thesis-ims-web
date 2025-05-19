@@ -27,9 +27,11 @@ export default function ProductTableRow({
 
   async function deleteProductHandler() {
     const deleteResponse = await deleteProduct(product.id);
+    console.log(deleteResponse);
 
     if (deleteResponse.error) {
       toast.error(deleteResponse.message);
+      return;
     }
     toast.success(deleteResponse.message);
   }
@@ -65,7 +67,9 @@ export default function ProductTableRow({
         description={`Are you sure you want to delete ${product.name}?`}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        confirmAction={() => {}}
+        confirmAction={() => {
+          deleteProductHandler();
+        }}
       />
     </>
   );

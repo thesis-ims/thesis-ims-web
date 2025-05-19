@@ -55,6 +55,17 @@ export default function ProductListTable({
             ) : (
               <TableRow>
                 <TableCell>empty state</TableCell>
+                <ProductTableRow
+                  product={{
+                    createdBy: "",
+                    createdDate: "",
+                    lut: "",
+                    id: "",
+                    images: [],
+                    name: "test product",
+                    quantity: 10,
+                  }}
+                />
               </TableRow>
             )}
           </TableBody>
