@@ -21,9 +21,9 @@ export default function ConfirmationDialog({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="flex flex-col gap-9">
         <DialogHeader showClose={false}>{title}</DialogHeader>
-        <p>{description}</p>
+        <p className="text-center">{description}</p>
 
-        <div className="flex gap-6">
+        <div className="flex w-full justify-end gap-6">
           <Button onClick={confirmAction} size={"small"}>
             Yes
           </Button>
