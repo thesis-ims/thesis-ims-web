@@ -55,6 +55,8 @@ export default function ProductListTable({
             ) : (
               <TableRow>
                 <TableCell>empty state</TableCell>
+
+                {/* dummy datas */}
                 <ProductTableRow
                   product={{
                     createdBy: "",

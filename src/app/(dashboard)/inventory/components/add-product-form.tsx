@@ -3,7 +3,7 @@ import ImagePicker from "@/components/ui/image-uploader";
 import InputText from "@/components/ui/input-text";
 import { AddProductProps } from "@/interfaces/product";
 import { addProduct } from "@/lib/api/product";
-import { convertFilesToBase64 } from "@/utils/file-to-byte-converter";
+import { convertFilesToBase64 } from "@/utils/file-to-base64-converter";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 

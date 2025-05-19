@@ -2,7 +2,6 @@
 
 import Button from "@/components/ui/button";
 import ConfirmationDialog from "@/components/ui/confirmation-dialog";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,8 +13,10 @@ import { HorizontalOptionsIcon } from "@/components/ui/icons";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { ProductProps } from "@/interfaces/product";
 import { deleteProduct } from "@/lib/api/product";
+import { base64StringDecoder } from "@/utils/base64-string-encoder";
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function ProductTableRow({
@@ -31,14 +32,31 @@ export default function ProductTableRow({
 
     if (deleteResponse.error) {
       toast.error(deleteResponse.message);
+      setIsOpen(false);
       return;
     }
     toast.success(deleteResponse.message);
+    setIsOpen(false);
   }
+
+  // useEffect(() => {
+  //   console.log(product.images);
+  // }, []);
 
   return (
     <>
       <TableRow key={product.id}>
+        <TableCell>
+          {
+            <Image
+              src={base64StringDecoder(product.images[0])}
+              alt="product image"
+              width={0}
+              height={0}
+              className="h-fit w-fit"
+            />
+          }
+        </TableCell>
         <TableCell>{product.name}</TableCell>
         <TableCell>{product.quantity}</TableCell>
         <TableCell>{dayjs(product.createdDate).format("D MMM YYYY")}</TableCell>
