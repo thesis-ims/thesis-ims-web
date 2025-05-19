@@ -15,6 +15,7 @@ import { ProductProps } from "@/interfaces/product";
 import { deleteProduct } from "@/lib/api/product";
 import { base64StringDecoder } from "@/utils/base64-string-encoder";
 import dayjs from "dayjs";
+import _ from "lodash";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -49,11 +50,11 @@ export default function ProductTableRow({
         <TableCell>
           {
             <Image
-              src={base64StringDecoder(product.images[0])}
+              src={base64StringDecoder(_.first(product?.images!) as string)}
               alt="product image"
               width={0}
               height={0}
-              className="h-fit w-fit"
+              className="h-10 w-10"
             />
           }
         </TableCell>
