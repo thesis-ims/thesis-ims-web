@@ -19,7 +19,7 @@ const genderList = [
 ];
 
 export default function RegisterForm() {
-  const [open, setOpen] = useState(false);
+  const router = useRouter();
   const [formData, setFormData] = useState<RegisterBodyProps>({
     username: "",
     email: "",
@@ -31,8 +31,6 @@ export default function RegisterForm() {
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[],
   );
-
-  const router = useRouter();
 
   function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;

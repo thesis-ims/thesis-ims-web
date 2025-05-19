@@ -2,7 +2,7 @@ import { cn } from "@/utils/tw-merge";
 import React, { InputHTMLAttributes } from "react";
 
 interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
-  errorMessages?: string[] | null;
+  errorMessages?: string;
   label?: string;
   isPassword?: boolean;
   placeholder?: string;
@@ -42,13 +42,14 @@ export default function InputText({
           <p className="text-gray-60 text-xs">{helperText}</p>
         )}
 
-        {errorMessages && (
+        {/* {errorMessages && (
           <div className="flex items-center gap-1 text-red-600">
             {errorMessages?.map((error) => {
               return <p>{error}</p>;
             })}
           </div>
-        )}
+        )} */}
+        {errorMessages && <p className="text-red-600">{errorMessages}</p>}
       </div>
     </div>
   );

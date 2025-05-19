@@ -22,14 +22,15 @@ export function getZodErrorMessage({
   path: string;
   errors: FormDataErrorProps[];
 }) {
-  const errorMessages = errors.map((error) => {
+  const errorMessages = errors.find((error) => {
     if (path === error.path) {
       return error.message;
     }
   });
-  if (errorMessages.length > 0) {
-    return errorMessages as string[];
+  console.log(errorMessages);
+  if (errorMessages) {
+    return errorMessages.message;
   } else {
-    return null;
+    return "";
   }
 }
