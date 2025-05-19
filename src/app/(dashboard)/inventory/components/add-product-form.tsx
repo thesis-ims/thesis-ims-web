@@ -1,4 +1,4 @@
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import ImagePicker from "@/components/ui/image-uploader";
 import InputText from "@/components/ui/input-text";
 import { AddProductProps } from "@/interfaces/product";

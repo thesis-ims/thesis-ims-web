@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { LoginAPIResponse } from "@/interfaces/auth";
 import { ProfileProps } from "@/interfaces/profile";
 import { logout } from "@/lib/auth/auth-cookie-handler";

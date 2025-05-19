@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import {
   Table,
@@ -41,7 +41,6 @@ export default function ProductListTable({
         <Table>
           <TableHeader className="bg-primary-color-1 text-white">
             <TableRow>
-              <TableHead>Product Images</TableHead>
               <TableHead>Product Name</TableHead>
               <TableHead>Quantity</TableHead>
               <TableHead>Last Updated</TableHead>

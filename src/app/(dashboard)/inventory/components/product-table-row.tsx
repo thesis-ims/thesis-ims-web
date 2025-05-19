@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import ConfirmationDialog from "@/components/ui/confirmation-dialog";
 import {
   DropdownMenu,
@@ -48,17 +48,17 @@ export default function ProductTableRow({
     <>
       <TableRow key={product.id}>
         <TableCell>
-          {
+          <div className="flex items-center gap-2">
             <Image
               src={base64StringDecoder(_.first(product?.images!) as string)}
               alt="product image"
               width={0}
               height={0}
-              className="h-10 w-10"
+              className="h-10 w-10 rounded-sm object-cover"
             />
-          }
+            <p>{product.name}</p>
+          </div>
         </TableCell>
-        <TableCell>{product.name}</TableCell>
         <TableCell>{product.quantity}</TableCell>
         <TableCell>{dayjs(product.createdDate).format("D MMM YYYY")}</TableCell>
         <TableCell className="h-5 w-5">
@@ -67,15 +67,21 @@ export default function ProductTableRow({
               <HorizontalOptionsIcon className="h-5 w-5 cursor-pointer" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="">
-              <DropdownMenuGroup>
-                <DropdownMenuItem
-                  onClick={() => {
-                    setIsOpen(true);
-                  }}
-                >
-                  Delete Product
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
+              <DropdownMenuItem
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                Delete
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                Edit
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </TableCell>
