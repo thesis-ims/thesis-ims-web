@@ -5,7 +5,8 @@ import InputText from "@/components/ui/input-text";
 import { FormDataErrorProps, LoginBodyProps } from "@/interfaces/auth";
 import { login } from "@/lib/api/auth";
 import { setAuthCookie } from "@/lib/auth/auth-cookie-handler";
-import { getZodErrorMessage, loginSchema } from "@/utils/zodValidations";
+import { loginSchema } from "@/utils/zod/zod-schemas";
+import { getZodErrorMessage, parseZodIssue } from "@/utils/zod/zod-utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -30,15 +31,7 @@ export default function LoginForm() {
     const validationResult = loginSchema.safeParse(formData);
 
     if (!validationResult.success) {
-      const issues: FormDataErrorProps[] = validationResult.error.issues.map(
-        (issue) => {
-          return {
-            path: issue.path[0] as string,
-            message: issue.message,
-          };
-        },
-      );
-      setErrors(issues);
+      setErrors(parseZodIssue(validationResult.error.issues));
       toast.error("Lengkapi Form Pengisian");
       return;
     }

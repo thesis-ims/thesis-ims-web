@@ -14,23 +14,3 @@ export const registerSchema = z.object({
   phoneNumber: z.string().min(1, { message: "Wajib diisi" }),
   dob: z.number({ message: "Wajib diisi" }),
 });
-
-export function getZodErrorMessage({
-  path,
-  errors,
-}: {
-  path: string;
-  errors: FormDataErrorProps[];
-}) {
-  const errorMessages = errors.find((error) => {
-    if (path === error.path) {
-      return error.message;
-    }
-  });
-  console.log(errorMessages);
-  if (errorMessages) {
-    return errorMessages.message;
-  } else {
-    return "";
-  }
-}

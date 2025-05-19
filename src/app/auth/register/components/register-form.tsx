@@ -6,7 +6,8 @@ import InputText from "@/components/ui/input-text";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FormDataErrorProps, RegisterBodyProps } from "@/interfaces/auth";
 import { register } from "@/lib/api/auth";
-import { getZodErrorMessage, registerSchema } from "@/utils/zodValidations";
+import { registerSchema } from "@/utils/zod/zod-schemas";
+import { getZodErrorMessage, parseZodIssue } from "@/utils/zod/zod-utils";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -41,15 +42,7 @@ export default function RegisterForm() {
     const validationResult = registerSchema.safeParse(formData);
 
     if (!validationResult.success) {
-      const issues: FormDataErrorProps[] = validationResult.error.issues.map(
-        (issue) => {
-          return {
-            path: issue.path[0] as string,
-            message: issue.message,
-          };
-        },
-      );
-      setErrors(issues);
+      setErrors(parseZodIssue(validationResult.error.issues));
       toast.error("Lengkapi Form Pengisian");
       return;
     }
