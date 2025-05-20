@@ -40,14 +40,6 @@ const sidebarItems: SidebarItem[] = [
     href: "/orders",
     icon: <CartIcon className="h-6 w-6" />,
   },
-  {
-    label: "Stocks",
-    href: "/stocks",
-  },
-  {
-    label: "Orders",
-    href: "/products",
-  },
 ];
 
 function SidebarItem({ item }: { item: SidebarItem }) {
