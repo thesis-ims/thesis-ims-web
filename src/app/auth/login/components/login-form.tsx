@@ -2,11 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import InputText from "@/components/ui/input-text";
-import { FormDataErrorProps, LoginBodyProps } from "@/interfaces/auth";
+import { LoginBodyProps } from "@/interfaces/auth";
 import { login } from "@/lib/api/auth";
 import { setAuthCookie } from "@/lib/auth/auth-cookie-handler";
 import { loginSchema } from "@/utils/zod/zod-schemas";
-import { getZodErrorMessage, parseZodIssue } from "@/utils/zod/zod-utils";
+import {
+  FormDataErrorProps,
+  getZodErrorMessage,
+  parseZodIssue,
+} from "@/utils/zod/zod-utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";

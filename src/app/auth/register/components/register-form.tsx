@@ -4,10 +4,14 @@ import { Button } from "@/components/ui/button";
 import CalenderDatePicker from "@/components/ui/calender-date-picker";
 import InputText from "@/components/ui/input-text";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { FormDataErrorProps, RegisterBodyProps } from "@/interfaces/auth";
+import { RegisterBodyProps } from "@/interfaces/auth";
 import { register } from "@/lib/api/auth";
 import { registerSchema } from "@/utils/zod/zod-schemas";
-import { getZodErrorMessage, parseZodIssue } from "@/utils/zod/zod-utils";
+import {
+  FormDataErrorProps,
+  getZodErrorMessage,
+  parseZodIssue,
+} from "@/utils/zod/zod-utils";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

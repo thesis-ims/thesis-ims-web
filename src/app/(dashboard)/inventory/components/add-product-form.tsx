@@ -4,6 +4,8 @@ import InputText from "@/components/ui/input-text";
 import { AddProductProps } from "@/interfaces/product";
 import { addProduct } from "@/lib/api/product";
 import { convertFilesToBase64 } from "@/utils/file-to-base64-converter";
+import { addProductSchema } from "@/utils/zod/zod-schemas";
+import { FormDataErrorProps, parseZodIssue } from "@/utils/zod/zod-utils";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -15,33 +17,29 @@ export default function AddProductForm({
   const [formData, setFormData] = useState<AddProductProps>(
     {} as AddProductProps,
   );
-
-  function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }
+  const [errors, setErrors] = useState<FormDataErrorProps[]>(
+    [] as FormDataErrorProps[],
+  );
 
   async function handleSubmitAddProduct() {
-    // const validationResult = loginSchema.safeParse(formData);
+    console.log(formData);
+    const validationResult = addProductSchema.safeParse(formData);
+    console.log(validationResult);
 
-    // if (!validationResult.success) {
-    //   const issues: FormDataErrorProps[] = validationResult.error.issues.map(
-    //     (issue) => {
-    //       return {
-    //         path: issue.path[0] as string,
-    //         message: issue.message,
-    //       };
-    //     },
-    //   );
-    //   setErrors(issues);
-    //   alert("lengkapi form data");
-    //   return;
-    // }
+    if (!validationResult.success) {
+      setErrors(parseZodIssue(validationResult.error.issues));
+      toast.error("Lengkapi form pengisian produk");
+      return;
+    }
+    setErrors([]);
 
-    // setErrors([]);
     const addProductResponse = await addProduct(formData);
-
-    toast(addProductResponse.message);
+    if (addProductResponse.error) {
+      toast.error(addProductResponse.message);
+      closeDialog();
+      return;
+    }
+    toast.success(addProductResponse.message);
     closeDialog();
   }
 
@@ -52,6 +50,11 @@ export default function AddProductForm({
       ...prev,
       images: base64Image,
     }));
+  }
+
+  function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
   return (

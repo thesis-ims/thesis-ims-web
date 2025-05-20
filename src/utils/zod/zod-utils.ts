@@ -1,5 +1,9 @@
-import { FormDataErrorProps } from "@/interfaces/auth";
 import { z, ZodIssue } from "zod";
+
+export interface FormDataErrorProps {
+  path: string;
+  message: string;
+}
 
 export function getZodErrorMessage({
   path,
