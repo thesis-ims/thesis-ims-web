@@ -21,6 +21,7 @@ import { base64StringDecoder } from "@/utils/base64-string-encoder";
 import dayjs from "dayjs";
 import _ from "lodash";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -29,6 +30,7 @@ export default function ProductTableRow({
 }: {
   product: ProductProps;
 }) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   async function deleteProductHandler() {
@@ -43,10 +45,6 @@ export default function ProductTableRow({
     toast.success(deleteResponse.message);
     setIsOpen(false);
   }
-
-  // useEffect(() => {
-  //   console.log(product.images);
-  // }, []);
 
   return (
     <>
@@ -73,7 +71,7 @@ export default function ProductTableRow({
             <DropdownMenuContent align="end">
               <DropdownMenuItem
                 onClick={() => {
-                  setIsOpen(true);
+                  router.push(`/edit-product/${product.id}`);
                 }}
               >
                 <PencilIcon />
