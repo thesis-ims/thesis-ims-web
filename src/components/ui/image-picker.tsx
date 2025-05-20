@@ -1,19 +1,24 @@
-import { useState, useRef } from "react";
+"use client";
+
+import { useState, useRef, useEffect } from "react";
 import { Upload } from "lucide-react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { CloseIcon, RoundedPlusIcon } from "./icons";
+import { convertFileToBase64 } from "@/utils/file-to-base64-converter";
+import { base64StringDecoder } from "@/utils/base64-string-encoder";
 
 // Define TypeScript types
 type ImageFile = {
   id: string;
-  file: File;
+  file?: File;
   preview: string;
+  base64: string;
 };
 
 type ImagePickerProps = {
   maxFiles?: number;
-  onChange?: (files: File[]) => void;
+  onChange?: (base64s: string[]) => void;
   initImages?: string[];
 };
 
@@ -25,7 +30,7 @@ export default function ImagePicker({
   const [images, setImages] = useState<ImageFile[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
 
     if (!files || files.length === 0) return;
@@ -42,11 +47,14 @@ export default function ImagePicker({
     }
 
     // Create new image objects with previews
-    const newImages = newFiles.map((file) => ({
-      id: crypto.randomUUID(),
-      file,
-      preview: URL.createObjectURL(file),
-    }));
+    const newImages = await Promise.all(
+      newFiles.map(async (file) => ({
+        id: crypto.randomUUID(),
+        file,
+        preview: URL.createObjectURL(file),
+        base64: await convertFileToBase64(file),
+      })),
+    );
 
     // Update state
     const updatedImages = [...images, ...newImages];
@@ -54,14 +62,14 @@ export default function ImagePicker({
 
     // Call onChange if provided
     if (onChange) {
-      onChange(updatedImages.map((img) => img.file));
+      onChange(updatedImages.map((img) => img.base64));
     }
 
     // Reset file input
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  };
+  }
 
   const handleDeleteImage = (id: string) => {
     // Find the image to delete
@@ -78,15 +86,8 @@ export default function ImagePicker({
 
     // Call onChange if provided
     if (onChange) {
-      onChange(updatedImages.map((img) => img.file));
+      onChange(updatedImages.map((img) => img.base64));
     }
-  };
-
-  // Clean up object URLs on unmount
-  const cleanupPreviews = () => {
-    images.forEach((image) => {
-      URL.revokeObjectURL(image.preview);
-    });
   };
 
   // Trigger file input click
@@ -95,6 +96,19 @@ export default function ImagePicker({
       fileInputRef.current.click();
     }
   };
+
+  useEffect(() => {
+    if (initImages && initImages.length > 0) {
+      const newImages: ImageFile[] = initImages.map((image) => {
+        return {
+          base64: image,
+          id: crypto.randomUUID(),
+          preview: base64StringDecoder(image),
+        };
+      });
+      setImages(newImages);
+    }
+  }, [initImages]);
 
   return (
     <div className="w-full">

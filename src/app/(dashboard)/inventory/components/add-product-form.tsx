@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import ImagePicker from "@/components/ui/image-uploader";
+import ImagePicker from "@/components/ui/image-picker";
 import InputText from "@/components/ui/input-text";
 import { AddProductProps, ProductProps } from "@/interfaces/product";
 import { addProduct } from "@/lib/api/product";
-import { convertFilesToBase64 } from "@/utils/file-to-base64-converter";
+import { convertFileToBase64 } from "@/utils/file-to-base64-converter";
 import { addProductSchema } from "@/utils/zod/zod-schemas";
 import {
   FormDataErrorProps,
@@ -29,12 +29,10 @@ export default function AddProductForm({
     [] as FormDataErrorProps[],
   );
 
-  async function getArrayofBytes(data: File[]) {
-    const base64Image = await convertFilesToBase64(data);
-    console.log(base64Image);
+  async function insertImageHandler(data: string[]) {
     setFormData((prev) => ({
       ...prev,
-      images: base64Image,
+      images: data,
     }));
   }
 
@@ -91,7 +89,7 @@ export default function AddProductForm({
             <ImagePicker
               initImages={formData.images}
               onChange={(data) => {
-                getArrayofBytes(data);
+                insertImageHandler(data);
               }}
             />
             <p className="text-red-600">
