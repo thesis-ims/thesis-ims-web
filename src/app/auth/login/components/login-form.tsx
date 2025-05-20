@@ -18,10 +18,9 @@ import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const router = useRouter();
-  const [formData, setFormData] = useState<LoginBodyProps>({
-    password: "",
-    username: "",
-  } as LoginBodyProps);
+  const [formData, setFormData] = useState<LoginBodyProps>(
+    {} as LoginBodyProps,
+  );
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[],
   );

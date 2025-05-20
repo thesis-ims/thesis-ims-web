@@ -5,7 +5,11 @@ import { AddProductProps } from "@/interfaces/product";
 import { addProduct } from "@/lib/api/product";
 import { convertFilesToBase64 } from "@/utils/file-to-base64-converter";
 import { addProductSchema } from "@/utils/zod/zod-schemas";
-import { FormDataErrorProps, parseZodIssue } from "@/utils/zod/zod-utils";
+import {
+  FormDataErrorProps,
+  getZodErrorMessage,
+  parseZodIssue,
+} from "@/utils/zod/zod-utils";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -21,10 +25,19 @@ export default function AddProductForm({
     [] as FormDataErrorProps[],
   );
 
+  async function getArrayofBytes(data: File[]) {
+    const base64Image = await convertFilesToBase64(data);
+    console.log(base64Image);
+    setFormData((prev) => ({
+      ...prev,
+      images: base64Image,
+    }));
+  }
+
   async function handleSubmitAddProduct() {
-    console.log(formData);
+    // console.log(formData, "formdata");
     const validationResult = addProductSchema.safeParse(formData);
-    console.log(validationResult);
+    // console.log(validationResult, "validate result");
 
     if (!validationResult.success) {
       setErrors(parseZodIssue(validationResult.error.issues));
@@ -43,18 +56,12 @@ export default function AddProductForm({
     closeDialog();
   }
 
-  async function getArrayofBytes(data: File[]) {
-    const base64Image = await convertFilesToBase64(data);
-    console.log(base64Image);
-    setFormData((prev) => ({
-      ...prev,
-      images: base64Image,
-    }));
-  }
-
   function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    const parsedValue =
+      type === "number" ? (value === "" ? "" : Number(value)) : value;
+
+    setFormData((prev) => ({ ...prev, [name]: parsedValue }));
   }
 
   return (
@@ -66,11 +73,19 @@ export default function AddProductForm({
       }}
     >
       <div className="flex w-full flex-col items-center gap-6">
-        <ImagePicker
-          onChange={(data) => {
-            getArrayofBytes(data);
-          }}
-        />
+        <div className="flex w-full flex-col gap-2">
+          <ImagePicker
+            onChange={(data) => {
+              getArrayofBytes(data);
+            }}
+          />
+          <p className="text-red-600">
+            {getZodErrorMessage({
+              errors: errors,
+              path: "images",
+            })}
+          </p>
+        </div>
 
         {/* Name Field */}
         <div className="flex w-full items-center justify-between">
@@ -82,10 +97,10 @@ export default function AddProductForm({
               placeholder="Enter product name"
               value={formData.name}
               onChange={handleOnChangeInput}
-              // errorMessages={getZodErrorMessage({
-              //   errors: errors,
-              //   path: "username",
-              // })}
+              errorMessages={getZodErrorMessage({
+                errors: errors,
+                path: "name",
+              })}
             />
           </div>
         </div>
@@ -97,13 +112,14 @@ export default function AddProductForm({
             <InputText
               className="w-full"
               name="quantity"
+              type="number"
               placeholder="Enter current product quantity"
               value={formData.quantity}
               onChange={handleOnChangeInput}
-              // errorMessages={getZodErrorMessage({
-              //   errors: errors,
-              //   path: "password",
-              // })}
+              errorMessages={getZodErrorMessage({
+                errors: errors,
+                path: "quantity",
+              })}
             />
           </div>
         </div>

@@ -25,13 +25,9 @@ const genderList = [
 
 export default function RegisterForm() {
   const router = useRouter();
-  const [formData, setFormData] = useState<RegisterBodyProps>({
-    username: "",
-    email: "",
-    password: "",
-    phoneNumber: "",
-    gender: "",
-  } as RegisterBodyProps);
+  const [formData, setFormData] = useState<RegisterBodyProps>(
+    {} as RegisterBodyProps,
+  );
 
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[],
