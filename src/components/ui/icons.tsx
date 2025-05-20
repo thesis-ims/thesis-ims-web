@@ -222,7 +222,7 @@ function RoundedPlusIcon({ className }: { className?: string }) {
     </div>
   );
 }
-function TrashcIcon({ className }: { className?: string }) {
+function TrashIcon({ className }: { className?: string }) {
   return (
     <div className="flex items-center justify-center">
       <svg
@@ -274,6 +274,6 @@ export {
   CloseIcon,
   HorizontalOptionsIcon,
   RoundedPlusIcon,
-  TrashcIcon,
+  TrashIcon,
   PencilIcon,
 };

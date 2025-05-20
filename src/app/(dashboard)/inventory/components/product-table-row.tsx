@@ -9,7 +9,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown";
-import { HorizontalOptionsIcon } from "@/components/ui/icons";
+import {
+  HorizontalOptionsIcon,
+  PencilIcon,
+  TrashIcon,
+} from "@/components/ui/icons";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { ProductProps } from "@/interfaces/product";
 import { deleteProduct } from "@/lib/api/product";
@@ -66,21 +70,24 @@ export default function ProductTableRow({
             <DropdownMenuTrigger>
               <HorizontalOptionsIcon className="h-5 w-5 cursor-pointer" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="">
+            <DropdownMenuContent align="end">
               <DropdownMenuItem
                 onClick={() => {
                   setIsOpen(true);
                 }}
               >
-                Delete
+                <PencilIcon />
+                <p>Edit</p>
               </DropdownMenuItem>
 
               <DropdownMenuItem
+                className="text-gray-60"
                 onClick={() => {
                   setIsOpen(true);
                 }}
               >
-                Edit
+                <TrashIcon />
+                <p>Delete</p>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
