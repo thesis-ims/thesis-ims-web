@@ -57,7 +57,9 @@ function SidebarItem({ item }: { item: SidebarItem }) {
 export default function Sidebar() {
   return (
     <div className="flex h-screen w-[256px] flex-col items-center gap-4 px-4 py-6">
-      <h1 className="text-gray-60 text-2xl font-bold">Stokku</h1>
+      <Link href="/">
+        <h1 className="text-gray-60 text-2xl font-bold">Stokku</h1>
+      </Link>
       <div className="flex w-full flex-col">
         {sidebarItems.map((item) => {
           return <SidebarItem item={item} />;
