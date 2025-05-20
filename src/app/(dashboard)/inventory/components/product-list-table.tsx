@@ -1,7 +1,4 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -21,7 +18,6 @@ export default function ProductListTable({
 }: {
   products: ProductProps[];
 }) {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <div className="flex flex-col">
@@ -29,23 +25,8 @@ export default function ProductListTable({
         <div className="bg-primary-color-1 flex items-center justify-between px-3 py-4">
           <h2 className="text-[20px] font-medium text-white">Products</h2>
           <Link href="/add-product">
-            <Button
-              size={"small"}
-              // onClick={() => {
-              //   setIsOpen(true);
-              // }}
-            >
-              Add Product
-            </Button>
+            <Button size={"small"}>Add Product</Button>
           </Link>
-          {/* <Button
-            size={"small"}
-            onClick={() => {
-              setIsOpen(true);
-            }}
-          >
-            Add Product
-          </Button> */}
         </div>
 
         {/* Table */}
@@ -71,7 +52,7 @@ export default function ProductListTable({
                   lut: "",
                   id: "",
                   images: [],
-                  name: "test product",
+                  name: "dummy no data item",
                   quantity: 10,
                 }}
               />
@@ -79,19 +60,6 @@ export default function ProductListTable({
           </TableBody>
         </Table>
       </div>
-
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="flex flex-col gap-6">
-          <DialogHeader className="text-[20px] font-bold">
-            Add New Product
-          </DialogHeader>
-          <AddProductForm
-            closeDialog={() => {
-              setIsOpen(false);
-            }}
-          />
-        </DialogContent>
-      </Dialog>
     </>
   );
 }

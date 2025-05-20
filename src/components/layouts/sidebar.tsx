@@ -61,8 +61,8 @@ export default function Sidebar() {
         <h1 className="text-gray-60 text-2xl font-bold">Stokku</h1>
       </Link>
       <div className="flex w-full flex-col">
-        {sidebarItems.map((item) => {
-          return <SidebarItem item={item} />;
+        {sidebarItems.map((item, index) => {
+          return <SidebarItem key={index} item={item} />;
         })}
       </div>
     </div>

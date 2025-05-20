@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import ImagePicker from "@/components/ui/image-uploader";
 import InputText from "@/components/ui/input-text";
@@ -10,14 +12,12 @@ import {
   getZodErrorMessage,
   parseZodIssue,
 } from "@/utils/zod/zod-utils";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function AddProductForm({
-  closeDialog,
-}: {
-  closeDialog: () => void;
-}) {
+export default function AddProductForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState<AddProductProps>(
     {} as AddProductProps,
   );
@@ -49,11 +49,12 @@ export default function AddProductForm({
     const addProductResponse = await addProduct(formData);
     if (addProductResponse.error) {
       toast.error(addProductResponse.message);
-      closeDialog();
+      // closeDialog();
       return;
     }
     toast.success(addProductResponse.message);
-    closeDialog();
+    router.push("/inventory");
+    // closeDialog();
   }
 
   function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -66,31 +67,35 @@ export default function AddProductForm({
 
   return (
     <form
-      className="border-gray-20 flex flex-col items-center gap-8 border-b"
+      className="border-gray-20 flex flex-col items-center gap-8 border-b bg-white p-8"
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmitAddProduct();
       }}
     >
       <div className="flex w-full flex-col items-center gap-6">
-        <div className="flex w-full flex-col gap-2">
-          <ImagePicker
-            onChange={(data) => {
-              getArrayofBytes(data);
-            }}
-          />
-          <p className="text-red-600">
-            {getZodErrorMessage({
-              errors: errors,
-              path: "images",
-            })}
-          </p>
+        {/* Images Field */}
+        <div className="flex w-full items-center justify-between">
+          <p>Product Images</p>
+          <div className="flex w-4/5 flex-col gap-2">
+            <ImagePicker
+              onChange={(data) => {
+                getArrayofBytes(data);
+              }}
+            />
+            <p className="text-red-600">
+              {getZodErrorMessage({
+                errors: errors,
+                path: "images",
+              })}
+            </p>
+          </div>
         </div>
 
         {/* Name Field */}
         <div className="flex w-full items-center justify-between">
           <p>Product Name</p>
-          <div className="w-3/4">
+          <div className="w-4/5">
             <InputText
               name="name"
               className="w-full"
@@ -108,7 +113,7 @@ export default function AddProductForm({
         {/* Quantity Field */}
         <div className="flex w-full items-center justify-between">
           <p>Quantity</p>
-          <div className="w-3/4">
+          <div className="w-4/5">
             <InputText
               className="w-full"
               name="quantity"
