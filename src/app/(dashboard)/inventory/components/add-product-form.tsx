@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import ImagePicker from "@/components/ui/image-uploader";
 import InputText from "@/components/ui/input-text";
-import { AddProductProps } from "@/interfaces/product";
+import { AddProductProps, ProductProps } from "@/interfaces/product";
 import { addProduct } from "@/lib/api/product";
 import { convertFilesToBase64 } from "@/utils/file-to-base64-converter";
 import { addProductSchema } from "@/utils/zod/zod-schemas";
@@ -13,10 +13,14 @@ import {
   parseZodIssue,
 } from "@/utils/zod/zod-utils";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export default function AddProductForm() {
+export default function AddProductForm({
+  initProductData,
+}: {
+  initProductData?: ProductProps;
+}) {
   const router = useRouter();
   const [formData, setFormData] = useState<AddProductProps>(
     {} as AddProductProps,
@@ -65,6 +69,12 @@ export default function AddProductForm() {
     setFormData((prev) => ({ ...prev, [name]: parsedValue }));
   }
 
+  useEffect(() => {
+    if (initProductData) {
+      setFormData(initProductData);
+    }
+  }, [initProductData]);
+
   return (
     <form
       className="border-gray-20 flex flex-col items-center gap-8 border-b bg-white p-8"
@@ -79,6 +89,7 @@ export default function AddProductForm() {
           <p>Product Images</p>
           <div className="flex w-4/5 flex-col gap-2">
             <ImagePicker
+              initImages={formData.images}
               onChange={(data) => {
                 getArrayofBytes(data);
               }}

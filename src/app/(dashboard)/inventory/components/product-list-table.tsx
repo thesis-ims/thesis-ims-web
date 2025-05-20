@@ -42,7 +42,7 @@ export default function ProductListTable({
           <TableBody>
             {products?.length > 0 ? (
               products?.map((product) => {
-                return <ProductTableRow product={product} />;
+                return <ProductTableRow product={product} key={product.id} />;
               })
             ) : (
               <ProductTableRow

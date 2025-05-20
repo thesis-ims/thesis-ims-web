@@ -14,9 +14,11 @@ type ImageFile = {
 type ImagePickerProps = {
   maxFiles?: number;
   onChange?: (files: File[]) => void;
+  initImages?: string[];
 };
 
 export default function ImagePicker({
+  initImages,
   maxFiles = 10,
   onChange,
 }: ImagePickerProps) {

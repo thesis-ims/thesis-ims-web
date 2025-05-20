@@ -48,7 +48,7 @@ export default function ProductTableRow({
 
   return (
     <>
-      <TableRow key={product.id}>
+      <TableRow>
         <TableCell>
           <div className="flex items-center gap-2">
             <Image

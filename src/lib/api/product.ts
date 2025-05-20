@@ -1,6 +1,10 @@
 "use server";
 
-import { AddProductProps, GetAllProductProps } from "@/interfaces/product";
+import {
+  AddProductProps,
+  GetAllProductProps,
+  ProductProps,
+} from "@/interfaces/product";
 import middlewareAxios from "@/utils/axios-interceptor";
 import { revalidatePath } from "next/cache";
 
@@ -30,7 +34,31 @@ export async function getAllProducts() {
     };
   }
 }
+export async function getProductDetail(productId: string) {
+  try {
+    let productDetailResponse = await middlewareAxios.post(
+      `/api/products/get-product-detail`,
+      {
+        productId: productId,
+      },
+    );
 
+    console.log(productDetailResponse, "get all product response");
+
+    return {
+      data: productDetailResponse.data.data as ProductProps,
+      message: productDetailResponse.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error get product details");
+    return {
+      data: {} as ProductProps,
+      message: error?.response?.data?.message || "",
+      error: true,
+    };
+  }
+}
 export async function addProduct(formData: AddProductProps) {
   // const session = getSession();
 
@@ -47,6 +75,33 @@ export async function addProduct(formData: AddProductProps) {
     return {
       data: {},
       message: addProductResponse.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error add product");
+    return {
+      data: {},
+      message: error?.response?.data?.message,
+      error: true,
+    };
+  }
+}
+export async function updateProduct(formData: AddProductProps) {
+  // const session = getSession();
+
+  try {
+    let editProductResponse = await middlewareAxios.post(
+      `/api/products/update`,
+      {
+        ...formData,
+      },
+    );
+
+    console.log(editProductResponse, "add product response");
+    revalidatePath("/inventory");
+    return {
+      data: {},
+      message: editProductResponse.data.message,
       error: false,
     };
   } catch (error: any) {
