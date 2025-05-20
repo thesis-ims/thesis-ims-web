@@ -1,0 +1,44 @@
+"use client";
+
+import React from "react";
+import { Dialog, DialogContent, DialogHeader } from "./dialog";
+import { Button } from "./button";
+
+export default function ConfirmationDialog({
+  isOpen,
+  setIsOpen,
+  title,
+  description,
+  confirmAction,
+}: {
+  isOpen: boolean;
+  setIsOpen: (data: boolean) => void;
+  title: string;
+  description: string;
+  confirmAction: () => void;
+}) {
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogContent className="flex flex-col gap-9">
+        <DialogHeader showClose={false}>{title}</DialogHeader>
+        <p className="text-center">{description}</p>
+
+        <div className="flex w-full justify-end gap-6">
+          <Button onClick={confirmAction} size={"small"}>
+            Yes
+          </Button>
+
+          <Button
+            size={"small"}
+            intent={"secondary"}
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          >
+            No
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}

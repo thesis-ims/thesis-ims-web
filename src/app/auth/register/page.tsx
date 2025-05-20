@@ -5,13 +5,13 @@ import { redirect } from "next/navigation";
 import React from "react";
 import RegisterForm from "./components/register-form";
 
-function Register() {
-  const session = getSession();
+async function Register() {
+  const session = await getSession();
   if (session) {
     redirect("/");
   }
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-gray-10">
+    <div className="bg-gray-10 flex h-screen w-full items-center justify-center">
       <RegisterForm />
     </div>
   );

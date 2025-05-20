@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { LoginAPIResponse } from "@/interfaces/auth";
 import { ProfileProps } from "@/interfaces/profile";
 import { logout } from "@/lib/auth/auth-cookie-handler";
@@ -42,11 +42,11 @@ export default function Homepage({
         <p>
           welcome <span className="font-bold">{profile?.username}</span>
         </p>
-        <p>{JSON.stringify(profile)}</p>
+        <p className="break-all">{JSON.stringify(profile)}</p>
       </div>
 
       {/* PRODUCTS BUTTONS */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between gap-2">
         <Button>Add Product</Button>
         <Button>delete Products</Button>
       </div>

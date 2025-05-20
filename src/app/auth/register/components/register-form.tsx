@@ -1,17 +1,22 @@
 "use client";
 
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import CalenderDatePicker from "@/components/ui/calender-date-picker";
 import InputText from "@/components/ui/input-text";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import SnackbarToast from "@/components/ui/snackbar-toast";
-import { FormDataErrorProps, RegisterBodyProps } from "@/interfaces/auth";
+import { RegisterBodyProps } from "@/interfaces/auth";
 import { register } from "@/lib/api/auth";
-import { getZodErrorMessage, registerSchema } from "@/utils/zodValidations";
+import { registerSchema } from "@/utils/zod/zod-schemas";
+import {
+  FormDataErrorProps,
+  getZodErrorMessage,
+  parseZodIssue,
+} from "@/utils/zod/zod-utils";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const genderList = [
   { label: "Male", value: "male" },
@@ -19,20 +24,14 @@ const genderList = [
 ];
 
 export default function RegisterForm() {
-  const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState<RegisterBodyProps>({
-    username: "",
-    email: "",
-    password: "",
-    phoneNumber: "",
-    gender: "",
-  } as RegisterBodyProps);
+  const router = useRouter();
+  const [formData, setFormData] = useState<RegisterBodyProps>(
+    {} as RegisterBodyProps,
+  );
 
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[],
   );
-
-  const router = useRouter();
 
   function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -43,33 +42,25 @@ export default function RegisterForm() {
     const validationResult = registerSchema.safeParse(formData);
 
     if (!validationResult.success) {
-      const issues: FormDataErrorProps[] = validationResult.error.issues.map(
-        (issue) => {
-          return {
-            path: issue.path[0] as string,
-            message: issue.message,
-          };
-        },
-      );
-      setErrors(issues);
-      alert("lengkapi form data");
+      setErrors(parseZodIssue(validationResult.error.issues));
+      toast.error("Lengkapi Form Pengisian");
       return;
     }
 
     setErrors([]);
     const registerResponse = await register(formData);
     if (registerResponse.error) {
-      alert(registerResponse.message);
+      toast.error(registerResponse.message);
       return;
     }
 
-    alert(registerResponse.message);
+    toast.success(registerResponse.message);
     router.push("/auth/login");
   }
 
   return (
     <>
-      <div className="flex h-fit w-fit flex-col gap-6 border border-gray-20 bg-white p-20">
+      <div className="border-gray-20 flex h-fit w-fit flex-col gap-6 border bg-white p-20">
         <div>
           <h1 className="text-[42px] font-bold">Sign Up</h1>
         </div>
@@ -188,7 +179,7 @@ export default function RegisterForm() {
             </div>
           </div>
 
-          <div className="w-1/2 border-b border-gray-20 pb-6">
+          <div className="border-gray-20 w-1/2 border-b pb-6">
             <Button
               className="w-full"
               intent={"primary"}
@@ -207,7 +198,6 @@ export default function RegisterForm() {
           </Link>
         </div>
       </div>
-      <SnackbarToast open={open} setOpen={setOpen} />
     </>
   );
 }

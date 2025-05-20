@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import { cn } from "@/lib/tw-merge";
+import { cn } from "@/utils/tw-merge";
 
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
@@ -33,7 +33,7 @@ const RadioGroupItem = React.forwardRef<
     >
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
         {/* <CheckIcon className="fill-primary h-3.5 w-3.5" /> */}
-        <div className="h-3 w-3 rounded-full bg-primary-color-60" />
+        <div className="bg-primary-color-60 h-3 w-3 rounded-full" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   );

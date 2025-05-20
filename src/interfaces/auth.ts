@@ -1,8 +1,3 @@
-export interface FormDataErrorProps {
-  path: string;
-  message: string;
-}
-
 export interface LoginBodyProps {
   username: string;
   password: string;

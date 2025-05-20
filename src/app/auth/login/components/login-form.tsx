@@ -1,14 +1,20 @@
 "use client";
 
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import InputText from "@/components/ui/input-text";
-import { FormDataErrorProps, LoginBodyProps } from "@/interfaces/auth";
+import { LoginBodyProps } from "@/interfaces/auth";
 import { login } from "@/lib/api/auth";
 import { setAuthCookie } from "@/lib/auth/auth-cookie-handler";
-import { getZodErrorMessage, loginSchema } from "@/utils/zodValidations";
+import { loginSchema } from "@/utils/zod/zod-schemas";
+import {
+  FormDataErrorProps,
+  getZodErrorMessage,
+  parseZodIssue,
+} from "@/utils/zod/zod-utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -28,16 +34,8 @@ export default function LoginForm() {
     const validationResult = loginSchema.safeParse(formData);
 
     if (!validationResult.success) {
-      const issues: FormDataErrorProps[] = validationResult.error.issues.map(
-        (issue) => {
-          return {
-            path: issue.path[0] as string,
-            message: issue.message,
-          };
-        },
-      );
-      setErrors(issues);
-      alert("lengkapi form data");
+      setErrors(parseZodIssue(validationResult.error.issues));
+      toast.error("Lengkapi Form Pengisian");
       return;
     }
 
@@ -45,26 +43,27 @@ export default function LoginForm() {
     setErrors([]);
     const loginResponse = await login(formData);
     if (loginResponse.error) {
-      alert(loginResponse.message);
+      toast.error(loginResponse.message);
       return;
     }
 
-    alert(loginResponse.message);
+    toast.success(loginResponse.message);
     await setAuthCookie(loginResponse.data);
     router.push("/");
   }
 
   return (
-    <div className="flex h-fit w-fit flex-col items-center justify-center gap-6 border border-gray-20 bg-white p-20">
+    <div className="border-gray-20 flex h-fit w-fit flex-col items-center justify-center gap-6 border bg-white p-20">
       {/* login page header */}
+
       <div className="flex flex-col items-center gap-2">
-        <h1 className="text-[42px] font-bold">Welcome Back</h1>
+        <h1 className="text-[42px] font-bold">Welcome to Stokku!</h1>
         <p className="text-lg">Please log in to continue</p>
       </div>
 
       {/* login form */}
       <form
-        className="flex flex-col items-center gap-8 border-b border-gray-20 py-6"
+        className="border-gray-20 flex flex-col items-center gap-8 border-b py-6"
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmitLoginForm();

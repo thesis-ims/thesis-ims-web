@@ -1,10 +1,13 @@
 import React, { ButtonHTMLAttributes } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/tw-merge";
 
 export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonClassname> {}
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonClassname> {
+  asChild?: boolean;
+}
 
 const buttonClassname = cva(
   "cursor-pointer flex gap-2 items-center justify-center",
@@ -16,8 +19,8 @@ const buttonClassname = cva(
           "bg-white border border-primary-color-60 text-primary-color-60",
       },
       size: {
-        default: "px-4 py-4 text-base",
-        small: "px-2 py-1",
+        default: "p-4 text-base min-w-[150px]",
+        small: "p-3 text-sm min-w-[100px]",
       },
     },
     defaultVariants: {
@@ -27,18 +30,18 @@ const buttonClassname = cva(
   },
 );
 
-export default function Button({
-  children,
-  className,
-  intent,
-  onClick,
-}: ButtonProps) {
-  return (
-    <button
-      onClick={onClick}
-      className={twMerge(buttonClassname({ className, intent }))}
-    >
-      {children}
-    </button>
-  );
-}
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, intent, size, asChild = false, ...props }, ref) => {
+    const Comp = "button";
+    return (
+      <Comp
+        className={cn(buttonClassname({ intent, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
+Button.displayName = "Button";
+
+export { Button, buttonClassname };
