@@ -17,7 +17,6 @@ export function getZodErrorMessage({
       return error.message;
     }
   });
-  console.log(errorMessages);
   if (errorMessages) {
     return errorMessages.message;
   } else {

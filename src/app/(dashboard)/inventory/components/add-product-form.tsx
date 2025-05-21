@@ -3,16 +3,15 @@
 import { Button } from "@/components/ui/button";
 import ImagePicker from "@/components/ui/image-picker";
 import InputText from "@/components/ui/input-text";
-import { AddProductProps, ProductProps } from "@/interfaces/product";
-import { addProduct } from "@/lib/api/product";
-import { convertFileToBase64 } from "@/utils/file-to-base64-converter";
+import { ProductProps } from "@/interfaces/product";
+import { addProduct, updateProduct } from "@/lib/api/product";
 import { addProductSchema } from "@/utils/zod/zod-schemas";
 import {
   FormDataErrorProps,
   getZodErrorMessage,
   parseZodIssue,
 } from "@/utils/zod/zod-utils";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -21,10 +20,9 @@ export default function AddProductForm({
 }: {
   initProductData?: ProductProps;
 }) {
+  const pathName = usePathname();
   const router = useRouter();
-  const [formData, setFormData] = useState<AddProductProps>(
-    {} as AddProductProps,
-  );
+  const [formData, setFormData] = useState<ProductProps>({} as ProductProps);
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[],
   );
@@ -36,10 +34,17 @@ export default function AddProductForm({
     }));
   }
 
-  async function handleSubmitAddProduct() {
-    // console.log(formData, "formdata");
+  async function handleAddOrUpdateHandler() {
+    console.log(formData, "form data");
+    if (pathName.includes("add-product")) {
+      return await addProduct(formData);
+    } else {
+      return await updateProduct(formData);
+    }
+  }
+
+  async function handleSubmitProductForm() {
     const validationResult = addProductSchema.safeParse(formData);
-    // console.log(validationResult, "validate result");
 
     if (!validationResult.success) {
       setErrors(parseZodIssue(validationResult.error.issues));
@@ -48,15 +53,13 @@ export default function AddProductForm({
     }
     setErrors([]);
 
-    const addProductResponse = await addProduct(formData);
-    if (addProductResponse.error) {
-      toast.error(addProductResponse.message);
-      // closeDialog();
+    const submitResponse = await handleAddOrUpdateHandler();
+    if (submitResponse.error) {
+      toast.error(submitResponse.message);
       return;
     }
-    toast.success(addProductResponse.message);
+    toast.success(submitResponse.message);
     router.push("/inventory");
-    // closeDialog();
   }
 
   function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -78,7 +81,7 @@ export default function AddProductForm({
       className="border-gray-20 flex flex-col items-center gap-8 border-b bg-white p-8"
       onSubmit={(e) => {
         e.preventDefault();
-        handleSubmitAddProduct();
+        handleSubmitProductForm();
       }}
     >
       <div className="flex w-full flex-col items-center gap-6">
@@ -139,13 +142,14 @@ export default function AddProductForm({
         </div>
       </div>
 
+      {/* submit button */}
       <Button
         className="w-full"
         intent={"primary"}
         size={"default"}
         type="submit"
       >
-        Add Product
+        {pathName.includes("add-product") ? "Add Product" : "Update Product"}
       </Button>
     </form>
   );

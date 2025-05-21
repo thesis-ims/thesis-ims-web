@@ -1,10 +1,6 @@
 "use server";
 
-import {
-  AddProductProps,
-  GetAllProductProps,
-  ProductProps,
-} from "@/interfaces/product";
+import { GetAllProductProps, ProductProps } from "@/interfaces/product";
 import middlewareAxios from "@/utils/axios-interceptor";
 import { revalidatePath } from "next/cache";
 
@@ -59,7 +55,7 @@ export async function getProductDetail(productId: string) {
     };
   }
 }
-export async function addProduct(formData: AddProductProps) {
+export async function addProduct(formData: ProductProps) {
   // const session = getSession();
 
   try {
@@ -86,26 +82,29 @@ export async function addProduct(formData: AddProductProps) {
     };
   }
 }
-export async function updateProduct(formData: AddProductProps) {
+export async function updateProduct(formData: ProductProps) {
   // const session = getSession();
 
   try {
-    let editProductResponse = await middlewareAxios.post(
+    let updateProductResponse = await middlewareAxios.post(
       `/api/products/update`,
       {
-        ...formData,
+        id: formData.id,
+        name: formData.name,
+        quantity: formData.quantity,
+        images: formData.images,
       },
     );
 
-    console.log(editProductResponse, "add product response");
+    console.log(updateProductResponse, "update product response");
     revalidatePath("/inventory");
     return {
       data: {},
-      message: editProductResponse.data.message,
+      message: updateProductResponse.data.message,
       error: false,
     };
   } catch (error: any) {
-    console.log(error, "error add product");
+    console.log(error, "error update product");
     return {
       data: {},
       message: error?.response?.data?.message,

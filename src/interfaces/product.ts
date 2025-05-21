@@ -1,17 +1,11 @@
-export interface AddProductProps {
-  name: string;
-  quantity: number;
-  images: string[];
-}
-
 export interface ProductProps {
-  id: string;
+  id?: string;
   name: string;
   quantity: number;
   images: string[];
-  createdDate: string;
-  lut: string;
-  createdBy: string;
+  createdDate?: string;
+  lut?: string;
+  createdBy?: string;
 }
 
 export interface GetAllProductProps {
