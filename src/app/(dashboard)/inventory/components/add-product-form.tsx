@@ -124,7 +124,7 @@ export default function AddProductForm({
 
         {/* Quantity Field */}
         <div className="flex w-full items-center justify-between">
-          <p>Quantity</p>
+          <p>Stock</p>
           <div className="w-4/5">
             <InputText
               className="w-full"

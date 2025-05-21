@@ -34,8 +34,9 @@ export default function ProductListTable({
           <TableHeader className="bg-primary-color-1 text-white">
             <TableRow>
               <TableHead>Product Name</TableHead>
-              <TableHead>Quantity</TableHead>
+              <TableHead>Stock</TableHead>
               <TableHead>Last Updated</TableHead>
+              <TableHead>Availability</TableHead>
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>

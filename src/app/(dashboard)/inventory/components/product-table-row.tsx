@@ -33,8 +33,18 @@ export default function ProductTableRow({
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
+  function renderProductAvailability() {
+    if (product.quantity === 0) {
+      return <p>Out of Stock</p>;
+    } else if (product.quantity < 10) {
+      return <p>Low Stock</p>;
+    } else {
+      return <p>In Stock</p>;
+    }
+  }
+
   async function deleteProductHandler() {
-    const deleteResponse = await deleteProduct(product.id);
+    const deleteResponse = await deleteProduct(product.id!);
     console.log(deleteResponse);
 
     if (deleteResponse.error) {
@@ -63,6 +73,7 @@ export default function ProductTableRow({
         </TableCell>
         <TableCell>{product.quantity}</TableCell>
         <TableCell>{dayjs(product.createdDate).format("D MMM YYYY")}</TableCell>
+        <TableCell>{renderProductAvailability()}</TableCell>
         <TableCell className="h-5 w-5">
           <DropdownMenu>
             <DropdownMenuTrigger>
