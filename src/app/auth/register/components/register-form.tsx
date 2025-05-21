@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import CalenderDatePicker from "@/components/ui/calender-date-picker";
 import InputText from "@/components/ui/input-text";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { RegisterBodyProps } from "@/interfaces/auth";
+import { UserProfileProps } from "@/interfaces/auth";
 import { register } from "@/lib/api/auth";
 import { registerSchema } from "@/utils/zod/zod-schemas";
 import {
@@ -18,15 +18,15 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-const genderList = [
+export const genderList = [
   { label: "Male", value: "male" },
   { label: "Female", value: "female" },
 ];
 
 export default function RegisterForm() {
   const router = useRouter();
-  const [formData, setFormData] = useState<RegisterBodyProps>(
-    {} as RegisterBodyProps,
+  const [formData, setFormData] = useState<UserProfileProps>(
+    {} as UserProfileProps,
   );
 
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
@@ -61,9 +61,7 @@ export default function RegisterForm() {
   return (
     <>
       <div className="border-gray-20 flex h-fit w-fit flex-col gap-6 border bg-white p-20">
-        <div>
-          <h1 className="text-[42px] font-bold">Sign Up</h1>
-        </div>
+        <h1 className="text-[42px] font-bold">Sign Up</h1>
 
         {/* {JSON.stringify(formData)} */}
 

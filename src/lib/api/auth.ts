@@ -1,11 +1,11 @@
 import {
   LoginAPIResponse,
   LoginBodyProps,
-  RegisterBodyProps,
+  UserProfileProps,
 } from "@/interfaces/auth";
 import middlewareAxios from "@/utils/axios-interceptor";
 
-export async function register(body: RegisterBodyProps) {
+export async function register(body: UserProfileProps) {
   // console.log(body, "register body");
   try {
     let registerResponse = await middlewareAxios.post(`/api/auth/register`, {
