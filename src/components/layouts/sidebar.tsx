@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import React, { ReactNode } from "react";
 import {
@@ -7,6 +9,8 @@ import {
   HomeIcon,
   UsersIcon,
 } from "../ui/icons";
+import { usePathname } from "next/navigation";
+import path from "path";
 
 interface SidebarItem {
   label: string;
@@ -43,9 +47,10 @@ const sidebarItems: SidebarItem[] = [
 ];
 
 function SidebarItem({ item }: { item: SidebarItem }) {
+  const pathName = usePathname();
   return (
     <Link
-      className="border-gray-10 flex w-full items-center gap-2 border-b px-2 py-3"
+      className={`border-gray-10 flex w-full items-center gap-2 border-b px-2 py-3 ${pathName === item.href ? "bg-gray-10" : ""} ${(pathName.includes("add-product") || pathName.includes("edit-product")) && item.href === "/inventory" ? "bg-gray-10" : ""}`}
       href={item.href}
     >
       {item.icon}
@@ -55,10 +60,11 @@ function SidebarItem({ item }: { item: SidebarItem }) {
 }
 
 export default function Sidebar() {
+  const pathName = usePathname();
   return (
     <div className="flex h-screen w-[256px] flex-col items-center gap-4 px-4 py-6">
       <Link href="/">
-        <h1 className="text-gray-60 text-2xl font-bold">Stokku</h1>
+        <h1 className="text-gray-60 text-2xl font-bold">Stokku {pathName}</h1>
       </Link>
       <div className="flex w-full flex-col">
         {sidebarItems.map((item, index) => {
