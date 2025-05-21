@@ -81,6 +81,7 @@ export default function ProductTableRow({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem
+                className="text-gray-60"
                 onClick={() => {
                   router.push(`/edit-product/${product.id}`);
                 }}
