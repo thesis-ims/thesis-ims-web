@@ -143,14 +143,21 @@ export default function AddProductForm({
       </div>
 
       {/* submit button */}
-      <Button
-        className="w-full"
-        intent={"primary"}
-        size={"default"}
-        type="submit"
-      >
-        {pathName.includes("add-product") ? "Add Product" : "Update Product"}
-      </Button>
+      <div className="flex w-full items-center justify-end gap-6">
+        <Button intent={"primary"} size={"default"} type="submit">
+          {pathName.includes("add-product") ? "Add Product" : "Update Product"}
+        </Button>
+        <Button
+          intent={"secondary"}
+          size={"default"}
+          onClick={(e) => {
+            e.preventDefault();
+            router.back();
+          }}
+        >
+          Discard
+        </Button>
+      </div>
     </form>
   );
 }
