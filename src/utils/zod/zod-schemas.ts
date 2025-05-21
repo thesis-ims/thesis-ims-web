@@ -9,7 +9,7 @@ export const loginSchema = z.object({
     .min(1, { message: "Wajib diisi" }),
 });
 
-export const registerSchema = z.object({
+export const userFormSchema = z.object({
   email: z
     .string({ message: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),

@@ -6,7 +6,7 @@ import InputText from "@/components/ui/input-text";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { UserProfileProps } from "@/interfaces/auth";
 import { register } from "@/lib/api/auth";
-import { registerSchema } from "@/utils/zod/zod-schemas";
+import { userFormSchema } from "@/utils/zod/zod-schemas";
 import {
   FormDataErrorProps,
   getZodErrorMessage,
@@ -39,7 +39,7 @@ export default function RegisterForm() {
   }
 
   async function handleSubmitRegisterForm() {
-    const validationResult = registerSchema.safeParse(formData);
+    const validationResult = userFormSchema.safeParse(formData);
 
     if (!validationResult.success) {
       setErrors(parseZodIssue(validationResult.error.issues));

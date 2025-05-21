@@ -4,6 +4,7 @@ export interface LoginBodyProps {
 }
 
 export interface UserProfileProps {
+  userId?: string;
   picture?: string;
   email: string;
   username: string;

@@ -2,6 +2,7 @@ import { ProfileProps } from "@/interfaces/profile";
 import axios from "axios";
 import { getSession } from "../auth/get-session";
 import middlewareAxios from "@/utils/axios-interceptor";
+import { UserProfileProps } from "@/interfaces/auth";
 
 export async function getUserbyUserId(userId: string) {
   try {
@@ -58,6 +59,35 @@ export async function getUserProfile() {
     console.log(error, "error get profile by id");
     return {
       data: {} as ProfileProps,
+      message: error?.response?.data?.message,
+      error: true,
+    };
+  }
+}
+
+export async function updateProfile(body: UserProfileProps) {
+  console.log(body, "update user body");
+  try {
+    let updateProfileResponse = await middlewareAxios.post(
+      `/api/users/update`,
+      {
+        userId: "",
+        image: body.picture,
+        email: body.email,
+        username: body.username,
+        password: body.password,
+        gender: body.gender,
+        phoneNumber: body.phoneNumber,
+      },
+    );
+    console.log(updateProfileResponse, "update profile response");
+    return {
+      message: updateProfileResponse.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error update profile response");
+    return {
       message: error?.response?.data?.message,
       error: true,
     };
