@@ -7,6 +7,7 @@ import {
   ClipboardIcon,
   FolderIcon,
   HomeIcon,
+  SettingsIcon,
   UsersIcon,
 } from "../ui/icons";
 import { usePathname } from "next/navigation";
@@ -44,6 +45,11 @@ const sidebarItems: SidebarItem[] = [
     href: "/orders",
     icon: <CartIcon className="h-6 w-6" />,
   },
+  {
+    label: "Settings",
+    href: "/settings",
+    icon: <SettingsIcon className="h-6 w-6" />,
+  },
 ];
 
 function SidebarItem({ item }: { item: SidebarItem }) {
@@ -60,11 +66,10 @@ function SidebarItem({ item }: { item: SidebarItem }) {
 }
 
 export default function Sidebar() {
-  const pathName = usePathname();
   return (
     <div className="flex h-screen w-[256px] flex-col items-center gap-4 px-4 py-6">
       <Link href="/">
-        <h1 className="text-gray-60 text-2xl font-bold">Stokku {pathName}</h1>
+        <h1 className="text-gray-60 text-2xl font-bold">Stokku</h1>
       </Link>
       <div className="flex w-full flex-col">
         {sidebarItems.map((item, index) => {
