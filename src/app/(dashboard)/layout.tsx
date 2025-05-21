@@ -1,3 +1,4 @@
+import { SessionObserver } from "@/components/layouts/session-observer";
 import Sidebar from "@/components/layouts/sidebar";
 import { getSession } from "@/lib/auth/get-session";
 import { redirect } from "next/navigation";
@@ -14,6 +15,7 @@ export default async function DashboardViewLayout({
   }
   return (
     <div className="flex min-h-screen">
+      <SessionObserver />
       <Sidebar />
       <div className="bg-gray-10 flex-1 p-6">{children}</div>
     </div>
