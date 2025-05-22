@@ -8,7 +8,7 @@ export default async function Inventory() {
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title="Inventory" />
-      {JSON.stringify(products.data.otherInfo)}
+      {/* {JSON.stringify(products.data.otherInfo)} */}
       <StockInformation stockSummary={products.data.otherInfo} />
       <ProductListTable products={products.data.object} />
     </div>

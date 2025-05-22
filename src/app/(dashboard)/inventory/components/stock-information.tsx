@@ -19,7 +19,7 @@ function StockCard({ text, value }: { text: string; value: number }) {
   return (
     <div className="flex flex-col bg-white p-4">
       <p className="text-gray-60">{text}</p>
-      <p className="text-2xl font-bold">{value || "-"}</p>
+      <p className="text-gray-90 text-2xl font-bold">{value || "-"}</p>
     </div>
   );
 }
