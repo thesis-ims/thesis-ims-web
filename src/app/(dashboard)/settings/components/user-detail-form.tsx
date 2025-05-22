@@ -15,7 +15,7 @@ import { RadioGroup } from "@/components/ui/radio-group";
 import InputText from "@/components/ui/input-text";
 import { genderList } from "@/app/auth/register/components/register-form";
 import toast from "react-hot-toast";
-import { userFormSchema } from "@/utils/zod/zod-schemas";
+import { userUpdateSchema } from "@/utils/zod/zod-schemas";
 import { updateProfile } from "@/lib/api/profile";
 import { ProfileProps } from "@/interfaces/profile";
 
@@ -35,7 +35,7 @@ export default function UserDetailForm({
   }
 
   async function handleUpdateProfile() {
-    const validationResult = userFormSchema.safeParse(formData);
+    const validationResult = userUpdateSchema.safeParse(formData);
 
     if (!validationResult.success) {
       setErrors(parseZodIssue(validationResult.error.issues));
@@ -104,21 +104,6 @@ export default function UserDetailForm({
                 errors: errors,
                 path: "username",
               })}
-            />
-
-            <InputText
-              label="Password"
-              name="password"
-              isPassword={true}
-              className="w-full"
-              placeholder="enter password"
-              value={formData.password}
-              onChange={handleOnChangeInput}
-              errorMessages={getZodErrorMessage({
-                errors: errors,
-                path: "password",
-              })}
-              helperText="It must be a combination of minimum 8 letters, numbers, and symbols."
             />
 
             <InputText

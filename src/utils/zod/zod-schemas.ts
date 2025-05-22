@@ -9,7 +9,7 @@ export const loginSchema = z.object({
     .min(1, { message: "Wajib diisi" }),
 });
 
-export const userFormSchema = z.object({
+export const registerSchema = z.object({
   email: z
     .string({ message: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),
@@ -17,6 +17,22 @@ export const userFormSchema = z.object({
     .string({ message: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),
   password: z
+    .string({ message: "Wajib diisi" })
+    .min(1, { message: "Wajib diisi" }),
+  gender: z
+    .string({ message: "Wajib diisi" })
+    .min(1, { message: "Wajib diisi" }),
+  phoneNumber: z
+    .string({ message: "Wajib diisi" })
+    .min(1, { message: "Wajib diisi" }),
+  dob: z.number({ message: "Wajib diisi" }),
+});
+
+export const userUpdateSchema = z.object({
+  email: z
+    .string({ message: "Wajib diisi" })
+    .min(1, { message: "Wajib diisi" }),
+  username: z
     .string({ message: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),
   gender: z
