@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import React, { ReactNode } from "react";
 import {
@@ -5,8 +7,11 @@ import {
   ClipboardIcon,
   FolderIcon,
   HomeIcon,
+  SettingsIcon,
   UsersIcon,
 } from "../ui/icons";
+import { usePathname } from "next/navigation";
+import path from "path";
 
 interface SidebarItem {
   label: string;
@@ -40,12 +45,18 @@ const sidebarItems: SidebarItem[] = [
     href: "/orders",
     icon: <CartIcon className="h-6 w-6" />,
   },
+  {
+    label: "Settings",
+    href: "/settings",
+    icon: <SettingsIcon className="h-6 w-6" />,
+  },
 ];
 
 function SidebarItem({ item }: { item: SidebarItem }) {
+  const pathName = usePathname();
   return (
     <Link
-      className="border-gray-10 flex w-full items-center gap-2 border-b px-2 py-3"
+      className={`border-gray-10 flex w-full items-center gap-2 border-b px-2 py-3 ${pathName === item.href ? "bg-gray-10" : ""} ${(pathName.includes("add-product") || pathName.includes("edit-product")) && item.href === "/inventory" ? "bg-gray-10" : ""}`}
       href={item.href}
     >
       {item.icon}
@@ -61,8 +72,8 @@ export default function Sidebar() {
         <h1 className="text-gray-60 text-2xl font-bold">Stokku</h1>
       </Link>
       <div className="flex w-full flex-col">
-        {sidebarItems.map((item) => {
-          return <SidebarItem item={item} />;
+        {sidebarItems.map((item, index) => {
+          return <SidebarItem key={index} item={item} />;
         })}
       </div>
     </div>

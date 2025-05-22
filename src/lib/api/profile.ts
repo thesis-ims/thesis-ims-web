@@ -1,7 +1,9 @@
+"use server";
+
 import { ProfileProps } from "@/interfaces/profile";
-import axios from "axios";
 import { getSession } from "../auth/get-session";
 import middlewareAxios from "@/utils/axios-interceptor";
+import { revalidatePath } from "next/cache";
 
 export async function getUserbyUserId(userId: string) {
   try {
@@ -58,6 +60,37 @@ export async function getUserProfile() {
     console.log(error, "error get profile by id");
     return {
       data: {} as ProfileProps,
+      message: error?.response?.data?.message,
+      error: true,
+    };
+  }
+}
+
+export async function updateProfile(body: ProfileProps) {
+  console.log(body, "update user body");
+  try {
+    let updateProfileResponse = await middlewareAxios.post(
+      `/api/users/update`,
+      {
+        userId: body.id,
+        gender: body.gender,
+        phoneNumber: body.phoneNumber,
+        dob: body.dob,
+        image: body.image,
+        // email: body.email,
+        // username: body.username,
+        // password: body.password,
+      },
+    );
+    console.log(updateProfileResponse, "update profile response");
+    revalidatePath("/settings");
+    return {
+      message: updateProfileResponse.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error update profile response");
+    return {
       message: error?.response?.data?.message,
       error: true,
     };

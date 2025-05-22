@@ -1,43 +1,50 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import ImagePicker from "@/components/ui/image-uploader";
+import ImagePicker from "@/components/ui/image-picker";
 import InputText from "@/components/ui/input-text";
-import { AddProductProps } from "@/interfaces/product";
-import { addProduct } from "@/lib/api/product";
-import { convertFilesToBase64 } from "@/utils/file-to-base64-converter";
+import { ProductProps } from "@/interfaces/product";
+import { addProduct, updateProduct } from "@/lib/api/product";
 import { addProductSchema } from "@/utils/zod/zod-schemas";
 import {
   FormDataErrorProps,
   getZodErrorMessage,
   parseZodIssue,
 } from "@/utils/zod/zod-utils";
-import React, { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function AddProductForm({
-  closeDialog,
+  initProductData,
 }: {
-  closeDialog: () => void;
+  initProductData?: ProductProps;
 }) {
-  const [formData, setFormData] = useState<AddProductProps>(
-    {} as AddProductProps,
-  );
+  const pathName = usePathname();
+  const router = useRouter();
+  const [formData, setFormData] = useState<ProductProps>({} as ProductProps);
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[],
   );
 
-  async function getArrayofBytes(data: File[]) {
-    const base64Image = await convertFilesToBase64(data);
-    console.log(base64Image);
+  async function insertImageHandler(data: string[]) {
     setFormData((prev) => ({
       ...prev,
-      images: base64Image,
+      images: data,
     }));
   }
 
-  async function handleSubmitAddProduct() {
-    // console.log(formData, "formdata");
+  async function handleAddOrUpdateHandler() {
+    console.log(formData, "form data");
+    if (pathName.includes("add-product")) {
+      return await addProduct(formData);
+    } else {
+      return await updateProduct(formData);
+    }
+  }
+
+  async function handleSubmitProductForm() {
     const validationResult = addProductSchema.safeParse(formData);
-    // console.log(validationResult, "validate result");
 
     if (!validationResult.success) {
       setErrors(parseZodIssue(validationResult.error.issues));
@@ -46,14 +53,13 @@ export default function AddProductForm({
     }
     setErrors([]);
 
-    const addProductResponse = await addProduct(formData);
-    if (addProductResponse.error) {
-      toast.error(addProductResponse.message);
-      closeDialog();
+    const submitResponse = await handleAddOrUpdateHandler();
+    if (submitResponse.error) {
+      toast.error(submitResponse.message);
       return;
     }
-    toast.success(addProductResponse.message);
-    closeDialog();
+    toast.success(submitResponse.message);
+    router.push("/inventory");
   }
 
   function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -64,33 +70,45 @@ export default function AddProductForm({
     setFormData((prev) => ({ ...prev, [name]: parsedValue }));
   }
 
+  useEffect(() => {
+    if (initProductData) {
+      setFormData(initProductData);
+    }
+  }, [initProductData]);
+
   return (
     <form
-      className="border-gray-20 flex flex-col items-center gap-8 border-b"
+      className="border-gray-20 flex flex-col items-center gap-8 border-b bg-white p-8"
       onSubmit={(e) => {
         e.preventDefault();
-        handleSubmitAddProduct();
+        handleSubmitProductForm();
       }}
     >
+      {/* {JSON.stringify(formData)} */}
       <div className="flex w-full flex-col items-center gap-6">
-        <div className="flex w-full flex-col gap-2">
-          <ImagePicker
-            onChange={(data) => {
-              getArrayofBytes(data);
-            }}
-          />
-          <p className="text-red-600">
-            {getZodErrorMessage({
-              errors: errors,
-              path: "images",
-            })}
-          </p>
+        {/* Images Field */}
+        <div className="flex w-full items-center justify-between">
+          <p>Product Images</p>
+          <div className="flex w-4/5 flex-col gap-2">
+            <ImagePicker
+              initImages={formData.images}
+              onChange={(data) => {
+                insertImageHandler(data);
+              }}
+            />
+            <p className="text-red-600">
+              {getZodErrorMessage({
+                errors: errors,
+                path: "images",
+              })}
+            </p>
+          </div>
         </div>
 
         {/* Name Field */}
         <div className="flex w-full items-center justify-between">
           <p>Product Name</p>
-          <div className="w-3/4">
+          <div className="w-4/5">
             <InputText
               name="name"
               className="w-full"
@@ -105,10 +123,28 @@ export default function AddProductForm({
           </div>
         </div>
 
+        {/* Description Field */}
+        <div className="flex w-full items-center justify-between">
+          <p>Product Description</p>
+          <div className="w-4/5">
+            <InputText
+              name="description"
+              className="w-full"
+              placeholder="Enter product description"
+              value={formData.description}
+              onChange={handleOnChangeInput}
+              errorMessages={getZodErrorMessage({
+                errors: errors,
+                path: "description",
+              })}
+            />
+          </div>
+        </div>
+
         {/* Quantity Field */}
         <div className="flex w-full items-center justify-between">
-          <p>Quantity</p>
-          <div className="w-3/4">
+          <p>Stock</p>
+          <div className="w-4/5">
             <InputText
               className="w-full"
               name="quantity"
@@ -125,14 +161,22 @@ export default function AddProductForm({
         </div>
       </div>
 
-      <Button
-        className="w-full"
-        intent={"primary"}
-        size={"default"}
-        type="submit"
-      >
-        Add Product
-      </Button>
+      {/* submit button */}
+      <div className="flex w-full items-center justify-end gap-6">
+        <Button intent={"primary"} size={"default"} type="submit">
+          {pathName.includes("add-product") ? "Add Product" : "Update Product"}
+        </Button>
+        <Button
+          intent={"secondary"}
+          size={"default"}
+          onClick={(e) => {
+            e.preventDefault();
+            router.back();
+          }}
+        >
+          Discard
+        </Button>
+      </div>
     </form>
   );
 }

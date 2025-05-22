@@ -1,13 +1,7 @@
-export async function convertFilesToBase64(files: File[]): Promise<string[]> {
-  const base64Strings: string[] = [];
+export async function convertFileToBase64(file: File): Promise<string> {
+  const base64 = await fileToBase64(file);
 
-  // Process each file sequentially
-  for (const file of files) {
-    const base64 = await fileToBase64(file);
-    base64Strings.push(base64);
-  }
-
-  return base64Strings;
+  return base64;
 }
 
 function fileToBase64(file: File): Promise<string> {

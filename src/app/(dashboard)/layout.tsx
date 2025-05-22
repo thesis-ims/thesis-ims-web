@@ -1,3 +1,4 @@
+import ClientLayout from "@/components/layouts/client-layout";
 import Sidebar from "@/components/layouts/sidebar";
 import { getSession } from "@/lib/auth/get-session";
 import { redirect } from "next/navigation";
@@ -10,12 +11,12 @@ export default async function DashboardViewLayout({
 }) {
   const session = await getSession();
   if (!session?.userId) {
-    // redirect("/auth/login");
+    redirect("/auth/login");
   }
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <div className="bg-gray-10 flex-1 p-6">{children}</div>
+      <ClientLayout>{children}</ClientLayout>
     </div>
   );
 }

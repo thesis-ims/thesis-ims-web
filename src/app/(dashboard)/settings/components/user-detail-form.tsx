@@ -1,34 +1,30 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
+import ProfilePhotoSection from "./profile-photo-section";
 import { Button } from "@/components/ui/button";
-import CalenderDatePicker from "@/components/ui/calender-date-picker";
-import InputText from "@/components/ui/input-text";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { RegisterBodyProps } from "@/interfaces/auth";
-import { register } from "@/lib/api/auth";
-import { userFormSchema } from "@/utils/zod/zod-schemas";
 import {
   FormDataErrorProps,
   getZodErrorMessage,
   parseZodIssue,
 } from "@/utils/zod/zod-utils";
+import { RadioGroupItem } from "@/components/ui/radio-group";
 import dayjs from "dayjs";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import CalenderDatePicker from "@/components/ui/calender-date-picker";
+import { RadioGroup } from "@/components/ui/radio-group";
+import InputText from "@/components/ui/input-text";
+import { genderList } from "@/app/auth/register/components/register-form";
 import toast from "react-hot-toast";
+import { userFormSchema } from "@/utils/zod/zod-schemas";
+import { updateProfile } from "@/lib/api/profile";
+import { ProfileProps } from "@/interfaces/profile";
 
-export const genderList = [
-  { label: "Male", value: "male" },
-  { label: "Female", value: "female" },
-];
-
-export default function RegisterForm() {
-  const router = useRouter();
-  const [formData, setFormData] = useState<RegisterBodyProps>(
-    {} as RegisterBodyProps,
-  );
-
+export default function UserDetailForm({
+  initProfile,
+}: {
+  initProfile: ProfileProps;
+}) {
+  const [formData, setFormData] = useState<ProfileProps>({} as ProfileProps);
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[],
   );
@@ -38,7 +34,7 @@ export default function RegisterForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function handleSubmitRegisterForm() {
+  async function handleUpdateProfile() {
     const validationResult = userFormSchema.safeParse(formData);
 
     if (!validationResult.success) {
@@ -48,35 +44,46 @@ export default function RegisterForm() {
     }
 
     setErrors([]);
-    const registerResponse = await register(formData);
+    const registerResponse = await updateProfile(formData);
     if (registerResponse.error) {
       toast.error(registerResponse.message);
       return;
     }
 
     toast.success(registerResponse.message);
-    router.push("/auth/login");
   }
 
-  return (
-    <>
-      <div className="border-gray-20 flex h-fit w-fit flex-col gap-6 border bg-white p-20">
-        <h1 className="text-[42px] font-bold">Sign Up</h1>
+  useEffect(() => {
+    if (initProfile) {
+      setFormData(initProfile);
+    }
+  }, [initProfile]);
 
-        {/* {JSON.stringify(formData)} */}
+  return (
+    <div className="flex flex-col gap-4">
+      {/* <p className="break-all">{JSON.stringify(formData.image)}</p> */}
+      <ProfilePhotoSection
+        value={formData.image}
+        onChange={(data) => {
+          setFormData({ ...formData, image: data });
+        }}
+      />
+
+      <div className="flex flex-col gap-6 bg-white p-4">
+        <h2 className="text-xl font-bold">User Details</h2>
 
         <form
-          className="flex flex-col items-center gap-8 pt-6"
+          className="flex flex-col gap-6"
           onSubmit={(e) => {
             e.preventDefault();
-            handleSubmitRegisterForm();
+            handleUpdateProfile();
           }}
         >
-          <div className="grid grid-cols-2 gap-x-20 gap-y-4">
+          <div className="grid grid-cols-2 gap-x-14 gap-y-6">
             <InputText
               label="Email"
               name="email"
-              className="w-[520px]"
+              className="w-full"
               placeholder="enter email"
               value={formData.email}
               onChange={handleOnChangeInput}
@@ -89,7 +96,7 @@ export default function RegisterForm() {
             <InputText
               label="Username"
               name="username"
-              className="w-[520px]"
+              className="w-full"
               placeholder="enter username"
               value={formData.username}
               onChange={handleOnChangeInput}
@@ -103,7 +110,7 @@ export default function RegisterForm() {
               label="Password"
               name="password"
               isPassword={true}
-              className="w-[520px]"
+              className="w-full"
               placeholder="enter password"
               value={formData.password}
               onChange={handleOnChangeInput}
@@ -117,7 +124,7 @@ export default function RegisterForm() {
             <InputText
               label="Phone Number"
               name="phoneNumber"
-              className="w-[520px]"
+              className="w-full"
               placeholder="enter phone number"
               value={formData.phoneNumber}
               onChange={handleOnChangeInput}
@@ -132,8 +139,8 @@ export default function RegisterForm() {
               <p className="text-sm text-black">Gender</p>
               <div className="flex flex-col gap-1">
                 <RadioGroup
+                  value={formData.gender}
                   className="flex flex-row gap-8"
-                  defaultValue={formData.gender}
                   onValueChange={(gender) => {
                     setFormData((prev) => {
                       return {
@@ -177,25 +184,18 @@ export default function RegisterForm() {
             </div>
           </div>
 
-          <div className="border-gray-20 w-1/2 border-b pb-6">
+          <div className="flex w-full justify-end">
             <Button
-              className="w-full"
+              className="w-fit"
               intent={"primary"}
               size={"default"}
               type="submit"
             >
-              Register
+              Save Changes
             </Button>
           </div>
         </form>
-
-        <div className="flex w-full items-center justify-center gap-1">
-          <p>Already have account?</p>
-          <Link href="/auth/login" className="text-[#001D6C]">
-            Log In
-          </Link>
-        </div>
       </div>
-    </>
+    </div>
   );
 }
