@@ -9,7 +9,7 @@ import { convertFileToBase64 } from "@/utils/file-to-base64-converter";
 import { base64StringDecoder } from "@/utils/base64-string-encoder";
 
 // Define TypeScript types
-type ImageFile = {
+export type ImageFile = {
   id: string;
   file?: File;
   preview: string;

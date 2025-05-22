@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import CalenderDatePicker from "@/components/ui/calender-date-picker";
 import InputText from "@/components/ui/input-text";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { UserProfileProps } from "@/interfaces/auth";
+import { RegisterBodyProps } from "@/interfaces/auth";
 import { register } from "@/lib/api/auth";
 import { userFormSchema } from "@/utils/zod/zod-schemas";
 import {
@@ -25,8 +25,8 @@ export const genderList = [
 
 export default function RegisterForm() {
   const router = useRouter();
-  const [formData, setFormData] = useState<UserProfileProps>(
-    {} as UserProfileProps,
+  const [formData, setFormData] = useState<RegisterBodyProps>(
+    {} as RegisterBodyProps,
   );
 
   const [errors, setErrors] = useState<FormDataErrorProps[]>(

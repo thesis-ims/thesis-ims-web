@@ -1,7 +1,9 @@
+"use client";
+
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Dayjs } from "dayjs";
-import React from "react";
+import React, { useEffect } from "react";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -19,6 +21,7 @@ export default function CalenderDatePicker({
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
+        value={value}
         format="DD/MM/YYYY"
         slotProps={{ textField: { placeholder: "Select a date" } }}
         onChange={(newValue) => {

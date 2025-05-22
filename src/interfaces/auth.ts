@@ -3,12 +3,10 @@ export interface LoginBodyProps {
   password: string;
 }
 
-export interface UserProfileProps {
-  userId?: string;
-  picture?: string;
+export interface RegisterBodyProps {
   email: string;
   username: string;
-  password?: string;
+  password: string;
   gender: string;
   phoneNumber: string;
   dob: number;

@@ -1,8 +1,9 @@
+"use server";
+
 import { ProfileProps } from "@/interfaces/profile";
-import axios from "axios";
 import { getSession } from "../auth/get-session";
 import middlewareAxios from "@/utils/axios-interceptor";
-import { UserProfileProps } from "@/interfaces/auth";
+import { revalidatePath } from "next/cache";
 
 export async function getUserbyUserId(userId: string) {
   try {
@@ -65,22 +66,24 @@ export async function getUserProfile() {
   }
 }
 
-export async function updateProfile(body: UserProfileProps) {
+export async function updateProfile(body: ProfileProps) {
   console.log(body, "update user body");
   try {
     let updateProfileResponse = await middlewareAxios.post(
       `/api/users/update`,
       {
-        userId: "",
-        image: body.picture,
-        email: body.email,
-        username: body.username,
-        password: body.password,
+        userId: body.id,
         gender: body.gender,
         phoneNumber: body.phoneNumber,
+        dob: body.dob,
+        image: body.image,
+        // email: body.email,
+        // username: body.username,
+        // password: body.password,
       },
     );
     console.log(updateProfileResponse, "update profile response");
+    revalidatePath("/settings");
     return {
       message: updateProfileResponse.data.message,
       error: false,

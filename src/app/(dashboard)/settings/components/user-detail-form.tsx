@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfilePhotoSection from "./profile-photo-section";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,16 +13,18 @@ import dayjs from "dayjs";
 import CalenderDatePicker from "@/components/ui/calender-date-picker";
 import { RadioGroup } from "@/components/ui/radio-group";
 import InputText from "@/components/ui/input-text";
-import { UserProfileProps } from "@/interfaces/auth";
 import { genderList } from "@/app/auth/register/components/register-form";
 import toast from "react-hot-toast";
 import { userFormSchema } from "@/utils/zod/zod-schemas";
 import { updateProfile } from "@/lib/api/profile";
+import { ProfileProps } from "@/interfaces/profile";
 
-export default function UserDetailForm() {
-  const [formData, setFormData] = useState<UserProfileProps>(
-    {} as UserProfileProps,
-  );
+export default function UserDetailForm({
+  initProfile,
+}: {
+  initProfile: ProfileProps;
+}) {
+  const [formData, setFormData] = useState<ProfileProps>({} as ProfileProps);
   const [errors, setErrors] = useState<FormDataErrorProps[]>(
     [] as FormDataErrorProps[],
   );
@@ -51,9 +53,21 @@ export default function UserDetailForm() {
     toast.success(registerResponse.message);
   }
 
+  useEffect(() => {
+    if (initProfile) {
+      setFormData(initProfile);
+    }
+  }, [initProfile]);
+
   return (
     <div className="flex flex-col gap-4">
-      <ProfilePhotoSection />
+      {/* <p className="break-all">{JSON.stringify(formData.image)}</p> */}
+      <ProfilePhotoSection
+        value={formData.image}
+        onChange={(data) => {
+          setFormData({ ...formData, image: data });
+        }}
+      />
 
       <div className="flex flex-col gap-6 bg-white p-4">
         <h2 className="text-xl font-bold">User Details</h2>
@@ -125,8 +139,8 @@ export default function UserDetailForm() {
               <p className="text-sm text-black">Gender</p>
               <div className="flex flex-col gap-1">
                 <RadioGroup
+                  value={formData.gender}
                   className="flex flex-row gap-8"
-                  defaultValue={formData.gender}
                   onValueChange={(gender) => {
                     setFormData((prev) => {
                       return {
