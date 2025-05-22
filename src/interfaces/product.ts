@@ -1,6 +1,7 @@
 export interface ProductProps {
   id?: string;
   name: string;
+  description?: string;
   quantity: number;
   images: string[];
   createdDate?: string;

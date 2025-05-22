@@ -56,8 +56,7 @@ export async function getProductDetail(productId: string) {
   }
 }
 export async function addProduct(formData: ProductProps) {
-  // const session = getSession();
-
+  console.log(formData, "add product body");
   try {
     let addProductResponse = await middlewareAxios.post(
       `/api/products/insert`,
@@ -91,6 +90,7 @@ export async function updateProduct(formData: ProductProps) {
       {
         id: formData.id,
         name: formData.name,
+        description: formData.description,
         quantity: formData.quantity,
         images: formData.images,
       },

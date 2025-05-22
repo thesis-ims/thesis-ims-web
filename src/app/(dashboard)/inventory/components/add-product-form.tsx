@@ -84,6 +84,7 @@ export default function AddProductForm({
         handleSubmitProductForm();
       }}
     >
+      {/* {JSON.stringify(formData)} */}
       <div className="flex w-full flex-col items-center gap-6">
         {/* Images Field */}
         <div className="flex w-full items-center justify-between">
@@ -117,6 +118,24 @@ export default function AddProductForm({
               errorMessages={getZodErrorMessage({
                 errors: errors,
                 path: "name",
+              })}
+            />
+          </div>
+        </div>
+
+        {/* Description Field */}
+        <div className="flex w-full items-center justify-between">
+          <p>Product Description</p>
+          <div className="w-4/5">
+            <InputText
+              name="description"
+              className="w-full"
+              placeholder="Enter product description"
+              value={formData.description}
+              onChange={handleOnChangeInput}
+              errorMessages={getZodErrorMessage({
+                errors: errors,
+                path: "description",
               })}
             />
           </div>

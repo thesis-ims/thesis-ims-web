@@ -61,13 +61,17 @@ export default function ProductTableRow({
       <TableRow>
         <TableCell>
           <div className="flex items-center gap-2">
-            <Image
-              src={base64StringDecoder(_.first(product?.images!) as string)}
-              alt="product image"
-              width={0}
-              height={0}
-              className="h-10 w-10 rounded-sm object-cover"
-            />
+            {product.images.length > 0 ? (
+              <Image
+                src={base64StringDecoder(_.first(product?.images!) as string)}
+                alt="product image"
+                width={0}
+                height={0}
+                className="h-10 w-10 rounded-sm object-cover"
+              />
+            ) : (
+              <div className="bg-gray-20 h-10 w-10 rounded-sm" />
+            )}
             <p>{product.name}</p>
           </div>
         </TableCell>
