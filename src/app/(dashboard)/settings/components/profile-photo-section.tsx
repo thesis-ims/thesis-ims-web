@@ -3,9 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { ProfilePlaceholderIcon } from "@/components/ui/icons";
 import { ImageFile } from "@/components/ui/image-picker";
+import { base64StringDecoder } from "@/utils/base64-string-encoder";
 import { convertFileToBase64 } from "@/utils/file-to-base64-converter";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function ProfilePhotoSection({
   value,
@@ -48,6 +49,17 @@ export default function ProfilePhotoSection({
       fileInputRef.current.click();
     }
   };
+
+  useEffect(() => {
+    if (value) {
+      const newImage: ImageFile = {
+        base64: value,
+        id: crypto.randomUUID(),
+        preview: base64StringDecoder(value),
+      };
+      setImage(newImage);
+    }
+  }, [value]);
 
   return (
     <div className="flex flex-col gap-6 bg-white p-4">
