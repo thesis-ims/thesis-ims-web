@@ -73,7 +73,7 @@ export default function UserDetailForm({
         <h2 className="text-xl font-bold">User Details</h2>
 
         <form
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-14"
           onSubmit={(e) => {
             e.preventDefault();
             handleUpdateProfile();

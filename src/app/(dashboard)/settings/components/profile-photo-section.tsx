@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ProfilePlaceholderIcon } from "@/components/ui/icons";
 import { ImageFile } from "@/components/ui/image-picker";
+import { logout } from "@/lib/auth/auth-cookie-handler";
 import { base64StringDecoder } from "@/utils/base64-string-encoder";
 import { convertFileToBase64 } from "@/utils/file-to-base64-converter";
 import Image from "next/image";
@@ -64,55 +65,73 @@ export default function ProfilePhotoSection({
   return (
     <div className="flex flex-col gap-6 bg-white p-4">
       <h2 className="text-xl font-bold">Profile Photo</h2>
-      <div className="flex items-center gap-12">
-        {/* profile pict uploader */}
-        <div className="border-gray-20 flex items-center gap-6 border-r pr-12">
-          {value ? (
-            <Image
-              src={image?.preview!}
-              alt="profile pict"
-              className="h-24 w-24 rounded-full object-cover"
-              width={0}
-              height={0}
-            />
-          ) : (
-            <div className="bg-gray-10 flex h-24 w-24 items-center justify-center rounded-full">
-              <ProfilePlaceholderIcon className="text-gray-50" />
+      <div className="flex justify-between">
+        {/* Left Section */}
+        <div className="flex items-center gap-12">
+          {/* profile pict uploader */}
+          <div className="border-gray-20 flex items-center gap-6 border-r pr-12">
+            {value ? (
+              <Image
+                src={image?.preview!}
+                alt="profile pict"
+                className="h-24 w-24 rounded-full object-cover"
+                width={0}
+                height={0}
+              />
+            ) : (
+              <div className="bg-gray-10 flex h-24 w-24 items-center justify-center rounded-full">
+                <ProfilePlaceholderIcon className="text-gray-50" />
+              </div>
+            )}
+
+            <div className="flex flex-col items-center gap-2">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/jpg"
+                className="hidden"
+                onChange={handleFileChange}
+              />
+
+              <Button
+                intent={"secondary"}
+                onClick={() => {
+                  handleButtonClick();
+                }}
+              >
+                <p className="px-4">Upload Photo</p>
+              </Button>
+
+              {value && (
+                <p
+                  className="cursor-pointer"
+                  onClick={() => {
+                    onChange("");
+                    setImage({} as ImageFile);
+                  }}
+                >
+                  Remove
+                </p>
+              )}
             </div>
-          )}
-
-          <div className="flex flex-col items-center gap-2">
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/jpeg,image/jpg"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-
-            <Button
-              intent={"secondary"}
-              onClick={() => {
-                handleButtonClick();
-              }}
-            >
-              Upload Photo
-            </Button>
-
-            <p
-              className="cursor-pointer"
-              onClick={() => {
-                onChange("");
-                setImage({} as ImageFile);
-              }}
-            >
-              Remove
-            </p>
           </div>
+
+          {/* instruction section */}
+          <div>tutor</div>
         </div>
 
-        {/* instruction section */}
-        <div>tutor deck</div>
+        {/* Right Section */}
+        <div className="flex flex-col gap-4">
+          <Button
+            onClick={() => {
+              logout();
+            }}
+          >
+            Logout
+          </Button>
+
+          <p>Change Passowrd</p>
+        </div>
       </div>
     </div>
   );
