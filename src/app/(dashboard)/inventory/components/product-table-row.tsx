@@ -110,7 +110,7 @@ export default function ProductTableRow({
 
       <ConfirmationDialog
         title="Delete Product"
-        description={`Are you sure you want to delete ${product.name}?`}
+        description={`Are you sure you want to delete product "${product.name}"?`}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         confirmAction={() => {

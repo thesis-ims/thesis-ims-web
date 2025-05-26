@@ -28,6 +28,18 @@ export const registerSchema = z.object({
   dob: z.number({ message: "Wajib diisi" }),
 });
 
+export const changePasswordSchema = z.object({
+  oldPassword: z
+    .string({ message: "Wajib diisi" })
+    .min(1, { message: "Wajib diisi" }),
+  newPassword: z
+    .string({ message: "Wajib diisi" })
+    .min(8, { message: "Password minimal memiliki 8 karakter" }),
+  newPasswordConfirmation: z
+    .string({ message: "Wajib diisi" })
+    .min(8, { message: "Wajib diisi" }),
+});
+
 export const userUpdateSchema = z.object({
   email: z
     .string({ message: "Wajib diisi" })

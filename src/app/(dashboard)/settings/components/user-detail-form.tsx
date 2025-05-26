@@ -79,7 +79,7 @@ export default function UserDetailForm({
             handleUpdateProfile();
           }}
         >
-          <div className="grid grid-cols-2 gap-x-14 gap-y-6">
+          <div className="grid grid-cols-2 gap-6">
             <InputText
               label="Email"
               name="email"
