@@ -18,7 +18,7 @@ export const registerSchema = z.object({
     .min(1, { message: "Wajib diisi" }),
   password: z
     .string({ message: "Wajib diisi" })
-    .min(1, { message: "Wajib diisi" }),
+    .min(8, { message: "Password harus memiliki minimal 8 karakter" }),
   gender: z
     .string({ message: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),
@@ -26,6 +26,18 @@ export const registerSchema = z.object({
     .string({ message: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),
   dob: z.number({ message: "Wajib diisi" }),
+});
+
+export const changePasswordSchema = z.object({
+  oldPassword: z
+    .string({ message: "Wajib diisi" })
+    .min(1, { message: "Wajib diisi" }),
+  newPassword: z
+    .string({ message: "Wajib diisi" })
+    .min(8, { message: "Password harus memiliki minimal 8 karakter" }),
+  newPasswordConfirmation: z
+    .string({ message: "Wajib diisi" })
+    .min(8, { message: "Password harus memiliki minimal 8 karakter" }),
 });
 
 export const userUpdateSchema = z.object({

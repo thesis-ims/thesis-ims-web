@@ -10,3 +10,9 @@ export interface ProfileProps {
   enabled: boolean;
   roles: string[];
 }
+
+export interface ChangePasswordProps {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConfirmation: string;
+}

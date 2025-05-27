@@ -62,7 +62,11 @@ const DialogHeader = ({
     )}
     {...props}
   >
-    <div className="text-2xl font-bold">{children}</div>
+    <div
+      className={` ${showClose ? "text-xl font-medium" : "text-3xl font-bold"}`}
+    >
+      {children}
+    </div>
     {showClose && (
       <DialogPrimitive.Close className="data-[state=open]:text-muted-foreground cursor-pointer">
         <CloseIcon className="h-8 w-8" />

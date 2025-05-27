@@ -19,24 +19,27 @@ export default function ConfirmationDialog({
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="flex flex-col gap-9">
+      <DialogContent className="flex flex-col gap-6">
         <DialogHeader showClose={false}>{title}</DialogHeader>
-        <p className="text-center">{description}</p>
+        <div className="flex flex-col gap-8">
+          <p className="text-center">{description}</p>
 
-        <div className="flex w-full justify-end gap-6">
-          <Button onClick={confirmAction} size={"small"}>
-            Yes
-          </Button>
+          <div className="flex w-full gap-4">
+            <Button onClick={confirmAction} size={"small"} className="w-full">
+              Yes
+            </Button>
 
-          <Button
-            size={"small"}
-            intent={"secondary"}
-            onClick={() => {
-              setIsOpen(false);
-            }}
-          >
-            No
-          </Button>
+            <Button
+              className="w-full"
+              size={"small"}
+              intent={"secondary"}
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            >
+              No
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

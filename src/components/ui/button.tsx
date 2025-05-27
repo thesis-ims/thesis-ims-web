@@ -16,7 +16,7 @@ const buttonClassname = cva(
       intent: {
         primary: "text-white bg-primary-color-60",
         secondary:
-          "bg-white border border-primary-color-60 text-primary-color-60",
+          "bg-white border-2 border-primary-color-60 text-primary-color-60 font-medium ",
       },
       size: {
         default: "p-4 text-base min-w-[150px]",
