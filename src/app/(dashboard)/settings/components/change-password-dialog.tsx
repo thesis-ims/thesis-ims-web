@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import InputText from "@/components/ui/input-text";
 import { ChangePasswordProps } from "@/interfaces/profile";
+import { changePassword } from "@/lib/api/profile";
 import { changePasswordSchema } from "@/utils/zod/zod-schemas";
 import {
   FormDataErrorProps,
@@ -14,9 +15,11 @@ import toast from "react-hot-toast";
 export default function ChangePasswordDialog({
   isChangePasswordOpen,
   setIsChangePasswordOpen,
+  userId,
 }: {
   isChangePasswordOpen: boolean;
   setIsChangePasswordOpen: (data: boolean) => void;
+  userId: string;
 }) {
   const [formData, setFormData] = useState<ChangePasswordProps>(
     {} as ChangePasswordProps,
@@ -38,7 +41,21 @@ export default function ChangePasswordDialog({
       toast.error("Lengkapi Form Pengisian");
       return;
     }
+    if (formData.newPassword !== formData.newPasswordConfirmation) {
+      toast.error("Konfirmasi password baru anda tidak cocok");
+      return;
+    }
     setErrors([]);
+
+    const registerResponse = await changePassword({
+      id: userId,
+      body: formData,
+    });
+    if (registerResponse.error) {
+      toast.error(registerResponse.message);
+      return;
+    }
+    toast.success(registerResponse.message);
   }
 
   useEffect(() => {
@@ -94,7 +111,7 @@ export default function ChangePasswordDialog({
               onChange={handleOnChangeInput}
               errorMessages={getZodErrorMessage({
                 errors: errors,
-                path: "oldPassword",
+                path: "newPasswordConfirmation",
               })}
             />
           </div>

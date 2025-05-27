@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import ConfirmationDialog from "@/components/ui/confirmation-dialog";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { ProfilePlaceholderIcon } from "@/components/ui/icons";
 import { ImageFile } from "@/components/ui/image-picker";
 import { logout } from "@/lib/auth/auth-cookie-handler";
@@ -10,17 +9,17 @@ import { base64StringDecoder } from "@/utils/base64-string-encoder";
 import { convertFileToBase64 } from "@/utils/file-to-base64-converter";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import ChangePasswordDialog from "./change-password-dialog";
 
 export default function ProfilePhotoSection({
   value,
   onChange,
+  userId,
 }: {
   value: string;
   onChange: (data: string) => void;
+  userId: string;
 }) {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
-  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<ImageFile>();
 
@@ -71,7 +70,7 @@ export default function ProfilePhotoSection({
     <>
       <div className="flex flex-col gap-6 bg-white p-4">
         <h2 className="text-xl font-bold">Profile Photo</h2>
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           {/* Left Section */}
           <div className="flex items-center gap-12">
             {/* profile pict uploader */}
@@ -127,30 +126,17 @@ export default function ProfilePhotoSection({
           </div>
 
           {/* Right Section */}
-          <div className="flex flex-col gap-4">
-            <Button
-              onClick={() => {
-                setIsLoginDialogOpen(true);
-              }}
-            >
-              Logout
-            </Button>
-
-            <p
-              onClick={() => {
-                setIsChangePasswordOpen(true);
-              }}
-            >
-              Change Password
-            </p>
-          </div>
+          <Button
+            intent={"secondary"}
+            className="h-fit"
+            onClick={() => {
+              setIsLoginDialogOpen(true);
+            }}
+          >
+            Log Out
+          </Button>
         </div>
       </div>
-
-      <ChangePasswordDialog
-        isChangePasswordOpen={isChangePasswordOpen}
-        setIsChangePasswordOpen={setIsChangePasswordOpen}
-      />
 
       <ConfirmationDialog
         title="Log Out"

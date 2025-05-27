@@ -1,6 +1,6 @@
 "use server";
 
-import { ProfileProps } from "@/interfaces/profile";
+import { ChangePasswordProps, ProfileProps } from "@/interfaces/profile";
 import { getSession } from "../auth/get-session";
 import middlewareAxios from "@/utils/axios-interceptor";
 import { revalidatePath } from "next/cache";
@@ -77,9 +77,8 @@ export async function updateProfile(body: ProfileProps) {
         phoneNumber: body.phoneNumber,
         dob: body.dob,
         image: body.image,
-        // email: body.email,
-        // username: body.username,
-        // password: body.password,
+        email: body.email,
+        username: body.username,
       },
     );
     console.log(updateProfileResponse, "update profile response");
@@ -90,6 +89,37 @@ export async function updateProfile(body: ProfileProps) {
     };
   } catch (error: any) {
     console.log(error, "error update profile response");
+    return {
+      message: error?.response?.data?.message,
+      error: true,
+    };
+  }
+}
+
+export async function changePassword({
+  id,
+  body,
+}: {
+  body: ChangePasswordProps;
+  id: string;
+}) {
+  try {
+    let changePasswordResponse = await middlewareAxios.post(
+      `/api/auth/change-password`,
+      {
+        userId: id,
+        currentPassword: body.oldPassword,
+        newPassword: body.newPassword,
+      },
+    );
+    console.log(changePasswordResponse, "change password response");
+    revalidatePath("/settings");
+    return {
+      message: changePasswordResponse.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error change password response");
     return {
       message: error?.response?.data?.message,
       error: true,
