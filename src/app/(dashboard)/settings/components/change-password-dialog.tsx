@@ -56,6 +56,7 @@ export default function ChangePasswordDialog({
       return;
     }
     toast.success(registerResponse.message);
+    setIsChangePasswordOpen(false);
   }
 
   useEffect(() => {

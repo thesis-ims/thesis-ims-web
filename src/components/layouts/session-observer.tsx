@@ -13,7 +13,7 @@ export function SessionObserver({ interval = 600000 }: { interval?: number }) {
       const data = await res.json();
 
       if (!data.valid) {
-        router.push("/auth/login");
+        // router.push("/auth/login");
         // window.location.href = "/auth/login";
       }
     };
