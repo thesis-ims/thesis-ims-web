@@ -6,31 +6,23 @@ import { ProfileProps } from "@/interfaces/profile";
 import { logout } from "@/lib/auth/auth-cookie-handler";
 import Link from "next/link";
 import React from "react";
+import StockInformation from "./(dashboard)/inventory/components/stock-information";
+import { GetAllProductProps } from "@/interfaces/product";
 
 export default function Homepage({
   profile,
+  products,
 }: {
   profile: ProfileProps | null;
+  products: GetAllProductProps;
 }) {
   return (
-    <div className="flex w-full flex-col gap-5">
-      {/* LOGIN LOGOUT BUTTONS */}
-      <div className="flex items-center gap-2">
-        <Button
-          onClick={() => {
-            logout();
-          }}
-        >
-          logout
-        </Button>
-      </div>
+    <div className="flex flex-col gap-6">
+      <p>
+        Welcome <span className="font-bold">{profile?.username}</span>
+      </p>
 
-      {/* USER DATA */}
-      <div className="flex flex-col gap-2">
-        <p>
-          welcome <span className="font-bold">{profile?.username}</span>
-        </p>
-      </div>
+      <StockInformation stockSummary={products.otherInfo} />
     </div>
   );
 }
