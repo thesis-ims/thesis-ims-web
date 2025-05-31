@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import AddProductForm from "./add-product-form";
 import ProductTableRow from "./product-table-row";
 import Link from "next/link";
+import ProductTableHeader from "./product-table-header";
 
 export default function ProductListTable({
   products,
@@ -21,13 +22,7 @@ export default function ProductListTable({
   return (
     <>
       <div className="flex flex-col">
-        {/* Table Header Utils */}
-        <div className="bg-primary-color-1 flex items-center justify-between px-3 py-4">
-          <h2 className="text-[20px] font-medium text-white">Products</h2>
-          <Link href="/add-product">
-            <Button size={"small"}>Add Product</Button>
-          </Link>
-        </div>
+        <ProductTableHeader />
 
         {/* Table */}
         <Table>
