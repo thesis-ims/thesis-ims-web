@@ -19,7 +19,7 @@ export const ProductFilters = [
     label: "Lowest Stock",
   },
   {
-    value: "HIGEST_STOCK",
+    value: "HIGHEST_STOCK",
     label: "Highest Stock",
   },
   {
