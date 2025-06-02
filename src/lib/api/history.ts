@@ -22,7 +22,7 @@ export async function getAllHistory() {
       `/api/activity/get-all-activity`,
       {
         page: 1,
-        size: 20,
+        size: 40,
       },
     );
     console.log(getHistoryResponse, "get history response");
