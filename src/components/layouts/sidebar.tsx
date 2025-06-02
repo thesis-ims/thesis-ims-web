@@ -6,6 +6,7 @@ import {
   CartIcon,
   ClipboardIcon,
   FolderIcon,
+  HistoryIcon,
   HomeIcon,
   SettingsIcon,
   UsersIcon,
@@ -36,9 +37,9 @@ const sidebarItems: SidebarItem[] = [
     icon: <ClipboardIcon className="h-6 w-6" />,
   },
   {
-    label: "Suppliers",
-    href: "/supplier",
-    icon: <UsersIcon className="h-6 w-6" />,
+    label: "History",
+    href: "/history",
+    icon: <HistoryIcon className="h-6 w-6" />,
   },
   {
     label: "Orders",

@@ -58,7 +58,7 @@ export default function ProductTableRow({
 
   return (
     <>
-      <TableRow>
+      <TableRow className="bg-white">
         <TableCell>
           <div className="flex items-center gap-2">
             {product.images.length > 0 ? (
