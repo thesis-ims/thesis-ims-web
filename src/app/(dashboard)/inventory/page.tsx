@@ -8,13 +8,17 @@ export default async function Inventory({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const products = await getAllProducts({ sort: searchParams.sb as string });
+  let page =
+    searchParams.page == null ? 1 : Number(searchParams.page as string);
+  const products = await getAllProducts({
+    sort: searchParams.sb as string,
+    page: page,
+  });
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title="Inventory" />
-      {/* {JSON.stringify(searchParams)} */}
       <StockInformation stockSummary={products.data.otherInfo} />
-      <ProductListTable products={products.data.object} />
+      <ProductListTable products={products.data} />
     </div>
   );
 }

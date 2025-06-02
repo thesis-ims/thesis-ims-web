@@ -4,13 +4,19 @@ import { GetAllProductProps, ProductProps } from "@/interfaces/product";
 import middlewareAxios from "@/utils/axios-interceptor";
 import { revalidatePath } from "next/cache";
 
-export async function getAllProducts({ sort }: { sort: string }) {
+export async function getAllProducts({
+  sort,
+  page,
+}: {
+  sort: string;
+  page: number;
+}) {
   try {
     let allProductResponse = await middlewareAxios.post(
       `/api/products/get-all-product`,
       {
-        page: 1,
-        size: 20,
+        page: page,
+        size: 9,
         filter: sort,
       },
     );
