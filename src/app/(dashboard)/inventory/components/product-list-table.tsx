@@ -1,61 +1,78 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ProductProps } from "@/interfaces/product";
-import React, { useState } from "react";
-import AddProductForm from "./add-product-form";
+import { GetAllProductProps, ProductProps } from "@/interfaces/product";
+import React, { useEffect, useState } from "react";
 import ProductTableRow from "./product-table-row";
-import Link from "next/link";
 import ProductTableHeader from "./product-table-header";
+import Pagination from "@/components/ui/pagination";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function ProductListTable({
   products,
 }: {
-  products: ProductProps[];
+  products: GetAllProductProps;
 }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleFilterChange = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", value);
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  useEffect(() => {
+    // if()
+    setCurrentPage(products.page);
+  }, [products]);
+
   return (
-    <>
-      <div className="flex flex-col">
+    <div className="flex flex-col gap-8">
+      {/* {JSON.stringify(products.page)} */}
+      <div className="flex min-h-[65vh] flex-col">
         <ProductTableHeader />
 
-        {/* Table */}
-        <Table>
-          <TableHeader className="bg-primary-color-1 text-white">
-            <TableRow>
-              <TableHead>Product Name</TableHead>
-              <TableHead>Stock</TableHead>
-              <TableHead>Last Updated</TableHead>
-              <TableHead>Availability</TableHead>
-              <TableHead></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {products?.length > 0 ? (
-              products?.map((product) => {
+        {products.object?.length > 0 ? (
+          <Table>
+            <TableHeader className="bg-primary-color-1 text-white">
+              <TableRow>
+                <TableHead>Product Name</TableHead>
+                <TableHead>Stock</TableHead>
+                <TableHead>Last Updated</TableHead>
+                <TableHead>Availability</TableHead>
+                <TableHead></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {products?.object.map((product) => {
                 return <ProductTableRow product={product} key={product.id} />;
-              })
-            ) : (
-              <ProductTableRow
-                product={{
-                  createdBy: "",
-                  createdDate: "",
-                  lut: "",
-                  id: "",
-                  images: [],
-                  name: "dummy no data item",
-                  quantity: 10,
-                }}
-              />
-            )}
-          </TableBody>
-        </Table>
+              })}
+            </TableBody>
+          </Table>
+        ) : (
+          <div>belum ada product</div>
+        )}
       </div>
-    </>
+
+      {/* Pagination */}
+      <Pagination
+        totalPages={products.totalPages}
+        currentPage={currentPage}
+        onPageChange={(page) => {
+          console.log(page);
+          setCurrentPage(page);
+          handleFilterChange(`${page}`);
+        }}
+      />
+    </div>
   );
 }
