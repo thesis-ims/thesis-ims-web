@@ -8,20 +8,47 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ActivityProps, GetHistoryResponseProps } from "@/lib/api/history";
+import {
+  ActivityProps,
+  getAllHistory,
+  GetHistoryResponseProps,
+} from "@/lib/api/history";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 export default function ActivityListTabel({
   historyResponse,
 }: {
   historyResponse: GetHistoryResponseProps;
 }) {
+  const [ref, inView] = useInView();
+  const [currentPage, setCurrentPage] = useState(2);
+  const [loading, setLoading] = useState(false);
   const [historyList, setHistoryList] = useState<ActivityProps[]>([]);
+
+  async function loadMoreActivity() {
+    if (loading) return;
+    if (currentPage > historyResponse.totalPages) return;
+    setLoading(true);
+    const fetchMoreResponse = await getAllHistory({ page: currentPage });
+    console.log(fetchMoreResponse.data);
+    if (!fetchMoreResponse.error) {
+      setHistoryList((prev) => [...prev, ...fetchMoreResponse.data.object]);
+      setCurrentPage(currentPage + 1);
+    }
+    setLoading(false);
+  }
 
   useEffect(() => {
     setHistoryList(historyResponse.object);
   }, [historyResponse]);
+
+  useEffect(() => {
+    if (inView) {
+      loadMoreActivity();
+    }
+  }, [inView]);
 
   return (
     <div className="flex flex-col">
@@ -52,6 +79,11 @@ export default function ActivityListTabel({
                 </>
               );
             })}
+            {currentPage <= historyResponse.totalPages && (
+              <TableRow ref={ref}>
+                <TableCell>Load more...</TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </div>

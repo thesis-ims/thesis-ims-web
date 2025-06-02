@@ -16,13 +16,13 @@ export interface GetHistoryResponseProps {
   totalPages: number;
 }
 
-export async function getAllHistory() {
+export async function getAllHistory({ page = 1 }: { page?: number }) {
   try {
     let getHistoryResponse = await middlewareAxios.post(
       `/api/activity/get-all-activity`,
       {
-        page: 1,
-        size: 40,
+        page: page,
+        size: 15,
       },
     );
     console.log(getHistoryResponse, "get history response");

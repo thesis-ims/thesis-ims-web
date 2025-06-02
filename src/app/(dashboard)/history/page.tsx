@@ -4,7 +4,7 @@ import React from "react";
 import ActivityListTabel from "./components/activity-list-table";
 
 export default async function History() {
-  const historyResponse = await getAllHistory();
+  const historyResponse = await getAllHistory({});
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title="History" />
