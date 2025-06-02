@@ -29,28 +29,29 @@ export default function ActivityListTabel({
         <h2 className="text-xl font-bold text-white">Activity History</h2>
       </div>
       {/* Table */}
-      <Table>
-        <TableHeader className="bg-primary-color-1 text-white">
-          <TableRow>
-            <TableHead className="w-auto whitespace-nowrap">Date</TableHead>
-            <TableHead className="w-full">Activity</TableHead>
-          </TableRow>
-        </TableHeader>
-      </Table>
-
-      <div className="max-h-[73vh] overflow-y-auto">
+      <div className="max-h-[80vh] overflow-auto">
         <Table>
+          <TableHeader className="bg-primary-color-1 text-white">
+            <TableRow>
+              <TableHead className="w-auto whitespace-nowrap">Date</TableHead>
+              <TableHead className="w-full">Activity</TableHead>
+            </TableRow>
+          </TableHeader>
           <TableBody>
-            {historyList.map((history, index) => (
-              <TableRow key={index} className="bg-white">
-                <TableCell className="w-auto pr-16 whitespace-nowrap">
-                  {dayjs(history.date).format("D/M/YYYY")}
-                </TableCell>
-                <TableCell className="w-full">
-                  <p>{history.activity}</p>
-                </TableCell>
-              </TableRow>
-            ))}
+            {historyList.map((history) => {
+              return (
+                <>
+                  <TableRow className="bg-white">
+                    <TableCell className="w-auto pr-16 whitespace-nowrap">
+                      {dayjs(history.date).format("D/M/YYYY")}
+                    </TableCell>
+                    <TableCell className="w-full">
+                      <p>{history.activity}</p>
+                    </TableCell>
+                  </TableRow>
+                </>
+              );
+            })}
           </TableBody>
         </Table>
       </div>
