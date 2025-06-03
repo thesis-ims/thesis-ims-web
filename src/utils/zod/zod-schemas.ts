@@ -61,8 +61,8 @@ export const addProductSchema = z.object({
     .string({ message: "nama produk tidak boleh kosong" })
     .min(5, { message: "nama barang minimal harus memiliki 5 karakter" }),
   quantity: z
-    .number({ message: "kuantitas barang tidak boleh 0" })
-    .min(1, { message: "kuantitas barang tidak boleh 0" }),
+    .number({ message: "kuantitas barang harus diisi" })
+    .min(0, { message: "kuantitas barang harus diisi" }),
   images: z
     .array(z.string(), { message: "produk harus memiliki minimal 1 gambar" })
     .min(1, { message: "produk harus memiliki minimal 1 gambar" }),

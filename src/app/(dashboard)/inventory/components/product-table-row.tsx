@@ -15,6 +15,11 @@ import {
   TrashIcon,
 } from "@/components/ui/icons";
 import { TableCell, TableRow } from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { ProductProps } from "@/interfaces/product";
 import { deleteProduct } from "@/lib/api/product";
 import { base64StringDecoder } from "@/utils/base64-string-encoder";
@@ -59,7 +64,8 @@ export default function ProductTableRow({
   return (
     <>
       <TableRow>
-        <TableCell>
+        {/* title and image */}
+        <TableCell className="max-w-28">
           <div className="flex items-center gap-2">
             {product.images.length > 0 ? (
               <Image
@@ -72,9 +78,35 @@ export default function ProductTableRow({
             ) : (
               <div className="bg-gray-20 h-10 w-10 rounded-sm" />
             )}
-            <p>{product.name}</p>
+            <Tooltip>
+              <TooltipTrigger className="overflow-hidden">
+                <p className="truncate">{product.name}</p>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{product.name}</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </TableCell>
+
+        {/* description */}
+        <TableCell className="max-w-28">
+          {product.description ? (
+            <div className="flex">
+              <Tooltip>
+                <TooltipTrigger className="overflow-hidden text-ellipsis whitespace-nowrap">
+                  <p className="truncate">{product.description}</p>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{product.description}</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          ) : (
+            <p>-</p>
+          )}
+        </TableCell>
+
         <TableCell>{product.quantity}</TableCell>
         <TableCell>{dayjs(product.createdDate).format("D MMM YYYY")}</TableCell>
         <TableCell>{renderProductAvailability()}</TableCell>
