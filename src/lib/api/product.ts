@@ -100,6 +100,7 @@ export async function updateProduct(formData: ProductProps) {
         description: formData.description,
         quantity: formData.quantity,
         images: formData.images,
+        category: formData.category,
       },
     );
 

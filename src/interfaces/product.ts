@@ -4,6 +4,7 @@ export interface ProductProps {
   description?: string;
   quantity: number;
   images: string[];
+  category: string;
   createdDate?: string;
   lut?: string;
   createdBy?: string;

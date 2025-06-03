@@ -85,78 +85,106 @@ export default function AddProductForm({
       }}
     >
       {/* {JSON.stringify(formData)} */}
-      <div className="flex w-full flex-col items-center gap-6">
-        {/* Images Field */}
-        <div className="flex w-full items-center justify-between">
-          <p>Product Images</p>
-          <div className="flex w-4/5 flex-col gap-2">
-            <ImagePicker
-              initImages={formData.images}
-              onChange={(data) => {
-                insertImageHandler(data);
-              }}
-            />
-            <p className="text-red-600">
-              {getZodErrorMessage({
-                errors: errors,
-                path: "images",
-              })}
-            </p>
+      <div className="flex w-full flex-col items-center gap-16">
+        {/* images, name category */}
+        <div className="flex w-full flex-col gap-6">
+          <h2 className="text-center text-2xl font-medium">Product Identity</h2>
+          {/* Images Field */}
+          <div className="flex w-full items-center justify-between">
+            <p>Product Images</p>
+            <div className="flex w-4/5 flex-col gap-2">
+              <ImagePicker
+                initImages={formData.images}
+                onChange={(data) => {
+                  insertImageHandler(data);
+                }}
+              />
+              <p className="text-red-600">
+                {getZodErrorMessage({
+                  errors: errors,
+                  path: "images",
+                })}
+              </p>
+            </div>
+          </div>
+
+          {/* Name Field */}
+          <div className="flex w-full items-center justify-between">
+            <p>Product Name</p>
+            <div className="w-4/5">
+              <InputText
+                name="name"
+                className="w-full"
+                placeholder="Enter product name"
+                value={formData.name}
+                onChange={handleOnChangeInput}
+                errorMessages={getZodErrorMessage({
+                  errors: errors,
+                  path: "name",
+                })}
+              />
+            </div>
+          </div>
+
+          {/* Category Field */}
+          <div className="flex w-full items-center justify-between">
+            <p>Product Category</p>
+            <div className="w-4/5">
+              <InputText
+                name="category"
+                className="w-full"
+                placeholder="Enter product category"
+                value={formData.category}
+                onChange={handleOnChangeInput}
+                errorMessages={getZodErrorMessage({
+                  errors: errors,
+                  path: "category",
+                })}
+              />
+            </div>
           </div>
         </div>
 
-        {/* Name Field */}
-        <div className="flex w-full items-center justify-between">
-          <p>Product Name</p>
-          <div className="w-4/5">
-            <InputText
-              name="name"
-              className="w-full"
-              placeholder="Enter product name"
-              value={formData.name}
-              onChange={handleOnChangeInput}
-              errorMessages={getZodErrorMessage({
-                errors: errors,
-                path: "name",
-              })}
-            />
+        {/* desc, stock */}
+        <div className="flex w-full flex-col gap-6">
+          <h2 className="text-center text-2xl font-medium">
+            Product Description
+          </h2>
+          {/* Description Field */}
+          <div className="flex w-full items-center justify-between">
+            <p>Product Description</p>
+            <div className="w-4/5">
+              <InputText
+                name="description"
+                className="w-full"
+                placeholder="Enter product description"
+                value={formData.description}
+                onChange={handleOnChangeInput}
+                errorMessages={getZodErrorMessage({
+                  errors: errors,
+                  path: "description",
+                })}
+              />
+            </div>
           </div>
-        </div>
 
-        {/* Description Field */}
-        <div className="flex w-full items-center justify-between">
-          <p>Product Description</p>
-          <div className="w-4/5">
-            <InputText
-              name="description"
-              className="w-full"
-              placeholder="Enter product description"
-              value={formData.description}
-              onChange={handleOnChangeInput}
-              errorMessages={getZodErrorMessage({
-                errors: errors,
-                path: "description",
-              })}
-            />
-          </div>
-        </div>
-
-        {/* Quantity Field */}
-        <div className="flex w-full items-center justify-between">
-          <p>Stock</p>
-          <div className="w-4/5">
-            <InputText
-              className="w-full"
-              name="quantity"
-              type="number"
-              placeholder="Enter current product quantity"
-              value={formData.quantity}
-              onChange={handleOnChangeInput}
-              errorMessages={getZodErrorMessage({
-                errors: errors,
-                path: "quantity",
-              })}
-            />
+          {/* Stock Field */}
+          <div className="flex w-full items-center justify-between">
+            <p>Stock</p>
+            <div className="w-4/5">
+              <InputText
+                className="w-full"
+                name="quantity"
+                type="number"
+                placeholder="Enter current product quantity"
+                value={formData.quantity}
+                onChange={handleOnChangeInput}
+                errorMessages={getZodErrorMessage({
+                  errors: errors,
+                  path: "quantity",
+                })}
+              />
+            </div>
           </div>
         </div>
       </div>

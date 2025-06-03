@@ -40,11 +40,23 @@ export default function ProductTableRow({
 
   function renderProductAvailability() {
     if (product.quantity === 0) {
-      return <p>Out of Stock</p>;
+      return (
+        <p className="w-fit rounded-full bg-red-600 px-3 py-[2px] text-xs">
+          Out of Stock
+        </p>
+      );
     } else if (product.quantity < 10) {
-      return <p>Low Stock</p>;
+      return (
+        <p className="w-fit rounded-full bg-yellow-500 px-3 py-[2px] text-xs">
+          Low Stock
+        </p>
+      );
     } else {
-      return <p>In Stock</p>;
+      return (
+        <p className="w-fit rounded-full bg-green-600 px-3 py-[2px] text-xs">
+          In Stock
+        </p>
+      );
     }
   }
 
@@ -88,6 +100,8 @@ export default function ProductTableRow({
             </Tooltip>
           </div>
         </TableCell>
+
+        <TableCell>{product.category || "-"}</TableCell>
 
         {/* description */}
         <TableCell className="max-w-28">
