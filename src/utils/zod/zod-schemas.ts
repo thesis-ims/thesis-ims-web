@@ -66,6 +66,12 @@ export const addProductSchema = z.object({
   quantity: z
     .number({ message: "kuantitas barang harus diisi" })
     .min(0, { message: "kuantitas barang harus diisi" }),
+  buyPrice: z
+    .number({ message: "harga barang harus diisi" })
+    .min(1, { message: "harga barang tidak boleh 0" }),
+  sellPrice: z
+    .number({ message: "harga barang harus diisi" })
+    .min(1, { message: "harga barang tidak boleh 0" }),
   // images: z
   //   .array(z.string(), { message: "produk harus memiliki minimal 1 gambar" })
   //   .min(1, { message: "produk harus memiliki minimal 1 gambar" }),

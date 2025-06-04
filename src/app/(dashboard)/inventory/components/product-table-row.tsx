@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import ConfirmationDialog from "@/components/ui/confirmation-dialog";
 import {
   DropdownMenu,
@@ -23,6 +22,7 @@ import {
 import { ProductProps } from "@/interfaces/product";
 import { deleteProduct } from "@/lib/api/product";
 import { base64StringDecoder } from "@/utils/base64-string-encoder";
+import { renderCurrency } from "@/utils/renderCurrency";
 import dayjs from "dayjs";
 import _ from "lodash";
 import Image from "next/image";
@@ -102,6 +102,8 @@ export default function ProductTableRow({
         </TableCell>
 
         <TableCell>{product.category || "-"}</TableCell>
+        <TableCell>{renderCurrency({ price: product.buyPrice })}</TableCell>
+        <TableCell>{renderCurrency({ price: product.sellPrice })}</TableCell>
 
         {/* description */}
         <TableCell className="max-w-28">

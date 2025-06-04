@@ -8,6 +8,8 @@ export interface ProductProps {
   createdDate?: string;
   lut?: string;
   createdBy?: string;
+  buyPrice: number;
+  sellPrice: number;
 }
 
 export interface ProductStocksSummary {

@@ -47,6 +47,8 @@ export default function ProductListTable({
               <TableRow>
                 <TableHead>Product Name</TableHead>
                 <TableHead>Category</TableHead>
+                <TableHead>Buy Price</TableHead>
+                <TableHead>Sell Price</TableHead>
                 <TableHead>Description</TableHead>
                 <TableHead>Stock</TableHead>
                 <TableHead>Last Updated</TableHead>
