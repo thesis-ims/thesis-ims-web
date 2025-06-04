@@ -9,6 +9,7 @@ import React from "react";
 import StockInformation from "./(dashboard)/inventory/components/stock-information";
 import { GetAllProductProps } from "@/interfaces/product";
 import PageHeader from "@/components/ui/page-header";
+import { PieChart } from "@mui/x-charts/PieChart";
 
 export default function Homepage({
   profile,
@@ -25,6 +26,24 @@ export default function Homepage({
       </p>
 
       <StockInformation stockSummary={products.otherInfo} />
+      <PieChart
+        // className="bg-red-500"
+        series={[
+          {
+            data: [
+              { id: 0, value: products.otherInfo.available, label: "series A" },
+              {
+                id: 1,
+                value: products.otherInfo.emptyStock,
+                label: "series B",
+              },
+              { id: 2, value: products.otherInfo.lowStock, label: "series C" },
+            ],
+          },
+        ]}
+        width={200}
+        height={200}
+      />
     </div>
   );
 }
