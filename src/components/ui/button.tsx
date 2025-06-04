@@ -10,13 +10,14 @@ export interface ButtonProps
 }
 
 const buttonClassname = cva(
-  "cursor-pointer flex gap-2 items-center justify-center",
+  "cursor-pointer flex gap-2 items-center justify-center font-medium ",
   {
     variants: {
       intent: {
-        primary: "text-white bg-primary-color-60",
+        primary:
+          "text-white bg-primary-color-60 hover:bg-primary-color-1 hover:shadow-xl transition duration-200 ",
         secondary:
-          "bg-white border-2 border-primary-color-60 text-primary-color-60 font-medium ",
+          "bg-white border-2 border-primary-color-60 text-primary-color-60 hover:bg-primary-color-30 transition duration-200",
       },
       size: {
         default: "py-3 px-4 text-base min-w-[150px]",
