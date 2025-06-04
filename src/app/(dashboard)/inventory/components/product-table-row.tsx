@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import ConfirmationDialog from "@/components/ui/confirmation-dialog";
 import {
   DropdownMenu,
@@ -15,9 +14,15 @@ import {
   TrashIcon,
 } from "@/components/ui/icons";
 import { TableCell, TableRow } from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { ProductProps } from "@/interfaces/product";
 import { deleteProduct } from "@/lib/api/product";
 import { base64StringDecoder } from "@/utils/base64-string-encoder";
+import { renderCurrency } from "@/utils/renderCurrency";
 import dayjs from "dayjs";
 import _ from "lodash";
 import Image from "next/image";
@@ -35,11 +40,23 @@ export default function ProductTableRow({
 
   function renderProductAvailability() {
     if (product.quantity === 0) {
-      return <p>Out of Stock</p>;
+      return (
+        <p className="w-fit rounded-full bg-red-600 px-3 py-[2px] text-xs">
+          Out of Stock
+        </p>
+      );
     } else if (product.quantity < 10) {
-      return <p>Low Stock</p>;
+      return (
+        <p className="w-fit rounded-full bg-yellow-500 px-3 py-[2px] text-xs">
+          Low Stock
+        </p>
+      );
     } else {
-      return <p>In Stock</p>;
+      return (
+        <p className="w-fit rounded-full bg-green-600 px-3 py-[2px] text-xs">
+          In Stock
+        </p>
+      );
     }
   }
 
@@ -58,8 +75,8 @@ export default function ProductTableRow({
 
   return (
     <>
-      <TableRow>
-        <TableCell>
+      <TableRow className="bg-white">
+        <TableCell className="max-w-28 min-w-40">
           <div className="flex items-center gap-2">
             {product.images.length > 0 ? (
               <Image
@@ -72,9 +89,39 @@ export default function ProductTableRow({
             ) : (
               <div className="bg-gray-20 h-10 w-10 rounded-sm" />
             )}
-            <p>{product.name}</p>
+            <Tooltip>
+              <TooltipTrigger className="overflow-hidden">
+                <p className="truncate">{product.name}</p>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{product.name}</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </TableCell>
+
+        <TableCell>{product.category || "-"}</TableCell>
+        <TableCell>{renderCurrency({ price: product.buyPrice })}</TableCell>
+        <TableCell>{renderCurrency({ price: product.sellPrice })}</TableCell>
+
+        {/* description */}
+        <TableCell className="max-w-28 min-w-40">
+          {product.description ? (
+            <div className="flex">
+              <Tooltip>
+                <TooltipTrigger className="overflow-hidden text-ellipsis whitespace-nowrap">
+                  <p className="truncate">{product.description}</p>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{product.description}</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          ) : (
+            <p>-</p>
+          )}
+        </TableCell>
+
         <TableCell>{product.quantity}</TableCell>
         <TableCell>{dayjs(product.createdDate).format("D MMM YYYY")}</TableCell>
         <TableCell>{renderProductAvailability()}</TableCell>

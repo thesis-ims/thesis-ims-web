@@ -60,10 +60,19 @@ export const addProductSchema = z.object({
   name: z
     .string({ message: "nama produk tidak boleh kosong" })
     .min(5, { message: "nama barang minimal harus memiliki 5 karakter" }),
+  category: z
+    .string({ message: "kategori produk harus diisi" })
+    .min(1, { message: "kategori produk harus diisi" }),
   quantity: z
-    .number({ message: "kuantitas barang tidak boleh 0" })
-    .min(1, { message: "kuantitas barang tidak boleh 0" }),
-  images: z
-    .array(z.string(), { message: "produk harus memiliki minimal 1 gambar" })
-    .min(1, { message: "produk harus memiliki minimal 1 gambar" }),
+    .number({ message: "kuantitas barang harus diisi" })
+    .min(0, { message: "kuantitas barang harus diisi" }),
+  buyPrice: z
+    .number({ message: "harga barang harus diisi" })
+    .min(1, { message: "harga barang tidak boleh 0" }),
+  sellPrice: z
+    .number({ message: "harga barang harus diisi" })
+    .min(1, { message: "harga barang tidak boleh 0" }),
+  // images: z
+  //   .array(z.string(), { message: "produk harus memiliki minimal 1 gambar" })
+  //   .min(1, { message: "produk harus memiliki minimal 1 gambar" }),
 });

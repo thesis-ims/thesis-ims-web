@@ -4,13 +4,20 @@ import { GetAllProductProps, ProductProps } from "@/interfaces/product";
 import middlewareAxios from "@/utils/axios-interceptor";
 import { revalidatePath } from "next/cache";
 
-export async function getAllProducts() {
+export async function getAllProducts({
+  sort,
+  page,
+}: {
+  sort: string;
+  page: number;
+}) {
   try {
     let allProductResponse = await middlewareAxios.post(
       `/api/products/get-all-product`,
       {
-        page: 1,
-        size: 20,
+        page: page,
+        size: 9,
+        filter: sort,
       },
     );
 
@@ -82,8 +89,6 @@ export async function addProduct(formData: ProductProps) {
   }
 }
 export async function updateProduct(formData: ProductProps) {
-  // const session = getSession();
-
   try {
     let updateProductResponse = await middlewareAxios.post(
       `/api/products/update`,
@@ -93,6 +98,9 @@ export async function updateProduct(formData: ProductProps) {
         description: formData.description,
         quantity: formData.quantity,
         images: formData.images,
+        category: formData.category,
+        buyPrice: formData.buyPrice,
+        sellPrice: formData.sellPrice,
       },
     );
 
