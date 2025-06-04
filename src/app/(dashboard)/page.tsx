@@ -5,7 +5,7 @@ import { getAllProducts } from "@/lib/api/product";
 
 export default async function Home() {
   const profile = await getUserProfile();
-  const products = await getAllProducts();
+  const products = await getAllProducts({});
 
   return <Homepage profile={profile.data} products={products.data} />;
 }

@@ -8,6 +8,7 @@ import Link from "next/link";
 import React from "react";
 import StockInformation from "./(dashboard)/inventory/components/stock-information";
 import { GetAllProductProps } from "@/interfaces/product";
+import PageHeader from "@/components/ui/page-header";
 
 export default function Homepage({
   profile,
@@ -18,6 +19,7 @@ export default function Homepage({
 }) {
   return (
     <div className="flex flex-col gap-6">
+      <PageHeader title="Dashboard" />
       <p>
         Welcome <span className="font-bold">{profile?.username}</span>
       </p>
