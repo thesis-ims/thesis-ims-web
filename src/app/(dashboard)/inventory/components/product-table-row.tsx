@@ -77,7 +77,7 @@ export default function ProductTableRow({
     <>
       <TableRow>
         {/* title and image */}
-        <TableCell className="max-w-28">
+        <TableCell className="max-w-28 min-w-40">
           <div className="flex items-center gap-2">
             {product.images.length > 0 ? (
               <Image
@@ -106,7 +106,7 @@ export default function ProductTableRow({
         <TableCell>{renderCurrency({ price: product.sellPrice })}</TableCell>
 
         {/* description */}
-        <TableCell className="max-w-28">
+        <TableCell className="max-w-28 min-w-40">
           {product.description ? (
             <div className="flex">
               <Tooltip>
