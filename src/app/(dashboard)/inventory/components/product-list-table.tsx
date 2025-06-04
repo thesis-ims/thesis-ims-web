@@ -46,6 +46,10 @@ export default function ProductListTable({
             <TableHeader className="bg-primary-color-1 text-white">
               <TableRow>
                 <TableHead>Product Name</TableHead>
+                <TableHead>Category</TableHead>
+                <TableHead>Buy Price</TableHead>
+                <TableHead>Sell Price</TableHead>
+                <TableHead>Description</TableHead>
                 <TableHead>Stock</TableHead>
                 <TableHead>Last Updated</TableHead>
                 <TableHead>Availability</TableHead>

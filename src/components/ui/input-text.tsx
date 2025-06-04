@@ -32,7 +32,10 @@ export default function InputText({
           placeholder={placeholder}
           type={isPassword ? "password" : "text"}
           className={cn(
-            "w-fit border-b border-[#C1C7CD] bg-[#F2F4F8] px-4 py-3 placeholder-[#697077] focus:outline-hidden",
+            "w-fit bg-[#F2F4F8] px-4 py-3 placeholder-[#697077] focus:outline-hidden",
+            errorMessages
+              ? "border-2 border-red-600"
+              : "border-b border-[#C1C7CD]",
             className,
           )}
           {...props}
@@ -49,7 +52,9 @@ export default function InputText({
             })}
           </div>
         )} */}
-        {errorMessages && <p className="text-red-600">{errorMessages}</p>}
+        {errorMessages && (
+          <p className="text-xs font-medium text-red-600">{errorMessages}</p>
+        )}
       </div>
     </div>
   );

@@ -89,8 +89,6 @@ export async function addProduct(formData: ProductProps) {
   }
 }
 export async function updateProduct(formData: ProductProps) {
-  // const session = getSession();
-
   try {
     let updateProductResponse = await middlewareAxios.post(
       `/api/products/update`,
@@ -100,6 +98,9 @@ export async function updateProduct(formData: ProductProps) {
         description: formData.description,
         quantity: formData.quantity,
         images: formData.images,
+        category: formData.category,
+        buyPrice: formData.buyPrice,
+        sellPrice: formData.sellPrice,
       },
     );
 
