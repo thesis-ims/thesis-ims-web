@@ -78,85 +78,166 @@ export default function AddProductForm({
 
   return (
     <form
-      className="border-gray-20 flex flex-col items-center gap-8 border-b bg-white p-8"
+      className="border-gray-20 flex flex-col items-center gap-20 border-b bg-white p-8"
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmitProductForm();
       }}
     >
       {/* {JSON.stringify(formData)} */}
-      <div className="flex w-full flex-col items-center gap-6">
-        {/* Images Field */}
-        <div className="flex w-full items-center justify-between">
-          <p>Product Images</p>
-          <div className="flex w-4/5 flex-col gap-2">
-            <ImagePicker
-              initImages={formData.images}
-              onChange={(data) => {
-                insertImageHandler(data);
-              }}
-            />
-            <p className="text-red-600">
-              {getZodErrorMessage({
-                errors: errors,
-                path: "images",
-              })}
+      <div className="flex w-full flex-col items-center gap-16">
+        {/* images, name category */}
+        <div className="flex w-full flex-col gap-6">
+          <h2 className="text-center text-2xl font-medium">Product Identity</h2>
+          {/* Images Field */}
+          <div className="flex w-full items-center justify-between">
+            <p>Product Images</p>
+            <div className="flex w-4/5 flex-col gap-2">
+              <ImagePicker
+                initImages={formData.images}
+                onChange={(data) => {
+                  insertImageHandler(data);
+                }}
+              />
+              <p className="text-red-600">
+                {getZodErrorMessage({
+                  errors: errors,
+                  path: "images",
+                })}
+              </p>
+            </div>
+          </div>
+
+          {/* Name Field */}
+          <div className="flex w-full items-center justify-between">
+            <p>
+              Product Name<span className="text-red-600">*</span>
             </p>
+            <div className="w-4/5">
+              <InputText
+                name="name"
+                className="w-full"
+                placeholder="Enter product name"
+                value={formData.name}
+                onChange={handleOnChangeInput}
+                errorMessages={getZodErrorMessage({
+                  errors: errors,
+                  path: "name",
+                })}
+              />
+            </div>
+          </div>
+
+          {/* Category Field */}
+          <div className="flex w-full items-center justify-between">
+            <p>
+              Product Category<span className="text-red-600">*</span>
+            </p>
+            <div className="w-4/5">
+              <InputText
+                name="category"
+                className="w-full"
+                placeholder="Enter product category"
+                value={formData.category}
+                onChange={handleOnChangeInput}
+                errorMessages={getZodErrorMessage({
+                  errors: errors,
+                  path: "category",
+                })}
+              />
+            </div>
           </div>
         </div>
 
-        {/* Name Field */}
-        <div className="flex w-full items-center justify-between">
-          <p>Product Name</p>
-          <div className="w-4/5">
-            <InputText
-              name="name"
-              className="w-full"
-              placeholder="Enter product name"
-              value={formData.name}
-              onChange={handleOnChangeInput}
-              errorMessages={getZodErrorMessage({
-                errors: errors,
-                path: "name",
-              })}
-            />
+        {/* desc, stock */}
+        <div className="flex w-full flex-col gap-6">
+          <h2 className="text-center text-2xl font-medium">
+            Product Description
+          </h2>
+          {/* Description Field */}
+          <div className="flex w-full items-center justify-between">
+            <p>Product Description</p>
+            <div className="w-4/5">
+              <InputText
+                name="description"
+                className="w-full"
+                placeholder="Enter product description"
+                value={formData.description}
+                onChange={handleOnChangeInput}
+                errorMessages={getZodErrorMessage({
+                  errors: errors,
+                  path: "description",
+                })}
+              />
+            </div>
+          </div>
+
+          {/* Stock Field */}
+          <div className="flex w-full items-center justify-between">
+            <p>
+              Stock<span className="text-red-600">*</span>
+            </p>
+            <div className="w-4/5">
+              <InputText
+                className="w-full"
+                name="quantity"
+                type="number"
+                placeholder="Enter current product quantity"
+                value={formData.quantity}
+                onChange={handleOnChangeInput}
+                errorMessages={getZodErrorMessage({
+                  errors: errors,
+                  path: "quantity",
+                })}
+              />
+            </div>
           </div>
         </div>
 
-        {/* Description Field */}
-        <div className="flex w-full items-center justify-between">
-          <p>Product Description</p>
-          <div className="w-4/5">
-            <InputText
-              name="description"
-              className="w-full"
-              placeholder="Enter product description"
-              value={formData.description}
-              onChange={handleOnChangeInput}
-              errorMessages={getZodErrorMessage({
-                errors: errors,
-                path: "description",
-              })}
-            />
-          </div>
-        </div>
+        {/* prices */}
+        <div className="flex w-full flex-col gap-6">
+          <h2 className="text-center text-2xl font-medium">Product Price</h2>
 
-        {/* Quantity Field */}
-        <div className="flex w-full items-center justify-between">
-          <p>Stock</p>
-          <div className="w-4/5">
-            <InputText
-              className="w-full"
-              name="quantity"
-              type="number"
-              placeholder="Enter current product quantity"
-              value={formData.quantity}
-              onChange={handleOnChangeInput}
-              errorMessages={getZodErrorMessage({
-                errors: errors,
-                path: "quantity",
-              })}
-            />
+          <div className="flex w-full items-center justify-between">
+            <p>
+              Product Buy Price<span className="text-red-600">*</span>
+            </p>
+            <div className="w-4/5">
+              <InputText
+                helperText="harga dalam rupiah"
+                className="w-full"
+                name="buyPrice"
+                type="number"
+                placeholder="Enter product buy price"
+                value={formData.buyPrice}
+                onChange={handleOnChangeInput}
+                errorMessages={getZodErrorMessage({
+                  errors: errors,
+                  path: "buyPrice",
+                })}
+              />
+            </div>
+          </div>
+
+          <div className="flex w-full items-center justify-between">
+            <p>
+              Product Sell Price<span className="text-red-600">*</span>
+            </p>
+            <div className="w-4/5">
+              <InputText
+                helperText="harga dalam rupiah"
+                className="w-full"
+                name="sellPrice"
+                type="number"
+                placeholder="Enter product sell price"
+                value={formData.sellPrice}
+                onChange={handleOnChangeInput}
+                errorMessages={getZodErrorMessage({
+                  errors: errors,
+                  path: "sellPrice",
+                })}
+              />
+            </div>
           </div>
         </div>
       </div>

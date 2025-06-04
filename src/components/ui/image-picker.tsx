@@ -37,7 +37,10 @@ export default function ImagePicker({
 
     // Convert FileList to array and filter for jpeg/jpg
     const newFiles = Array.from(files).filter(
-      (file) => file.type === "image/jpeg" || file.type === "image/jpg",
+      (file) =>
+        file.type === "image/jpeg" ||
+        file.type === "image/jpg" ||
+        file.type === "image/png",
     );
 
     // Check if adding new files would exceed maxFiles
@@ -117,7 +120,7 @@ export default function ImagePicker({
         ref={fileInputRef}
         type="file"
         multiple
-        accept="image/jpeg,image/jpg"
+        accept="image/jpeg,image/jpg,image/png"
         className="hidden"
         onChange={handleFileChange}
         disabled={images.length >= maxFiles}
@@ -134,7 +137,7 @@ export default function ImagePicker({
             Click to upload images
           </p>
           <p className="mt-1 text-xs text-gray-500">
-            JPEG/JPG only ({images.length}/{maxFiles})
+            JPEG/JPG/PNG only ({images.length}/{maxFiles})
           </p>
         </div>
       )}
