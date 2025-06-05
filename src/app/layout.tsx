@@ -12,9 +12,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Inventory Management System App",
-  description:
-    "Thesis Project IMS Web Application, created using Next.Js and Tailwind CSS",
+  title: "Stokku | Inventory Management System",
+  description: "Manage your inventory with Stokku",
 };
 
 export default function RootLayout({
