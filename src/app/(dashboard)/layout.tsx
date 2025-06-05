@@ -1,5 +1,6 @@
 import ClientLayout from "@/components/layouts/client-layout";
 import Sidebar from "@/components/layouts/sidebar";
+import { getUserProfile } from "@/lib/api/profile";
 import { getSession } from "@/lib/auth/get-session";
 import { redirect } from "next/navigation";
 import React, { ReactNode } from "react";
@@ -13,9 +14,10 @@ export default async function DashboardViewLayout({
   if (!session?.userId) {
     redirect("/auth/login");
   }
+  const profile = await getUserProfile();
   return (
     <div className="flex min-h-screen">
-      <Sidebar />
+      <Sidebar profile={profile.data} />
       <ClientLayout>{children}</ClientLayout>
     </div>
   );

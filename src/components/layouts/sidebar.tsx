@@ -14,6 +14,9 @@ import {
 } from "../ui/icons";
 import { usePathname } from "next/navigation";
 import path from "path";
+import { ProfileProps } from "@/interfaces/profile";
+import Image from "next/image";
+import { base64StringDecoder } from "@/utils/base64-string-encoder";
 
 interface SidebarItem {
   label: string;
@@ -68,16 +71,29 @@ function SidebarItem({ item }: { item: SidebarItem }) {
   );
 }
 
-export default function Sidebar() {
+export default function Sidebar({ profile }: { profile: ProfileProps }) {
   return (
     <div className="flex h-screen w-[256px] flex-col items-center gap-4 px-4 py-6">
-      <Link href="/" className="flex items-center gap-3">
+      <Link href="/" className="flex items-center gap-5 px-2 py-5">
         <StokkuIcon className="text-primary-color-1 h-10 w-10" />
-        <h1 className="text-primary-color-1 px-2 py-5 text-4xl font-bold">
-          Stokku
-        </h1>
+        <h1 className="text-primary-color-1 text-4xl font-bold">Stokku</h1>
       </Link>
-      <div className="flex w-full flex-col">
+
+      <Link href="/settings" className="flex items-center gap-4 pb-7">
+        <Image
+          src={base64StringDecoder(profile.image)}
+          alt="profile image"
+          className="border-primary-color-1 h-11 w-11 rounded-full border object-cover"
+          width={0}
+          height={0}
+        />
+
+        <p className="text-primary-color-1 text-xl font-medium">
+          {profile.username}
+        </p>
+      </Link>
+
+      <div className="border-gray-10 flex w-full flex-col border-t">
         {sidebarItems.map((item, index) => {
           return <SidebarItem key={index} item={item} />;
         })}
