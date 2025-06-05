@@ -83,7 +83,7 @@ export default function UserDetailForm({
               handleUpdateProfile();
             }}
           >
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               <InputText
                 label="Email"
                 name="email"
@@ -182,12 +182,7 @@ export default function UserDetailForm({
               >
                 Want to change your password?
               </p>
-              <Button
-                className="w-fit"
-                intent={"primary"}
-                size={"small"}
-                type="submit"
-              >
+              <Button className="w-fit" intent={"primary"} type="submit">
                 Save Changes
               </Button>
             </div>

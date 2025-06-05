@@ -9,6 +9,7 @@ import {
   HistoryIcon,
   HomeIcon,
   SettingsIcon,
+  StokkuIcon,
   UsersIcon,
 } from "../ui/icons";
 import { usePathname } from "next/navigation";
@@ -70,7 +71,8 @@ function SidebarItem({ item }: { item: SidebarItem }) {
 export default function Sidebar() {
   return (
     <div className="flex h-screen w-[256px] flex-col items-center gap-4 px-4 py-6">
-      <Link href="/">
+      <Link href="/" className="flex items-center gap-3">
+        <StokkuIcon className="text-primary-color-1 h-10 w-10" />
         <h1 className="text-primary-color-1 px-2 py-5 text-4xl font-bold">
           Stokku
         </h1>

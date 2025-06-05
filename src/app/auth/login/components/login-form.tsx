@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { StokkuIcon } from "@/components/ui/icons";
 import InputText from "@/components/ui/input-text";
 import { LoginBodyProps } from "@/interfaces/auth";
 import { login } from "@/lib/api/auth";
@@ -11,6 +12,7 @@ import {
   getZodErrorMessage,
   parseZodIssue,
 } from "@/utils/zod/zod-utils";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -57,8 +59,9 @@ export default function LoginForm() {
       {/* login page header */}
 
       <div className="flex flex-col items-center gap-2">
+        <StokkuIcon className="text-primary-color-60" />
         <h1 className="text-[42px] font-bold">Welcome to Stokku!</h1>
-        <p className="text-lg">Please log in to continue</p>
+        <p className="text-lg">Ready to track your stock? Let’s get started!</p>
       </div>
 
       {/* login form */}

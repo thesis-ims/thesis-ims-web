@@ -12,7 +12,8 @@ export const loginSchema = z.object({
 export const registerSchema = z.object({
   email: z
     .string({ message: "Wajib diisi" })
-    .min(1, { message: "Wajib diisi" }),
+    .min(1, { message: "Wajib diisi" })
+    .email({ message: "Format email tidak valid" }),
   username: z
     .string({ message: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),

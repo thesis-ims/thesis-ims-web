@@ -74,7 +74,7 @@ export default function ProfilePhotoSection({
           {/* Left Section */}
           <div className="flex items-center gap-12">
             {/* profile pict uploader */}
-            <div className="border-gray-20 flex items-center gap-6 border-r pr-12">
+            <div className="flex items-center gap-6">
               {value ? (
                 <Image
                   src={image?.preview!}
@@ -121,8 +121,8 @@ export default function ProfilePhotoSection({
               </div>
             </div>
 
-            {/* instruction section */}
-            <div>tutor</div>
+            {/* instruction section
+            <div>tutor</div> */}
           </div>
 
           {/* Right Section */}

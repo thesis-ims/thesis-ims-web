@@ -41,19 +41,19 @@ export default function ProductTableRow({
   function renderProductAvailability() {
     if (product.quantity === 0) {
       return (
-        <p className="w-fit rounded-full bg-red-600 px-3 py-[2px] text-xs">
+        <p className="w-fit rounded-full bg-red-600 px-3 py-[2px] text-xs font-medium">
           Out of Stock
         </p>
       );
     } else if (product.quantity < 10) {
       return (
-        <p className="w-fit rounded-full bg-yellow-500 px-3 py-[2px] text-xs">
+        <p className="w-fit rounded-full bg-yellow-500 px-3 py-[2px] text-xs font-medium">
           Low Stock
         </p>
       );
     } else {
       return (
-        <p className="w-fit rounded-full bg-green-600 px-3 py-[2px] text-xs">
+        <p className="w-fit rounded-full bg-green-600 px-3 py-[2px] text-xs font-medium">
           In Stock
         </p>
       );
