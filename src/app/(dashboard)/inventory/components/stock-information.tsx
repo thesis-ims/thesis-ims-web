@@ -8,9 +8,15 @@ export default function StockInformation({
 }) {
   return (
     <div className="grid w-full grid-cols-3 gap-6">
-      <StockCard text={"Available Stock"} value={stockSummary?.available} />
-      <StockCard text={"Low Stock"} value={stockSummary?.lowStock} />
-      <StockCard text={"Out of Stock"} value={stockSummary?.emptyStock} />
+      <StockCard
+        text={"Available Stock Product"}
+        value={stockSummary?.available}
+      />
+      <StockCard text={"Low Stock Product"} value={stockSummary?.lowStock} />
+      <StockCard
+        text={"Out of Stock Product"}
+        value={stockSummary?.emptyStock}
+      />
     </div>
   );
 }

@@ -36,8 +36,8 @@ export async function getAllProducts({
   sort,
   page,
 }: {
-  sort: string;
-  page: number;
+  sort?: string;
+  page?: number;
 }) {
   try {
     let allProductResponse = await middlewareAxios.post(
