@@ -1,5 +1,5 @@
 import ProductListTable from "./components/product-list-table";
-import { getAllProducts } from "@/lib/api/product";
+import { getAllProducts, getStockSummary } from "@/lib/api/product";
 import StockInformation from "./components/stock-information";
 import PageHeader from "@/components/ui/page-header";
 import ImportCsv from "./components/import-csv";
@@ -12,6 +12,8 @@ export default async function Inventory({
 }) {
   let page =
     searchParams.page == null ? 1 : Number(searchParams.page as string);
+
+  const stockSummary = await getStockSummary();
   const products = await getAllProducts({
     sort: searchParams.sb as string,
     page: page,
@@ -21,7 +23,7 @@ export default async function Inventory({
       <PageHeader title="Inventory" />
       <ImportCsv />
       <ExportCsv />
-      <StockInformation stockSummary={products.data.otherInfo} />
+      <StockInformation stockSummary={stockSummary.data} />
       <ProductListTable products={products.data} />
     </div>
   );

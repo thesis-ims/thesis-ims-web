@@ -20,7 +20,6 @@ export interface ProductStocksSummary {
 
 export interface GetAllProductProps {
   object: ProductProps[];
-  otherInfo: ProductStocksSummary;
   total: number;
   page: number;
   size: number;
