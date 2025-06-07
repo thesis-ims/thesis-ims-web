@@ -6,7 +6,7 @@ import { ProfileProps } from "@/interfaces/profile";
 import { logout } from "@/lib/auth/auth-cookie-handler";
 import Link from "next/link";
 import React from "react";
-import StockInformation from "./(dashboard)/inventory/components/stock-information";
+import StockInformation from "../(dashboard)/inventory/components/stock-information";
 import {
   CategorySummary,
   GetAllProductProps,
@@ -14,15 +14,20 @@ import {
 } from "@/interfaces/product";
 import PageHeader from "@/components/ui/page-header";
 import { PieChart } from "@mui/x-charts/PieChart";
+import ProductsHomepageRecap from "./products-homepage-recap";
 
 export default function Homepage({
   categorySummary,
   profile,
   stockSummary,
+  lowStockProducts,
+  outOfStockProducts,
 }: {
   profile: ProfileProps | null;
   stockSummary: ProductStocksSummary;
   categorySummary: CategorySummary[];
+  lowStockProducts: GetAllProductProps;
+  outOfStockProducts: GetAllProductProps;
 }) {
   return (
     <div className="flex flex-col gap-6">
@@ -32,6 +37,8 @@ export default function Homepage({
       </p> */}
 
       <StockInformation stockSummary={stockSummary} />
+
+      {/* charts */}
       <div className="grid grid-cols-2 gap-6">
         {/* Category summary */}
         <div className="flex flex-col gap-6 bg-white px-4 py-6">
@@ -72,6 +79,8 @@ export default function Homepage({
           />
         </div>
       </div>
+
+      <ProductsHomepageRecap />
     </div>
   );
 }

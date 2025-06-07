@@ -12,6 +12,14 @@ export interface ProductProps {
   sellPrice: number;
 }
 
+export interface GetAllProductProps {
+  object: ProductProps[];
+  total: number;
+  page: number;
+  size: number;
+  totalPages: number;
+}
+
 export interface ProductStocksSummary {
   available: number;
   lowStock: number;
@@ -20,14 +28,6 @@ export interface ProductStocksSummary {
 export interface CategorySummary {
   label: string;
   value: number;
-}
-
-export interface GetAllProductProps {
-  object: ProductProps[];
-  total: number;
-  page: number;
-  size: number;
-  totalPages: number;
 }
 
 export interface ImportCsvProps {
