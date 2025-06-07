@@ -7,16 +7,16 @@ import { logout } from "@/lib/auth/auth-cookie-handler";
 import Link from "next/link";
 import React from "react";
 import StockInformation from "./(dashboard)/inventory/components/stock-information";
-import { GetAllProductProps } from "@/interfaces/product";
+import { GetAllProductProps, ProductStocksSummary } from "@/interfaces/product";
 import PageHeader from "@/components/ui/page-header";
 import { PieChart } from "@mui/x-charts/PieChart";
 
 export default function Homepage({
   profile,
-  products,
+  stockSummary,
 }: {
   profile: ProfileProps | null;
-  products: GetAllProductProps;
+  stockSummary: ProductStocksSummary;
 }) {
   return (
     <div className="flex flex-col gap-6">
@@ -25,8 +25,8 @@ export default function Homepage({
         Welcome <span className="font-bold">{profile?.username}</span>
       </p>
 
-      <StockInformation stockSummary={products.otherInfo} />
-      <PieChart
+      <StockInformation stockSummary={stockSummary} />
+      {/* <PieChart
         // className="bg-red-500"
         series={[
           {
@@ -43,7 +43,7 @@ export default function Homepage({
         ]}
         width={200}
         height={200}
-      />
+      /> */}
     </div>
   );
 }
