@@ -17,6 +17,10 @@ export interface ProductStocksSummary {
   lowStock: number;
   emptyStock: number;
 }
+export interface CategorySummary {
+  label: string;
+  value: number;
+}
 
 export interface GetAllProductProps {
   object: ProductProps[];

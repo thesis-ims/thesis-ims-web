@@ -1,6 +1,7 @@
 "use server";
 
 import {
+  CategorySummary,
   GetAllProductProps,
   ImportCsvProps,
   ProductProps,
@@ -27,6 +28,29 @@ export async function getStockSummary() {
     console.log(error, "error get stock summary");
     return {
       data: {} as ProductStocksSummary,
+      message: error?.response?.data?.message || "",
+      error: true,
+    };
+  }
+}
+export async function getCategorySummary() {
+  try {
+    let categorySummaryResponse = await middlewareAxios.post(
+      `/api/products/get-category-summary`,
+      {},
+    );
+
+    console.log(categorySummaryResponse, "get category summary response");
+
+    return {
+      data: categorySummaryResponse.data.data as CategorySummary[],
+      message: categorySummaryResponse.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error get category summary");
+    return {
+      data: {} as CategorySummary[],
       message: error?.response?.data?.message || "",
       error: true,
     };
