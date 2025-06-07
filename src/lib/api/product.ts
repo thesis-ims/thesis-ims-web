@@ -1,6 +1,6 @@
 "use server";
 
-import { GetAllProductProps, ProductProps } from "@/interfaces/product";
+import { GetAllProductProps, ImportCsvProps, ProductProps } from "@/interfaces/product";
 import middlewareAxios from "@/utils/axios-interceptor";
 import { revalidatePath } from "next/cache";
 
@@ -140,6 +140,47 @@ export async function deleteProduct(id: string) {
     return {
       message: error?.response?.data?.message,
       error: true,
+    };
+  }
+}
+
+export async function importCsv(formData: ImportCsvProps) {
+  try {
+     let importCsvResponse = await middlewareAxios.post(
+      "/api/products/import-csv",
+      {
+        importType: formData.importType,
+        csvData: formData.csvData,
+      }
+    );
+    console.log(importCsvResponse, "import csv response");
+    revalidatePath("/inventory");
+    return {
+      message: importCsvResponse.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error import csv");
+    return {
+      message: error?.response?.data?.message,
+      error: true,
+    };
+  }
+}
+
+export async function exportCsv() {
+  try {
+    const response = await middlewareAxios.post("/api/products/export-csv", {}, {
+      responseType: "text",
+    });
+    return {
+      data: response.data,
+      error: false,
+    };
+  } catch (error: any) {
+    return {
+      error: true,
+      message: error?.response?.data?.message || "Export failed",
     };
   }
 }

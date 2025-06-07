@@ -26,3 +26,8 @@ export interface GetAllProductProps {
   size: number;
   totalPages: number;
 }
+
+export interface ImportCsvProps {
+  importType: "APPEND" | "REPLACE";
+  csvData: string;
+}
