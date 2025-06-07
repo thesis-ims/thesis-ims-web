@@ -6,31 +6,44 @@ import { ProfileProps } from "@/interfaces/profile";
 import { logout } from "@/lib/auth/auth-cookie-handler";
 import Link from "next/link";
 import React from "react";
+import StockInformation from "./(dashboard)/inventory/components/stock-information";
+import { GetAllProductProps } from "@/interfaces/product";
+import PageHeader from "@/components/ui/page-header";
+import { PieChart } from "@mui/x-charts/PieChart";
 
 export default function Homepage({
   profile,
+  products,
 }: {
   profile: ProfileProps | null;
+  products: GetAllProductProps;
 }) {
   return (
-    <div className="flex w-full flex-col gap-5">
-      {/* LOGIN LOGOUT BUTTONS */}
-      <div className="flex items-center gap-2">
-        <Button
-          onClick={() => {
-            logout();
-          }}
-        >
-          logout
-        </Button>
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageHeader title="Dashboard" />
+      <p>
+        Welcome <span className="font-bold">{profile?.username}</span>
+      </p>
 
-      {/* USER DATA */}
-      <div className="flex flex-col gap-2">
-        <p>
-          welcome <span className="font-bold">{profile?.username}</span>
-        </p>
-      </div>
+      <StockInformation stockSummary={products.otherInfo} />
+      <PieChart
+        // className="bg-red-500"
+        series={[
+          {
+            data: [
+              { id: 0, value: products.otherInfo.available, label: "series A" },
+              {
+                id: 1,
+                value: products.otherInfo.emptyStock,
+                label: "series B",
+              },
+              { id: 2, value: products.otherInfo.lowStock, label: "series C" },
+            ],
+          },
+        ]}
+        width={200}
+        height={200}
+      />
     </div>
   );
 }
