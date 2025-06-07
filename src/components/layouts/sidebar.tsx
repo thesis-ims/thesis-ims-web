@@ -8,6 +8,7 @@ import {
   FolderIcon,
   HistoryIcon,
   HomeIcon,
+  ProfilePlaceholderIcon,
   SettingsIcon,
   StokkuIcon,
   UsersIcon,
@@ -80,13 +81,19 @@ export default function Sidebar({ profile }: { profile: ProfileProps }) {
       </Link>
 
       <Link href="/settings" className="flex items-center gap-4 pb-7">
-        <Image
-          src={base64StringDecoder(profile.image)}
-          alt="profile image"
-          className="border-primary-color-1 h-11 w-11 rounded-full border object-cover"
-          width={0}
-          height={0}
-        />
+        {profile.image ? (
+          <Image
+            src={base64StringDecoder(profile.image)}
+            alt="profile image"
+            className="border-primary-color-1 h-11 w-11 rounded-full border object-cover"
+            width={0}
+            height={0}
+          />
+        ) : (
+          <div className="border-primary-color-1 bg-gray-10 flex h-11 w-11 items-center justify-center rounded-full border">
+            <ProfilePlaceholderIcon className="h-4 w-4 text-gray-50" />
+          </div>
+        )}
 
         <p className="text-primary-color-1 text-xl font-medium">
           {profile.username}

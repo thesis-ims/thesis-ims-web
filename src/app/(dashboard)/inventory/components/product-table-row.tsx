@@ -78,7 +78,7 @@ export default function ProductTableRow({
       <TableRow className="bg-white">
         <TableCell className="max-w-28 min-w-40">
           <div className="flex items-center gap-2">
-            {product.images.length > 0 ? (
+            {product.images?.length > 0 ? (
               <Image
                 src={base64StringDecoder(_.first(product?.images!) as string)}
                 alt="product image"
