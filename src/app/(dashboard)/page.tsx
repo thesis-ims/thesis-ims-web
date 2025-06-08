@@ -14,10 +14,12 @@ export default async function Home() {
   const lowStockProducts = await getAllProducts({
     sort: "LOW_STOCK",
     page: 1,
+    size: 5,
   });
   const outOfStockProducts = await getAllProducts({
     sort: "OUT_OF_STOCK",
     page: 1,
+    size: 5,
   });
 
   // return <p>{JSON.stringify(categorySummary.data)}</p>;

@@ -59,16 +59,18 @@ export async function getCategorySummary() {
 export async function getAllProducts({
   sort,
   page,
+  size = 9,
 }: {
   sort?: string;
   page?: number;
+  size?: number;
 }) {
   try {
     let allProductResponse = await middlewareAxios.post(
       `/api/products/get-all-product`,
       {
         page: page,
-        size: 9,
+        size: size,
         filter: sort,
       },
     );

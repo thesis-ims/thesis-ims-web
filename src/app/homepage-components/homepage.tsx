@@ -80,7 +80,10 @@ export default function Homepage({
         </div>
       </div>
 
-      <ProductsHomepageRecap />
+      <ProductsHomepageRecap
+        lowStockProducts={lowStockProducts}
+        outOfStockProducts={outOfStockProducts}
+      />
     </div>
   );
 }

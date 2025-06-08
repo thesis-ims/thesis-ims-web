@@ -15,6 +15,7 @@ export default async function Inventory({
 
   const stockSummary = await getStockSummary();
   const products = await getAllProducts({
+    size: 9,
     sort: searchParams.sb as string,
     page: page,
   });
