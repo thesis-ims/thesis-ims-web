@@ -1,22 +1,76 @@
 "use server";
 
-import { GetAllProductProps, ImportCsvProps, ProductProps } from "@/interfaces/product";
+import {
+  CategorySummary,
+  GetAllProductProps,
+  ImportCsvProps,
+  ProductProps,
+  ProductStocksSummary,
+} from "@/interfaces/product";
 import middlewareAxios from "@/utils/axios-interceptor";
 import { revalidatePath } from "next/cache";
 
+export async function getStockSummary() {
+  try {
+    let stockSummaryResponse = await middlewareAxios.post(
+      `/api/products/get-stock-summary`,
+      {},
+    );
+
+    console.log(stockSummaryResponse, "get stock summary response");
+
+    return {
+      data: stockSummaryResponse.data.data as ProductStocksSummary,
+      message: stockSummaryResponse.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error get stock summary");
+    return {
+      data: {} as ProductStocksSummary,
+      message: error?.response?.data?.message || "",
+      error: true,
+    };
+  }
+}
+export async function getCategorySummary() {
+  try {
+    let categorySummaryResponse = await middlewareAxios.post(
+      `/api/products/get-category-summary`,
+      {},
+    );
+
+    console.log(categorySummaryResponse, "get category summary response");
+
+    return {
+      data: categorySummaryResponse.data.data as CategorySummary[],
+      message: categorySummaryResponse.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error get category summary");
+    return {
+      data: {} as CategorySummary[],
+      message: error?.response?.data?.message || "",
+      error: true,
+    };
+  }
+}
 export async function getAllProducts({
   sort,
   page,
+  size = 9,
 }: {
   sort?: string;
   page?: number;
+  size?: number;
 }) {
   try {
     let allProductResponse = await middlewareAxios.post(
       `/api/products/get-all-product`,
       {
         page: page,
-        size: 9,
+        size: size,
         filter: sort,
       },
     );
@@ -146,12 +200,12 @@ export async function deleteProduct(id: string) {
 
 export async function importCsv(formData: ImportCsvProps) {
   try {
-     let importCsvResponse = await middlewareAxios.post(
+    let importCsvResponse = await middlewareAxios.post(
       "/api/products/import-csv",
       {
         importType: formData.importType,
         csvData: formData.csvData,
-      }
+      },
     );
     console.log(importCsvResponse, "import csv response");
     revalidatePath("/inventory");
@@ -170,9 +224,13 @@ export async function importCsv(formData: ImportCsvProps) {
 
 export async function exportCsv() {
   try {
-    const response = await middlewareAxios.post("/api/products/export-csv", {}, {
-      responseType: "text",
-    });
+    const response = await middlewareAxios.post(
+      "/api/products/export-csv",
+      {},
+      {
+        responseType: "text",
+      },
+    );
     return {
       data: response.data,
       error: false,

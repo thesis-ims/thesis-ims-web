@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import CategoryCombobox from "@/components/ui/category-combobox";
 import ImagePicker from "@/components/ui/image-picker";
 import InputText from "@/components/ui/input-text";
 import { ProductProps } from "@/interfaces/product";
@@ -17,8 +18,10 @@ import toast from "react-hot-toast";
 
 export default function AddProductForm({
   initProductData,
+  categoryList,
 }: {
   initProductData?: ProductProps;
+  categoryList: string[];
 }) {
   const pathName = usePathname();
   const router = useRouter();
@@ -84,7 +87,7 @@ export default function AddProductForm({
         handleSubmitProductForm();
       }}
     >
-      {/* {JSON.stringify(formData)} */}
+      {/* {JSON.stringify(formData.category)} */}
       <div className="flex w-full flex-col items-center gap-16">
         {/* images, name category */}
         <div className="flex w-full flex-col gap-6">
@@ -134,16 +137,17 @@ export default function AddProductForm({
               Product Category<span className="text-red-600">*</span>
             </p>
             <div className="w-4/5">
-              <InputText
-                name="category"
-                className="w-full"
-                placeholder="Enter product category"
-                value={formData.category}
-                onChange={handleOnChangeInput}
+              <CategoryCombobox
+                initValue={formData.category}
+                categoryList={categoryList}
+                helperText="Pilih atau ketik kategori baru"
                 errorMessages={getZodErrorMessage({
                   errors: errors,
                   path: "category",
                 })}
+                onChange={(value) => {
+                  setFormData((prev) => ({ ...prev, category: value }));
+                }}
               />
             </div>
           </div>
