@@ -36,7 +36,12 @@ export default function ExportCsv() {
     }
   };
   return (
-    <Button onClick={handleExport} disabled={loading}>
+    <Button
+      onClick={handleExport}
+      disabled={loading}
+      size={"small"}
+      intent={"secondary"}
+    >
       {loading ? "Exporting..." : "Export CSV"}
     </Button>
   );

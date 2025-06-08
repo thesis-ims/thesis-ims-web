@@ -31,6 +31,6 @@ export interface CategorySummary {
 }
 
 export interface ImportCsvProps {
-  importType: "APPEND" | "REPLACE";
+  importType: string;
   csvData: string;
 }

@@ -63,7 +63,7 @@ export default function CsvImportSection() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
+    <div className="mb-4 flex flex-col items-center gap-4 md:flex-row">
       <a
         href="/product_template.csv"
         download
@@ -71,8 +71,9 @@ export default function CsvImportSection() {
       >
         Download CSV Template
       </a>
+
       <select
-        className="border rounded px-2 py-1"
+        className="rounded border px-2 py-1"
         value={importType}
         onChange={(e) => setImportType(e.target.value as "APPEND" | "REPLACE")}
         disabled={loading}

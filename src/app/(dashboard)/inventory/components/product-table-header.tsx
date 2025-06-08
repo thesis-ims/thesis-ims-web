@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
+import ExportCsv from "./export-csv";
 
 export const ProductFilters = [
   {
@@ -58,7 +59,7 @@ export default function ProductTableHeader() {
       <div className="flex items-center gap-2">
         <Select value={sb ?? undefined} onValueChange={handleFilterChange}>
           <SelectTrigger>
-            <FilterIcon className="text-gray-60 h-6 w-6" />
+            <FilterIcon className="text-primary-color-60 h-5 w-5" />
             <SelectValue placeholder="Filters" />
           </SelectTrigger>
           <SelectContent>
@@ -74,6 +75,8 @@ export default function ProductTableHeader() {
             })}
           </SelectContent>
         </Select>
+
+        <ExportCsv />
         <Link href="/add-product">
           <Button size={"small"}>
             <PlusIcon className="h-6 w-6" />

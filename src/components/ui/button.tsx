@@ -15,7 +15,7 @@ const buttonClassname = cva(
     variants: {
       intent: {
         primary:
-          "text-white bg-primary-color-60 hover:bg-primary-color-1 hover:shadow-xl transition duration-200 ",
+          "text-white bg-primary-color-60 hover:bg-primary-color-1 hover:shadow-xl transition duration-200 border border-transparent hover:border-white",
         secondary:
           "bg-white border-2 border-primary-color-60 text-primary-color-60 hover:bg-primary-color-30 transition duration-200",
       },

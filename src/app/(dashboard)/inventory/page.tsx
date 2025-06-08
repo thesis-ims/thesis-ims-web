@@ -2,8 +2,6 @@ import ProductListTable from "./components/product-list-table";
 import { getAllProducts, getStockSummary } from "@/lib/api/product";
 import StockInformation from "./components/stock-information";
 import PageHeader from "@/components/ui/page-header";
-import ImportCsv from "./components/import-csv";
-import ExportCsv from "./components/export-csv";
 
 export default async function Inventory({
   searchParams,
@@ -22,8 +20,6 @@ export default async function Inventory({
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title="Inventory" />
-      <ImportCsv />
-      <ExportCsv />
       <StockInformation stockSummary={stockSummary.data} />
       <ProductListTable products={products.data} />
     </div>
