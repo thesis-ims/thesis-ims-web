@@ -81,7 +81,7 @@ export default function AddProductForm({
 
   return (
     <form
-      className="border-gray-20 flex flex-col items-center gap-20 border-b bg-white p-8"
+      className="border-gray-20 flex flex-col items-center gap-20 border bg-white p-8"
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmitProductForm();
