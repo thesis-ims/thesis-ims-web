@@ -4,13 +4,14 @@ import { redirect } from "next/navigation";
 import {
   getAllProducts,
   getCategorySummary,
+  getProductNameSummary,
   getStockSummary,
 } from "@/lib/api/product";
 
 export default async function Home() {
-  const profile = await getUserProfile();
   const stockSummary = await getStockSummary();
   const categorySummary = await getCategorySummary();
+  const productNameSummary = await getProductNameSummary();
   const lowStockProducts = await getAllProducts({
     sort: "LOW_STOCK",
     page: 1,
@@ -25,7 +26,7 @@ export default async function Home() {
   // return <p>{JSON.stringify(categorySummary.data)}</p>;
   return (
     <Homepage
-      profile={profile.data}
+      productNameSummary={productNameSummary.data}
       stockSummary={stockSummary.data}
       categorySummary={categorySummary.data}
       lowStockProducts={lowStockProducts.data}
