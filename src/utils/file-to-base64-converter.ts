@@ -1,10 +1,4 @@
-export async function convertFileToBase64(file: File): Promise<string> {
-  const base64 = await fileToBase64(file);
-
-  return base64;
-}
-
-function fileToBase64(file: File): Promise<string> {
+export function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 

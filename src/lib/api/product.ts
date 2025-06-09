@@ -208,7 +208,6 @@ export async function importCsv(formData: ImportCsvProps) {
       },
     );
     console.log(importCsvResponse, "import csv response");
-    revalidatePath("/inventory");
     return {
       message: importCsvResponse.data.message,
       error: false,

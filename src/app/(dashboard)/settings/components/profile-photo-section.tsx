@@ -6,7 +6,7 @@ import { ProfilePlaceholderIcon } from "@/components/ui/icons";
 import { ImageFile } from "@/components/ui/image-picker";
 import { logout } from "@/lib/auth/auth-cookie-handler";
 import { base64StringDecoder } from "@/utils/base64-string-encoder";
-import { convertFileToBase64 } from "@/utils/file-to-base64-converter";
+import { fileToBase64 } from "@/utils/file-to-base64-converter";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -33,7 +33,7 @@ export default function ProfilePhotoSection({
       id: crypto.randomUUID(),
       file,
       preview: URL.createObjectURL(file),
-      base64: await convertFileToBase64(file),
+      base64: await fileToBase64(file),
     };
     setImage(newImage);
 

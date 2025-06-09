@@ -5,8 +5,8 @@ import { Upload } from "lucide-react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { CloseIcon, RoundedPlusIcon } from "./icons";
-import { convertFileToBase64 } from "@/utils/file-to-base64-converter";
 import { base64StringDecoder } from "@/utils/base64-string-encoder";
+import { fileToBase64 } from "@/utils/file-to-base64-converter";
 
 // Define TypeScript types
 export type ImageFile = {
@@ -55,7 +55,7 @@ export default function ImagePicker({
         id: crypto.randomUUID(),
         file,
         preview: URL.createObjectURL(file),
-        base64: await convertFileToBase64(file),
+        base64: await fileToBase64(file),
       })),
     );
 
