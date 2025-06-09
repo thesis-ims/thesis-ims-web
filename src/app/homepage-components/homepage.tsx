@@ -32,9 +32,6 @@ export default function Homepage({
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title="Dashboard" />
-      {/* <p>
-        Welcome <span className="font-bold">{profile?.username}</span>
-      </p> */}
 
       <StockInformation stockSummary={stockSummary} />
 

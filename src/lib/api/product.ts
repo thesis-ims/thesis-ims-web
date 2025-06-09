@@ -149,7 +149,7 @@ export async function updateProduct(formData: ProductProps) {
       {
         id: formData.id,
         name: formData.name,
-        description: formData.description,
+        description: formData.description || "",
         quantity: formData.quantity,
         images: formData.images,
         category: formData.category,
