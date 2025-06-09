@@ -56,6 +56,29 @@ export async function getCategorySummary() {
     };
   }
 }
+export async function getProductNameSummary() {
+  try {
+    let productNameSummary = await middlewareAxios.post(
+      `/api/products/get-name-summary`,
+      {},
+    );
+
+    console.log(productNameSummary, "get product summary response");
+
+    return {
+      data: productNameSummary.data.data as CategorySummary[],
+      message: productNameSummary.data.message,
+      error: false,
+    };
+  } catch (error: any) {
+    console.log(error, "error get product summary");
+    return {
+      data: {} as CategorySummary[],
+      message: error?.response?.data?.message || "",
+      error: true,
+    };
+  }
+}
 export async function getAllProducts({
   sort,
   page,
