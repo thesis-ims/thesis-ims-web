@@ -108,6 +108,7 @@ export default function RegisterForm() {
             name="username"
             className="w-[520px]"
             placeholder="enter username"
+            helperText="maximum 10 characters"
             value={formData.username}
             onChange={handleOnChangeInput}
             errorMessages={getZodErrorMessage({
@@ -145,7 +146,7 @@ export default function RegisterForm() {
               errors: errors,
               path: "password",
             })}
-            helperText="It must be a combination of minimum 8 letters, numbers, and symbols."
+            helperText="It must be a combination of minimum 8 letters and numbers."
           />
 
           {/* gender */}

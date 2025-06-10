@@ -84,10 +84,10 @@ export default function ProductTableRow({
                 alt="product image"
                 width={0}
                 height={0}
-                className="h-10 w-10 rounded-sm object-cover"
+                className="h-10 w-10 shrink-0 rounded-sm object-cover"
               />
             ) : (
-              <div className="bg-gray-20 h-10 w-10 rounded-sm" />
+              <div className="bg-gray-20 h-10 w-10 shrink-0 rounded-sm" />
             )}
             <Tooltip>
               <TooltipTrigger className="overflow-hidden">

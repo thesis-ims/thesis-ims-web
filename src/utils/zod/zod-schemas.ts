@@ -16,10 +16,14 @@ export const registerSchema = z.object({
     .email({ message: "Format email tidak valid" }),
   username: z
     .string({ message: "Wajib diisi" })
-    .min(1, { message: "Wajib diisi" }),
+    .min(1, { message: "Wajib diisi" })
+    .max(10, { message: "Maksimal 10 karakter" }),
   password: z
     .string({ message: "Wajib diisi" })
-    .min(8, { message: "Password harus memiliki minimal 8 karakter" }),
+    .min(8, { message: "Password harus memiliki minimal 8 karakter" })
+    .regex(/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/, {
+      message: "Password harus mengandung kombinasi minimal 8 huruf dan angka",
+    }),
   gender: z
     .string({ message: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),
@@ -28,7 +32,6 @@ export const registerSchema = z.object({
     .min(1, { message: "Wajib diisi" }),
   dob: z.number({ message: "Wajib diisi" }),
 });
-
 export const changePasswordSchema = z.object({
   oldPassword: z
     .string({ message: "Wajib diisi" })
