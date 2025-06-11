@@ -19,7 +19,9 @@ import Link from "next/link";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import Papa from "papaparse";
-import CsvImportSection from "@/app/(dashboard)/inventory/components/import-csv";
+import CsvImportSection, {
+  CsvFileObjectProps,
+} from "@/app/(dashboard)/inventory/components/import-csv";
 import { fileToBase64 } from "@/utils/file-to-base64-converter";
 import { useRouter } from "next/navigation";
 
@@ -27,11 +29,6 @@ const importTypes = [
   { value: "REPLACE", label: "Replace" },
   { value: "APPEND", label: "Append" },
 ];
-
-export type CsvFileObjectProps = {
-  file: File | null;
-  base64: string;
-};
 
 export default function BulkUploadForm() {
   const router = useRouter();
@@ -43,7 +40,7 @@ export default function BulkUploadForm() {
 
   async function uploadCSVFile() {
     if (!csvFileObject?.base64) {
-      toast.error("Unggah file .csv terlebih dahulu!");
+      toast.error("Unggah file .xlsx / .xls terlebih dahulu!");
       return;
     }
 
@@ -91,7 +88,7 @@ export default function BulkUploadForm() {
             </p>
           </div>
 
-          <Link href="/product_template.csv" download className="w-fit">
+          <Link href="/product_template.xlsx" download className="w-fit">
             <Button intent={"secondary"} size={"small"}>
               <DownloadIcon />
               <p>Download Template</p>
