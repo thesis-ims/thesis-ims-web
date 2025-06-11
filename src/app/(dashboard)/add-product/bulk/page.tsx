@@ -12,7 +12,7 @@ export default function AddMultipleProduct() {
         showBackIcon={true}
         ctaButton={
           <Link href="/add-product">
-            <Button>Add Single Products</Button>
+            <Button>Add Single Product</Button>
           </Link>
         }
       />

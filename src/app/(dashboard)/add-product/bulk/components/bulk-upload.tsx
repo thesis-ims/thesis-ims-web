@@ -184,7 +184,7 @@ export default function BulkUploadForm() {
             uploadCSVFile();
           }}
         >
-          Add Product
+          Add Multiple Product
         </Button>
         <Button
           size={"default"}

@@ -15,7 +15,7 @@ export default async function AddProduct() {
         showBackIcon={true}
         ctaButton={
           <Link href="/add-product/bulk">
-            <Button>Add Multiple Products</Button>
+            <Button>Add Multiple Product</Button>
           </Link>
         }
       />
