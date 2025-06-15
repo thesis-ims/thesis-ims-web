@@ -81,10 +81,9 @@ export default function BulkUploadForm() {
             </h2>
 
             <p className="text-sm">
-              Click the button below to download the provided Excel/CSV
-              template. Fill in your product data according to the format
-              specified in the template to ensure the system can process it
-              correctly.
+              Click the button below to download the provided Excel template.
+              Fill in your product data according to the format specified in the
+              template to ensure the system can process it correctly.
             </p>
           </div>
 

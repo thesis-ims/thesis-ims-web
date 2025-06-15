@@ -42,7 +42,7 @@ export default function ExportCsv() {
       size={"small"}
       intent={"secondary"}
     >
-      {loading ? "Exporting..." : "Export CSV"}
+      {loading ? "Exporting..." : "Export as CSV"}
     </Button>
   );
 }
