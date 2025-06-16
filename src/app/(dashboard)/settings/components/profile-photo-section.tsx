@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import ConfirmationDialog from "@/components/ui/confirmation-dialog";
-import { ProfilePlaceholderIcon } from "@/components/ui/icons";
+import { ProfilePlaceholderIcon, StokkuIcon } from "@/components/ui/icons";
 import { ImageFile } from "@/components/ui/image-picker";
 import { logout } from "@/lib/auth/auth-cookie-handler";
 import { base64StringDecoder } from "@/utils/base64-string-encoder";
@@ -139,8 +139,9 @@ export default function ProfilePhotoSection({
       </div>
 
       <ConfirmationDialog
-        title="Log Out"
-        description="Are you sure want to logout?"
+        icon={<StokkuIcon className="text-primary-color-60 h-12 w-12" />}
+        title="Logging Out?"
+        description="You will need to log in again to access your account."
         isOpen={isLoginDialogOpen}
         setIsOpen={setIsLoginDialogOpen}
         confirmAction={() => {

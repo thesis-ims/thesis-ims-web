@@ -63,7 +63,7 @@ function SidebarItem({ item }: { item: SidebarItem }) {
   const pathName = usePathname();
   return (
     <Link
-      className={`border-gray-10 flex w-full items-center gap-2 border-b px-2 py-3 ${pathName === item.href ? "bg-gray-10" : ""} ${(pathName.includes("add-product") || pathName.includes("edit-product")) && item.href === "/inventory" ? "bg-gray-10" : ""}`}
+      className={`text-primary-color-1 border-gray-10 flex w-full items-center gap-2 border-b px-2 py-3 ${pathName === item.href ? "bg-gray-10" : ""} ${(pathName.includes("add-product") || pathName.includes("edit-product")) && item.href === "/inventory" ? "bg-gray-10" : ""}`}
       href={item.href}
     >
       {item.icon}
