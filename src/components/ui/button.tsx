@@ -19,7 +19,7 @@ const buttonClassname = cva(
         secondary:
           "bg-white border-2 border-primary-color-60 text-primary-color-60 hover:bg-primary-color-30 transition duration-200",
         warning:
-          "bg-red-500 text-white hover:bg-red-700 transition duration-200",
+          "bg-red-600 text-white hover:bg-red-800 transition duration-200",
       },
       size: {
         default: "py-3 px-4 text-base min-w-[150px]",

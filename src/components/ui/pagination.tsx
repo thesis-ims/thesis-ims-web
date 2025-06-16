@@ -18,7 +18,7 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages = 1,
   onPageChange,
   showPrevNext = true,
-  maxVisiblePages = 5,
+  maxVisiblePages = 3,
   className = "",
   disabled = false,
 }) => {
@@ -72,24 +72,23 @@ const Pagination: React.FC<PaginationProps> = ({
   const visiblePages = getVisiblePages();
 
   const buttonBaseClasses = `
-    inline-flex items-center justify-center px-3 py-2 text-sm font-medium 
-    transition-colors duration-200 border border-gray-300 
-    hover:bg-gray-50 hover:border-gray-400 focus:outline-none 
-    focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+    cursor-pointer flex items-center justify-center font-medium 
+    transition-colors duration-200 focus:outline-none 
+    focus:ring-2 focus:ring-blue-500
     disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white
   `;
 
   const activeButtonClasses = `
-    bg-primary-color-1 text-white border-blue-600 hover:bg-blue-700 hover:border-blue-700
+    bg-primary-color-1 text-white
   `;
 
   const inactiveButtonClasses = `
-    bg-white text-gray-700
+    text-primary-color-60
   `;
 
   return (
     <nav
-      className={`flex w-full items-center justify-end space-x-1 ${className}`}
+      className={`flex gap-1 items-center${className}`}
       aria-label="Pagination"
     >
       {/* Previous Button */}
@@ -97,10 +96,11 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={disabled || currentPage === 1}
-          className={`${buttonBaseClasses} ${inactiveButtonClasses} `}
+          className={`p-2 ${buttonBaseClasses} ${inactiveButtonClasses} `}
           aria-label="Go to previous page"
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="text-gray-60 h-6 w-6" />
+          <p className="text-gray-60 px-1 font-medium">Previous</p>
         </button>
       )}
 
@@ -110,7 +110,7 @@ const Pagination: React.FC<PaginationProps> = ({
           return (
             <span
               key={page}
-              className="inline-flex items-center justify-center px-3 py-2 text-sm text-gray-500"
+              className="text-primary-color-60 inline-flex items-end justify-center px-3 py-2 text-sm"
               aria-hidden="true"
             >
               <MoreHorizontal className="h-4 w-4" />
@@ -124,7 +124,7 @@ const Pagination: React.FC<PaginationProps> = ({
             key={pageNumber}
             onClick={() => handlePageChange(pageNumber)}
             disabled={disabled}
-            className={`${buttonBaseClasses} ${
+            className={`px-4 py-3 ${buttonBaseClasses} ${
               pageNumber === currentPage
                 ? activeButtonClasses
                 : inactiveButtonClasses
@@ -142,10 +142,11 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={disabled || currentPage === totalPages}
-          className={`${buttonBaseClasses} ${inactiveButtonClasses}`}
+          className={`p-2 ${buttonBaseClasses} ${inactiveButtonClasses}`}
           aria-label="Go to next page"
         >
-          <ChevronRight className="h-4 w-4" />
+          <p className="text-gray-60 px-1 font-medium">Next</p>
+          <ChevronRight className="text-gray-60 h-6 w-6" />
         </button>
       )}
     </nav>

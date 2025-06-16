@@ -36,7 +36,7 @@ export default function ProductListTable({
   }, [products]);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       {/* {JSON.stringify(products.page)} */}
       <div className="flex min-h-[65vh] flex-col">
         <ProductTableHeader />
@@ -68,15 +68,17 @@ export default function ProductListTable({
       </div>
 
       {/* Pagination */}
-      <Pagination
-        totalPages={products.totalPages}
-        currentPage={currentPage}
-        onPageChange={(page) => {
-          console.log(page);
-          setCurrentPage(page);
-          handleFilterChange(`${page}`);
-        }}
-      />
+      <div className="flex w-full justify-center">
+        <Pagination
+          totalPages={products.totalPages}
+          currentPage={currentPage}
+          onPageChange={(page) => {
+            console.log(page);
+            setCurrentPage(page);
+            handleFilterChange(`${page}`);
+          }}
+        />
+      </div>
     </div>
   );
 }
