@@ -47,16 +47,6 @@ const sidebarItems: SidebarItem[] = [
     href: "/settings",
     icon: <SettingsIcon className="h-6 w-6" />,
   },
-  // {
-  //   label: "Reports",
-  //   href: "/reports",
-  //   icon: <ClipboardIcon className="h-6 w-6" />,
-  // },
-  // {
-  //   label: "Orders",
-  //   href: "/orders",
-  //   icon: <CartIcon className="h-6 w-6" />,
-  // },
 ];
 
 function SidebarItem({ item }: { item: SidebarItem }) {
