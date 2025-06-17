@@ -37,8 +37,8 @@ const sidebarItems: SidebarItem[] = [
     icon: <FolderIcon className="h-6 w-6" />,
   },
   {
-    label: "History",
-    href: "/history",
+    label: "Activity Log",
+    href: "/activity-log",
     icon: <HistoryIcon className="h-6 w-6" />,
   },
 
