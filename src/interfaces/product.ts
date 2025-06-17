@@ -28,6 +28,7 @@ export interface ProductStocksSummary {
 export interface CategorySummary {
   label: string;
   value: number;
+  color?: string;
 }
 
 export interface ImportCsvProps {

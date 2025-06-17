@@ -1,10 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { LoginAPIResponse } from "@/interfaces/auth";
-import { ProfileProps } from "@/interfaces/profile";
-import { logout } from "@/lib/auth/auth-cookie-handler";
-import Link from "next/link";
 import React from "react";
 import StockInformation from "../(dashboard)/inventory/components/stock-information";
 import {
@@ -15,6 +10,14 @@ import {
 import PageHeader from "@/components/ui/page-header";
 import { PieChart } from "@mui/x-charts/PieChart";
 import ProductsHomepageRecap from "./products-homepage-recap";
+
+export const colorPalette = [
+  "#343A3F",
+  "#121619",
+  "#A6C8FF",
+  "#0F62FE",
+  "#001D6C",
+];
 
 export default function Homepage({
   categorySummary,
@@ -60,10 +63,20 @@ export default function Homepage({
   };
 
   // Usage in your component
-  const limitedCategorySummary = getLimitedData(categorySummary);
-  const limitedProductNamesSummary = getLimitedData(productNameSummary);
+  let limitedCategorySummary = getLimitedData(categorySummary);
+
+  limitedCategorySummary = limitedCategorySummary.map((item, index) => {
+    return { ...item, color: colorPalette[index] };
+  });
+  let limitedProductNamesSummary = getLimitedData(productNameSummary);
+
+  limitedProductNamesSummary = limitedProductNamesSummary.map((item, index) => {
+    return { ...item, color: colorPalette[index] };
+  });
+
   return (
     <div className="flex flex-col gap-6">
+      {/* {JSON.stringify(limitedCategorySummary)} */}
       <PageHeader title="Dashboard" />
 
       <StockInformation stockSummary={stockSummary} />
@@ -89,6 +102,7 @@ export default function Homepage({
             }}
           />
         </div>
+
         {/* Product summary */}
         <div className="flex flex-col gap-6 bg-white px-4 py-6">
           <h2 className="text-gray-90 text-xl font-bold">Product Summary</h2>
