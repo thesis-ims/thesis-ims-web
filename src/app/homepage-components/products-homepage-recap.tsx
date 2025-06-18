@@ -108,7 +108,7 @@ export default function ProductsHomepageRecap({
     <div className="grid grid-cols-2">
       {/* low stock products */}
       <div
-        className={`flex flex-col overflow-auto ${lowStockProductsState && lowStockProductsState.length > 0 ? "h-[45vh]" : "h-fit"}`}
+        className={`flex flex-col overflow-auto ${lowStockProductsState && lowStockProductsState.length > 0 ? "h-[54vh]" : "h-fit"}`}
       >
         <h2 className="bg-primary-color-1 border-r border-white p-5 text-lg font-bold text-white">
           Low Stock Products
@@ -124,7 +124,7 @@ export default function ProductsHomepageRecap({
                 <TableHead className="w-auto whitespace-nowrap"></TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className="bg-white">
               {lowStockProductsState?.map((lowProduct) => {
                 return (
                   <TableRow>
@@ -193,7 +193,7 @@ export default function ProductsHomepageRecap({
 
       {/* out of stock products */}
       <div
-        className={`flex flex-col overflow-auto ${outOfStockProductsState && outOfStockProductsState.length > 0 ? "h-[45vh]" : "h-fit"}`}
+        className={`flex flex-col overflow-auto ${outOfStockProductsState && outOfStockProductsState.length > 0 ? "h-[54vh]" : "h-fit"}`}
       >
         <h2 className="bg-primary-color-1 p-5 text-lg font-bold text-white">
           Out of Stock Products
@@ -209,7 +209,7 @@ export default function ProductsHomepageRecap({
                 <TableHead className="w-auto whitespace-nowrap"></TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className="bg-white">
               {outOfStockProductsState?.map((outOfStockProduct) => {
                 return (
                   <TableRow>
