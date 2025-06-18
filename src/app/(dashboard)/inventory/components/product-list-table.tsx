@@ -13,6 +13,8 @@ import ProductTableRow from "./product-table-row";
 import ProductTableHeader from "./product-table-header";
 import Pagination from "@/components/ui/pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { StokkuIcon } from "@/components/ui/icons";
+import { Button } from "@/components/ui/button";
 
 export default function ProductListTable({
   products,
@@ -63,7 +65,20 @@ export default function ProductListTable({
             </TableBody>
           </Table>
         ) : (
-          <div>belum ada product</div>
+          <div className="flex w-full flex-col items-center justify-center bg-white py-[6rem]">
+            <div className="flex flex-col items-center gap-6">
+              <h2 className="text-primary-color-1 text-2xl font-semibold">
+                Your inventory is currently empty.
+              </h2>
+              <StokkuIcon className="text-gray-30 my-4 h-40 w-40" />
+              <p className="text-primary-color-1 text-lg font-medium">
+                Let’s add your first item
+              </p>
+              <Button intent={"primary"} size={"default"} className="w-full">
+                Add Product
+              </Button>
+            </div>
+          </div>
         )}
       </div>
 
