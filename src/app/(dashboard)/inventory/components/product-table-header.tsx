@@ -58,7 +58,7 @@ export default function ProductTableHeader() {
       <h2 className="text-[20px] font-medium text-white">Products</h2>
       <div className="flex items-center gap-2">
         <Select value={sb ?? undefined} onValueChange={handleFilterChange}>
-          <SelectTrigger>
+          <SelectTrigger className="hover:bg-primary-color-30 cursor-pointer">
             <FilterIcon className="text-primary-color-60 h-5 w-5" />
             <SelectValue placeholder="Filters" />
           </SelectTrigger>

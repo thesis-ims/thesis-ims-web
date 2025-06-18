@@ -52,9 +52,9 @@ export default function ActivityListTabel({
 
   return (
     <div className="flex flex-col">
-      <div className="bg-primary-color-1 p-3">
+      {/* <div className="bg-primary-color-1 p-3">
         <h2 className="text-xl font-bold text-white">Activity Log</h2>
-      </div>
+      </div> */}
       {/* Table */}
       <div className="max-h-[80vh] overflow-auto">
         <Table>

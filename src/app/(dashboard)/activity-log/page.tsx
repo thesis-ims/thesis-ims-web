@@ -7,7 +7,7 @@ export default async function History() {
   const historyResponse = await getAllHistory({});
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title="History" />
+      <PageHeader title="Activity Log" />
       {/* {JSON.stringify(historyResponse.data.object)} */}
       <ActivityListTabel historyResponse={historyResponse.data} />
     </div>

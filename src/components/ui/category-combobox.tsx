@@ -73,15 +73,21 @@ export default function CategoryCombobox({
           anchor="bottom"
           className="bg-gray-10 w-(--input-width) p-1 shadow-lg"
         >
-          {filteredValue.map((value, index) => (
-            <ComboboxOption
-              key={index}
-              value={value}
-              className={`bg-gray-10 hover:bg-gray-20 cursor-pointer px-3 py-2 hover:font-bold ${value === selectedValue ? "bg-gray-20 font-bold" : ""}`}
-            >
-              {value}
-            </ComboboxOption>
-          ))}
+          {categoryList.length > 0 ? (
+            filteredValue.map((value, index) => (
+              <ComboboxOption
+                key={index}
+                value={value}
+                className={`bg-gray-10 hover:bg-gray-20 cursor-pointer px-3 py-2 hover:font-bold ${value === selectedValue ? "bg-gray-20 font-bold" : ""}`}
+              >
+                {value}
+              </ComboboxOption>
+            ))
+          ) : (
+            <div className="py-6 text-center">
+              Belum ada kategori yang pernah ditambahkan.
+            </div>
+          )}
         </ComboboxOptions>
       </Combobox>
 
