@@ -124,7 +124,7 @@ const Pagination: React.FC<PaginationProps> = ({
             key={pageNumber}
             onClick={() => handlePageChange(pageNumber)}
             disabled={disabled}
-            className={`px-4 py-3 ${buttonBaseClasses} ${
+            className={`px-4 py-2 ${buttonBaseClasses} ${
               pageNumber === currentPage
                 ? activeButtonClasses
                 : inactiveButtonClasses
