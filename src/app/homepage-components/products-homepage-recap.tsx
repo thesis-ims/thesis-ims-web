@@ -115,7 +115,7 @@ export default function ProductsHomepageRecap({
         </h2>
         {lowStockProductsState && lowStockProductsState.length > 0 ? (
           <Table>
-            <TableHeader className="bg-primary-color-1 text-white">
+            <TableHeader className="bg-primary-color-1 border-r border-white text-white">
               <TableRow>
                 <TableHead className="w-full">Product Name</TableHead>
                 <TableHead className="w-auto whitespace-nowrap">
@@ -170,8 +170,10 @@ export default function ProductsHomepageRecap({
               })}
 
               {lowStockPage <= lowStockProducts.totalPages && (
-                <TableRow ref={lowStocKRef}>
+                <TableRow ref={lowStocKRef} className="bg-white">
                   <TableCell>Load more...</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               )}
             </TableBody>
@@ -255,8 +257,10 @@ export default function ProductsHomepageRecap({
               })}
 
               {noStockPage <= outOfStockProducts.totalPages && (
-                <TableRow ref={noStockRef}>
+                <TableRow ref={noStockRef} className="bg-white">
                   <TableCell>Load more...</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               )}
             </TableBody>
