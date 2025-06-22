@@ -71,7 +71,7 @@ export default function CategoryCombobox({
 
         <ComboboxOptions
           anchor="bottom"
-          className="bg-gray-10 w-(--input-width) p-1 shadow-lg"
+          className="bg-gray-10 h-48 w-(--input-width) p-1 shadow-lg"
         >
           {categoryList.length > 0 ? (
             filteredValue.map((value, index) => (
