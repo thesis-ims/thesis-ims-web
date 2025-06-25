@@ -83,7 +83,7 @@ export default function Sidebar({ profile }: { profile: ProfileProps }) {
 
   return (
     <div
-      className={`relative flex h-screen flex-col items-center gap-4 px-4 py-6 shadow-lg ${isSidebarOpen ? "" : "mr-4"}`}
+      className={`relative flex h-screen flex-col items-center gap-4 bg-white px-4 py-6 shadow-lg ${isSidebarOpen ? "" : "mr-4"}`}
     >
       <div
         className="border-gray-20 absolute top-2 -right-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border bg-white"
