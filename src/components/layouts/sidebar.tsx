@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import {
   CartIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   ClipboardIcon,
   FolderIcon,
   HistoryIcon,
@@ -18,6 +20,7 @@ import path from "path";
 import { ProfileProps } from "@/interfaces/profile";
 import Image from "next/image";
 import { base64StringDecoder } from "@/utils/base64-string-encoder";
+import { cn } from "@/utils/tw-merge";
 
 interface SidebarItem {
   label: string;
@@ -49,25 +52,57 @@ const sidebarItems: SidebarItem[] = [
   },
 ];
 
-function SidebarItem({ item }: { item: SidebarItem }) {
-  const pathName = usePathname();
-  return (
-    <Link
-      className={`text-primary-color-1 border-gray-10 flex w-full items-center gap-2 border-b px-2 py-3 ${pathName === item.href ? "bg-gray-10" : ""} ${(pathName.includes("add-product") || pathName.includes("edit-product")) && item.href === "/inventory" ? "bg-gray-10" : ""}`}
-      href={item.href}
-    >
-      {item.icon}
-      <p className="font-medium">{item.label}</p>
-    </Link>
-  );
-}
-
 export default function Sidebar({ profile }: { profile: ProfileProps }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const pathName = usePathname();
+
+  function renderSidebarItems({ item }: { item: SidebarItem }) {
+    return (
+      <Link
+        // className={`text-primary-color-1 border-gray-10 flex w-full items-center gap-2 border-b px-2 py-3 ${pathName === item.href ? "bg-gray-10" : ""} ${(pathName.includes("add-product") || pathName.includes("edit-product")) && item.href === "/inventory" ? "bg-gray-10" : ""}`}
+        className={cn(
+          "text-primary-color-1 border-gray-10 flex w-full items-center gap-2 rounded-sm border-b px-2 py-3",
+          pathName === item.href ? "bg-gray-10" : "",
+          !isSidebarOpen && "justify-center",
+          (pathName.includes("add-product") ||
+            pathName.includes("edit-product")) &&
+            item.href === "/inventory"
+            ? "bg-gray-10"
+            : "",
+        )}
+        href={item.href}
+        onClick={() => {
+          setIsSidebarOpen(true);
+        }}
+      >
+        {item.icon}
+        {isSidebarOpen && <p className="font-medium">{item.label}</p>}
+      </Link>
+    );
+  }
+
   return (
-    <div className="flex h-screen w-[256px] flex-col items-center gap-4 px-4 py-6">
+    <div
+      className={`relative flex h-screen flex-col items-center gap-4 px-4 py-6 shadow-lg ${isSidebarOpen ? "" : "mr-4"}`}
+    >
+      <div
+        className="border-gray-20 absolute top-2 -right-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border bg-white"
+        onClick={() => {
+          setIsSidebarOpen(!isSidebarOpen);
+        }}
+      >
+        {isSidebarOpen ? (
+          <ChevronLeftIcon className="h-5 w-5" />
+        ) : (
+          <ChevronRightIcon className="h-5 w-5" />
+        )}
+      </div>
+
       <Link href="/" className="flex items-center gap-5 px-2 py-5">
         <StokkuIcon className="text-primary-color-1 h-10 w-10" />
-        <h1 className="text-primary-color-1 text-4xl font-bold">Stokku</h1>
+        {isSidebarOpen && (
+          <h1 className="text-primary-color-1 text-4xl font-bold">Stokku</h1>
+        )}
       </Link>
 
       <Link href="/settings" className="flex items-center gap-4 pb-7">
@@ -85,14 +120,16 @@ export default function Sidebar({ profile }: { profile: ProfileProps }) {
           </div>
         )}
 
-        <p className="text-primary-color-1 text-xl font-medium">
-          {profile.username}
-        </p>
+        {isSidebarOpen && (
+          <p className="text-primary-color-1 text-xl font-medium">
+            {profile.username}
+          </p>
+        )}
       </Link>
 
       <div className="border-gray-10 flex w-full flex-col border-t">
         {sidebarItems.map((item, index) => {
-          return <SidebarItem key={index} item={item} />;
+          return renderSidebarItems({ item: item });
         })}
       </div>
     </div>

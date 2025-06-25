@@ -16,7 +16,7 @@ export default async function DashboardViewLayout({
   }
   const profile = await getUserProfile();
   return (
-    <div className="flex min-h-screen">
+    <div className="bg-gray-10 flex min-h-screen">
       <Sidebar profile={profile.data} />
       <ClientLayout>{children}</ClientLayout>
     </div>
