@@ -11,9 +11,7 @@ export default function ClientLayout({
   return (
     <>
       <SessionObserver />
-      <div className="bg-gray-10 h-screen flex-1 overflow-auto p-6">
-        {children}
-      </div>
+      <div className="h-screen flex-1 overflow-auto p-6">{children}</div>
     </>
   );
 }
